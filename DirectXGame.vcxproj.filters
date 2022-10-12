@@ -164,6 +164,21 @@
     <ClInclude Include="Score.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="math\Vector3.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\MathUtility.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Matrix4.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Vector4.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Vector2.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">
