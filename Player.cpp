@@ -4,7 +4,7 @@ void Player::Initialize()
 {
 	//ƒVƒ“ƒOƒ‹ƒgƒ“‘ã“ü
 	input = Input::GetInstance();
-	mesh = Mesh::GetInstance();
+	
 
 	player = { 640,360,0 };
 }
@@ -16,7 +16,7 @@ void Player::Update()
 
 void Player::Draw()
 {
-	mesh->DrawEllipse(player.x, player.y, 10.0f, 10.0f, 0.0f, { 255,255,255,255 }, true);
+	
 }
 
 myMath::Vector3 Player::GetPlayerPos()

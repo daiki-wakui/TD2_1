@@ -22,7 +22,7 @@ void Score::ScoreAdd()
 
 void Score::Draw()
 {
-	printf("score:%d\n", score);
+	
 }
 
 Score* Score::GetInstance()
