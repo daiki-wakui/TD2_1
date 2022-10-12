@@ -2,7 +2,6 @@
 
 void Enemy::Initialize(myMath::Vector3 position)
 {
-	mesh = Mesh::GetInstance();
 	player = Player::GetInstance();
 	score = Score::GetInstance();
 	enemy = position;
@@ -34,7 +33,7 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
-	mesh->DrawEllipse(enemy.x, enemy.y, radius, radius, 0.0f, { 255,0,0,255 }, true);
+
 }
 
 bool Enemy::GetIsDead()
