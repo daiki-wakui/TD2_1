@@ -8,20 +8,20 @@ class Enemy
 {
 private:
 
-	myMath::Vector3 enemy = { 0,0,0 };
+	Vector3 enemy = { 0,0,0 };
 	Mesh* mesh = nullptr;
 	Player* player = nullptr;
 	Score* score = nullptr;
 
-	myMath::Vector3 enemyVec = { 0,0,0 };
-	myMath::Vector3 normEnemyVec = { 0,0,0 };
+	Vector3 enemyVec = { 0,0,0 };
+	Vector3 normEnemyVec = { 0,0,0 };
 
 	bool isDead = false;
 	float radius = 0.0f;
 
 public:
 
-	void Initialize(myMath::Vector3 position);
+	void Initialize(const Vector3 position);
 	void Update();
 	void Draw();
 	bool GetIsDead();

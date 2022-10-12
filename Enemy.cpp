@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-void Enemy::Initialize(myMath::Vector3 position)
+void Enemy::Initialize(const Vector3 position)
 {
 	player = Player::GetInstance();
 	score = Score::GetInstance();

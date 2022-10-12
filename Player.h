@@ -11,7 +11,7 @@ private:
 	Input* input = nullptr;
 	Mesh* mesh = nullptr;
 
-	myMath::Vector3 player = { 0,0,0 };
+	Vector3 player = { 0,0,0 };
 	float speed = 0.0f;
 
 public:
@@ -21,7 +21,7 @@ public:
 	void Draw();
 
 	//ÉQÉbÉ^Å[
-	myMath::Vector3 GetPlayerPos();
+	Vector3 GetPlayerPos();
 	float GetSpeed();
 	static Player* GetInstance();
 };

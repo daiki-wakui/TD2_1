@@ -19,7 +19,7 @@ void Player::Draw()
 	
 }
 
-myMath::Vector3 Player::GetPlayerPos()
+Vector3 Player::GetPlayerPos()
 {
 	return player;
 }
