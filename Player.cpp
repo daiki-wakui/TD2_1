@@ -1,12 +1,26 @@
 #include "Player.h"
 
+Player::Player()
+{
+}
+
+Player::~Player()
+{
+	delete model;
+}
+
 void Player::Initialize()
 {
 	//ƒVƒ“ƒOƒ‹ƒgƒ“‘ã“ü
 	input = Input::GetInstance();
 	
+	textureHundle = TextureManager::Load("mario.jpg");
+	model = Model::Create();
+	worldTransform.Initialize();
+	worldTransform.translation_ = { 10,0,10 };
+	viewProjection.Initialize();
 
-	player = { 640,360,0 };
+	
 }
 
 void Player::Update()
@@ -16,21 +30,15 @@ void Player::Update()
 
 void Player::Draw()
 {
-	
+	model->Draw(worldTransform, viewProjection, textureHundle);
 }
 
-Vector3 Player::GetPlayerPos()
+WorldTransform Player::GetWorldTransform()
 {
-	return player;
+	return worldTransform;
 }
 
 float Player::GetSpeed()
 {
 	return speed;
-}
-
-Player* Player::GetInstance()
-{
-	static Player instance;
-	return &instance;
 }

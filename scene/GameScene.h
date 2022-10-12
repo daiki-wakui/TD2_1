@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include"Player.h"
 
 #include "Enemy.h"
 
@@ -79,6 +80,8 @@ class GameScene {
 	bool isWait = false;
 
 	int waitTimer = 300;
+
+	std::unique_ptr<Player>player;
 
 	/// <summary>
 	/// ゲームシーン用
