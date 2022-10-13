@@ -16,10 +16,15 @@ void Player::Initialize(ViewProjection viewProjection)
 	
 	textureHundle = TextureManager::Load("sample.png");
 	playerModel = Model::Create();
-	worldTransform.scale_ = { 2,2,2 };
-	worldTransform.Initialize();
-	player = { 10,0,10 };
-	front = { 10,0,11 };
+	playerWorldTransform.scale_ = { 2,2,2 };
+	playerWorldTransform.Initialize();
+
+	taleModel= Model::Create();
+	taleWorldTransform.scale_;
+	taleWorldTransform.Initialize();
+
+	player = { 0,0,0 };
+	front = { 0,0,1 };
 	viewProjection.Initialize();
 }
 
@@ -29,13 +34,15 @@ void Player::Update()
 	Rotation();//プレイヤーの回転処理
 	Move();//プレイヤーの移動処理
 
-	MathUtility::MatrixCalculation(worldTransform);//行列の更新
-	worldTransform.TransferMatrix();//行列の転送
+	MathUtility::MatrixCalculation(playerWorldTransform);//行列の更新
+	playerWorldTransform.TransferMatrix();//行列の転送
+
+	MathUtility::MatrixCalculation(taleWorldTransform);//行列の更新
+	taleWorldTransform.TransferMatrix();//行列の転送
 }
 
 void Player::Move()
 {
-	myMath::Vector3 trans;
 	frontVec = front - player;
 	normFrontVec = frontVec.normalization();
 
@@ -50,10 +57,18 @@ void Player::Move()
 		speed = 0.0f;
 	}
 
-	trans.x -= normFrontVec.x * speed;
-	trans.z -= normFrontVec.z * speed;
-	worldTransform.translation_.x += trans.x;
-	worldTransform.translation_.z += trans.z;
+	player.x -= normFrontVec.x * speed;
+	player.z -= normFrontVec.z * speed;
+	playerWorldTransform.translation_.x = player.x;
+	playerWorldTransform.translation_.z = player.z;
+
+	front.x -= normFrontVec.x * speed;
+	front.z -= normFrontVec.z * speed;
+	
+	frontPosition.x -= normFrontVec.x * speed;
+	frontPosition.z -= normFrontVec.z * speed;
+	taleWorldTransform.translation_.x = frontPosition.x;
+	taleWorldTransform.translation_.z = frontPosition.z;
 }
 
 void Player::Rotation()
@@ -62,9 +77,11 @@ void Player::Rotation()
 
 	if (input->TriggerKey(DIK_SPACE))
 	{
-		front.x = player.x + sinf(angle);
-		front.z = player.z + cosf(angle);
+		front.x = player.x + sinf(angle) * 2;
+		front.z = player.z + cosf(angle) * 2;
 	}
+	frontPosition.x = player.x + sinf(angle) * 2;
+	frontPosition.z = player.z + cosf(angle) * 2;
 
 	if (input->PushKey(DIK_A))
 	{
@@ -76,31 +93,34 @@ void Player::Rotation()
 		angle += rotSpeed;
 	}
 
-	worldTransform.rotation_.y = angle;
+	playerWorldTransform.rotation_.y = angle;
+	taleWorldTransform.rotation_.y = angle;
 }
 
 void Player::Bomb()
 {
 	if (!input->PushKey(DIK_SPACE))
 	{
-		bombCharge += 0.2f;
+		bombCharge += 0.1f;
 	}
 
 	if (bombCharge > 10.0f)
 	{
 		bombCharge = 10.0f;
 	}
+
+	taleWorldTransform.scale_.z = 1.0 + bombCharge / 4;
 }
 
 void Player::Draw(ViewProjection viewProjection)
 {
-	playerModel->Draw(worldTransform, viewProjection, textureHundle);
-	
+	playerModel->Draw(playerWorldTransform, viewProjection, textureHundle);
+	taleModel->Draw(taleWorldTransform, viewProjection, textureHundle);
 }
 
 WorldTransform Player::GetWorldTransform()
 {
-	return worldTransform;
+	return playerWorldTransform;
 }
 
 float Player::GetSpeed()

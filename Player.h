@@ -18,9 +18,12 @@ private:
 
 	uint32_t textureHundle = 0;
 	//ワールドトランスフォーム
-	WorldTransform worldTransform;
+	WorldTransform playerWorldTransform;
+	WorldTransform taleWorldTransform;
+
 	myMath::Vector3 player;
 	myMath::Vector3 front;
+	myMath::Vector3 frontPosition;
 	myMath::Vector3 frontVec;
 	myMath::Vector3 normFrontVec;
 
