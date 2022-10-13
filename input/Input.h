@@ -71,6 +71,8 @@ class Input {
 	/// <returns>トリガーか</returns>
 	bool TriggerKey(BYTE keyNumber) const;
 
+	bool TriggerReleseKey(BYTE keyNumber) const;
+
 	/// <summary>
 	/// 全キー情報取得
 	/// </summary>

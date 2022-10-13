@@ -100,6 +100,7 @@
     <ClCompile Include="base\TextureManager.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="input\Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\MathUtility.cpp" />
     <ClCompile Include="math\myMath.cpp" />
