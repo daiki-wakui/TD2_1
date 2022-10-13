@@ -48,7 +48,7 @@ void Player::Move()
 	normFrontVec = frontVec.normalization();
 
 	speed -= 0.01f;
-	if (input->TriggerReleseKey(DIK_SPACE))
+	if (input->TriggerKey(DIK_SPACE))
 	{
 		speed += 0.06f * bombCharge;
 		bombCharge = 0.0f;
@@ -76,7 +76,7 @@ void Player::Rotation()
 {
 	const float rotSpeed = 0.05f;
 
-	if (input->TriggerReleseKey(DIK_SPACE))
+	if (input->TriggerKey(DIK_SPACE))
 	{
 		front.x = player.x + sinf(angle) * 2;
 		front.z = player.z + cosf(angle) * 2;
@@ -109,7 +109,7 @@ void Player::Rotation()
 
 void Player::Tale()
 {
-	if (input->PushKey(DIK_SPACE))
+	if (!   input->PushKey(DIK_SPACE))
 	{
 		bombCharge += 0.2f;
 	}
