@@ -22,7 +22,7 @@ private:
 	myMath::Vector3 normEnemyVec = { 0,0,0 };
 
 	bool isDead = false;
-	float radius = 1.0f;
+	float radius = 2.0f;
 
 	uint32_t texture_;
 
