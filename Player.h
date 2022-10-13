@@ -4,6 +4,7 @@
 #include"WorldTransform.h"
 #include"ViewProjection.h"
 #include"Model.h"
+#include"MathUtility.h"
 
 class Player
 {
@@ -22,8 +23,9 @@ private:
 	myMath::Vector3 frontVec;
 	myMath::Vector3 normFrontVec;
 
-	float speed = 10.0f;
-	float bombCharge = 0.0f;
+	float speed = 0.0f;
+	float bombCharge = 1.0f;
+	float angle = 0.0f;
 
 public:
 
@@ -32,6 +34,8 @@ public:
 	void Initialize(ViewProjection viewProjection);
 	void Update();
 	void Move();
+	void Rotation();
+	void Bomb();
 	void Draw(ViewProjection viewProjection);
 
 	//ÉQÉbÉ^Å[

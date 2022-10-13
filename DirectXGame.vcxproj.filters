@@ -78,6 +78,9 @@
     <ClCompile Include="Score.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="math\MathUtility.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -175,9 +178,6 @@
     </ClInclude>
     <ClInclude Include="math\Vector2.h">
       <Filter>ヘッダー ファイル\math</Filter>
-    </ClInclude>
-    <ClInclude Include="Audio\AudioManager.h">
-      <Filter>ヘッダー ファイル\audo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
