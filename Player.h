@@ -39,7 +39,7 @@ public:
 	void Update();
 	void Move();
 	void Rotation();
-	void Bomb();
+	void Tale();
 	void Draw(ViewProjection viewProjection);
 
 	//ÉQÉbÉ^Å[
