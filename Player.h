@@ -17,20 +17,25 @@ private:
 	uint32_t textureHundle = 0;
 	//ワールドトランスフォーム
 	WorldTransform worldTransform;
-	//ビュープロジェクション
-	ViewProjection viewProjection;
-	
-	float speed = 0.0f;
+	myMath::Vector3 player;
+	myMath::Vector3 front;
+	myMath::Vector3 frontVec;
+	myMath::Vector3 normFrontVec;
+
+	float speed = 10.0f;
+	float bombCharge = 0.0f;
 
 public:
 
 	Player();
 	~Player();
-	void Initialize();
+	void Initialize(ViewProjection viewProjection);
 	void Update();
-	void Draw();
+	void Move();
+	void Draw(ViewProjection viewProjection);
 
 	//ゲッター
 	WorldTransform GetWorldTransform();
 	float GetSpeed();
+	static Player* GetInstance();
 };

@@ -12,8 +12,9 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
-	std::make_unique<Player>();
-	player->Initialize();
+	viewProjection.Initialize();
+	player = Player::GetInstance();
+	player->Initialize(viewProjection);
 }
 
 void GameScene::Update()
@@ -46,7 +47,7 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
-	player->Draw();
+	player->Draw(viewProjection);
 	/// </summary>
 
 	// 3Dオブジェクト描画後処理

@@ -70,6 +70,7 @@ class GameScene {
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
+	ViewProjection viewProjection;
 
 	//敵発生コマンド
 	std::stringstream enemyPopCommands;
@@ -81,7 +82,7 @@ class GameScene {
 
 	int waitTimer = 300;
 
-	std::unique_ptr<Player>player;
+	Player* player = nullptr;
 
 	/// <summary>
 	/// ゲームシーン用

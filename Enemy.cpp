@@ -15,7 +15,7 @@ void Enemy::Update()
 
 	if (player->GetSpeed() > 0.0f)
 	{
-		if (radius * radius >= (enemy.x - player->GetPlayerPos().x) * (enemy.x - player->GetPlayerPos().x) + (enemy.y - player->GetPlayerPos().y) * (enemy.y - player->GetPlayerPos().y))
+		if (radius * radius >= (enemy.x - player->GetWorldTransform().translation_.x) * (enemy.x - player->GetWorldTransform().translation_.x) + (enemy.y - player->GetWorldTransform().translation_.y) * (enemy.y - player->GetWorldTransform().translation_.y))
 		{
 			score->ScoreAdd();
 			isDead = true;
@@ -23,7 +23,7 @@ void Enemy::Update()
 	}
 	else
 	{
-		if (radius * radius >= (enemy.x - player->GetPlayerPos().x) * (enemy.x - player->GetPlayerPos().x) + (enemy.y - player->GetPlayerPos().y) * (enemy.y - player->GetPlayerPos().y))
+		if (radius * radius >= (enemy.x - player->GetWorldTransform().translation_.x) * (enemy.x - player->GetWorldTransform().translation_.x) + (enemy.y - player->GetWorldTransform().translation_.y) * (enemy.y - player->GetWorldTransform().translation_.y))
 		{
 			//time-=3;
 			isDead = true;
@@ -45,9 +45,9 @@ void Enemy::Move()
 {
 	const float speed = 3.0f;
 
-	enemyVec = { player->GetPlayerPos() - enemy };
+	/*enemyVec = { player->GetWorldTransform().translation_ - enemy };
 	normEnemyVec = enemyVec.normalization();
 
 	enemy.x += normEnemyVec.x * speed;
-	enemy.y += normEnemyVec.y * speed;
+	enemy.y += normEnemyVec.y * speed;*/
 }
