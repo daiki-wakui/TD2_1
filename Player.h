@@ -13,7 +13,8 @@ private:
 	//クラス読み込み
 	Input* input = nullptr;
 
-	Model* model = nullptr;
+	Model* playerModel = nullptr;
+	Model* taleModel = nullptr;
 
 	uint32_t textureHundle = 0;
 	//ワールドトランスフォーム

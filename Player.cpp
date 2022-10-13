@@ -6,7 +6,7 @@ Player::Player()
 
 Player::~Player()
 {
-	delete model;
+	delete playerModel;
 }
 
 void Player::Initialize(ViewProjection viewProjection)
@@ -15,7 +15,7 @@ void Player::Initialize(ViewProjection viewProjection)
 	input = Input::GetInstance();
 	
 	textureHundle = TextureManager::Load("sample.png");
-	model = Model::Create();
+	playerModel = Model::Create();
 	worldTransform.scale_ = { 2,2,2 };
 	worldTransform.Initialize();
 	player = { 10,0,10 };
@@ -60,7 +60,7 @@ void Player::Rotation()
 {
 	const float rotSpeed = 0.05f;
 
-	if (speed == 0)
+	if (input->TriggerKey(DIK_SPACE))
 	{
 		front.x = player.x + sinf(angle);
 		front.z = player.z + cosf(angle);
@@ -94,7 +94,8 @@ void Player::Bomb()
 
 void Player::Draw(ViewProjection viewProjection)
 {
-	model->Draw(worldTransform, viewProjection, textureHundle);
+	playerModel->Draw(worldTransform, viewProjection, textureHundle);
+	
 }
 
 WorldTransform Player::GetWorldTransform()
