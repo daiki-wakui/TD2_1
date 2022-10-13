@@ -22,7 +22,7 @@ private:
 	myMath::Vector3 normEnemyVec = { 0,0,0 };
 
 	bool isDead = false;
-	float radius = 0.0f;
+	float radius = 1.0f;
 
 	uint32_t texture_;
 
@@ -31,7 +31,7 @@ public:
 	void Initialize(Model* model, const myMath::Vector3 position, uint32_t texture);
 	void Update();
 	void Draw(const ViewProjection& viewProjection);
-	bool GetIsDead();
+	bool GetIsDead(){return isDead;}
 
 	void Move();
 

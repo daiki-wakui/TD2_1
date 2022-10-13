@@ -1,6 +1,6 @@
 #include "Enemy.h"
 #include "TextureManager.h"
-using namespace MathUtility;
+
 
 void Enemy::Initialize(Model* model, const myMath::Vector3 position, uint32_t texture)
 {
@@ -51,15 +51,9 @@ void Enemy::Draw(const ViewProjection& viewProjection)
 	model_->Draw(worldTransform, viewProjection, texture_);
 }
 
-bool Enemy::GetIsDead()
-{
-	return isDead;
-}
-
 void Enemy::Move()
 {
-	myMath::Vector3 trans;
-	const float speed = 3.0f;
+	const float speed = 0.1f;
 
 	enemyVec = { player->GetWorldTransform().translation_.x - enemy.x,
 				 player->GetWorldTransform().translation_.y - enemy.y, 
@@ -68,4 +62,10 @@ void Enemy::Move()
 
 	enemy.x += normEnemyVec.x * speed;
 	enemy.y += normEnemyVec.y * speed;
+	enemy.z += normEnemyVec.z * speed;
+	worldTransform.translation_.x = enemy.x;
+	worldTransform.translation_.y = enemy.y;
+	worldTransform.translation_.z = enemy.z;
+
+	MathUtility::Matrix4Translation(worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z);
 }

@@ -39,6 +39,9 @@ void GameScene::Update()
 
 		//ゲームシーン
 	case Game:
+
+		//デスフラグが立った敵を削除
+		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		player->Update();
 
 		UpdateEnemyPopCommands();
