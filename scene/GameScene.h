@@ -60,7 +60,7 @@ class GameScene {
 	/// <summary>
 	/// 敵発生
 	/// </summary>
-	void EnemyOcurrence(const Vector3& v);
+	void EnemyOcurrence(const myMath::Vector3& v);
 
 	/// <summary>
 	/// 敵発生データの読み込み
@@ -78,6 +78,9 @@ class GameScene {
 	Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
 	ViewProjection viewProjection;
+
+	Model* model = nullptr;
+	uint32_t texture;
 
 	//敵発生コマンド
 	std::stringstream enemyPopCommands;

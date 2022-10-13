@@ -15,6 +15,11 @@ void GameScene::Initialize() {
 	viewProjection.Initialize();
 	player = Player::GetInstance();
 	player->Initialize(viewProjection);
+
+	LoadEnemyPopData();
+
+	model = Model::Create();
+	texture = TextureManager::Load("mario.jpg");
 }
 
 void GameScene::Update()
@@ -34,6 +39,14 @@ void GameScene::Update()
 		//ゲームシーン
 	case Game:
 		player->Update();
+
+		UpdateEnemyPopCommands();
+		for (const std::unique_ptr<Enemy>& enemy : enemys)
+		{
+			enemy->Update();
+		}
+		debugText_->SetPos(20, 40);
+		debugText_->Printf("%d", enemys.size());
 		break;
 
 
@@ -88,6 +101,10 @@ void GameScene::Draw() {
 	case Game:
 
 		player->Draw(viewProjection);
+		for (const std::unique_ptr<Enemy>& enemy : enemys)
+		{
+			enemy->Draw(viewProjection);
+		}
 
 		break;
 
@@ -101,6 +118,7 @@ void GameScene::Draw() {
 	debugText_->SetPos(20, 20);
 	debugText_->Printf("Scene %d", scene);
 
+	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -122,11 +140,11 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::EnemyOcurrence(const Vector3& v) {
+void GameScene::EnemyOcurrence(const myMath::Vector3& v) {
 	//敵の生成
-	Vector3 position = { v.x,v.y,v.z };
+	myMath::Vector3 position = { v.x,v.y,v.z };
 	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
-	newEnemy->Initialize(position);
+	newEnemy->Initialize(model, position,texture);
 	//Enemyを登録する
 	enemys.push_back(std::move(newEnemy));
 
@@ -135,7 +153,7 @@ void GameScene::EnemyOcurrence(const Vector3& v) {
 void GameScene::LoadEnemyPopData() {
 	//ファイルを開く
 	std::ifstream file;
-	file.open("Resources/Pop.csv");
+	file.open("Resources/EnemyPop.csv");
 	assert(file.is_open());
 
 	//ファイルの内容を文字列ストリームにコピー
@@ -184,7 +202,7 @@ void GameScene::UpdateEnemyPopCommands() {
 			getline(line_stream, word, ',');
 			float z = (float)std::atof(word.c_str());
 			//敵を発生させる
-			EnemyOcurrence(Vector3(x, y, z));
+			EnemyOcurrence(myMath::Vector3(x, y, z));
 		}
 
 		// WAITコマンド
