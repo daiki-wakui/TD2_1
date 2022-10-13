@@ -25,9 +25,9 @@ void Enemy::Update()
 
 	if (player->GetSpeed() > 0.0f)
 	{
-		if (1.0f * radius >= (enemy.x - player->GetWorldTransform().translation_.x) * (enemy.x - player->GetWorldTransform().translation_.x)
-			+(enemy.y - player->GetWorldTransform().translation_.y) * (enemy.y - player->GetWorldTransform().translation_.y) 
-			+ (enemy.z - player->GetWorldTransform().translation_.z) * (enemy.z - player->GetWorldTransform().translation_.z))
+		if (1.0f * radius >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x)
+			+(enemy.y - player->GetPlayerWorldTransform().translation_.y) * (enemy.y - player->GetPlayerWorldTransform().translation_.y)
+			+ (enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
 			isDead = true;
@@ -36,9 +36,9 @@ void Enemy::Update()
 	}
 	else
 	{
-		if ((1.0f + radius)* (1.0f + radius) >= (enemy.x - player->GetWorldTransform().translation_.x) * (enemy.x - player->GetWorldTransform().translation_.x) +
-			(enemy.y - player->GetWorldTransform().translation_.y) * (enemy.y - player->GetWorldTransform().translation_.y) +
-			(enemy.z - player->GetWorldTransform().translation_.z) * (enemy.z - player->GetWorldTransform().translation_.z))
+		if ((1.0f + radius)* (1.0f + radius) >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x) +
+			(enemy.y - player->GetPlayerWorldTransform().translation_.y) * (enemy.y - player->GetPlayerWorldTransform().translation_.y) +
+			(enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			//time-=3;
 			isDead = true;
@@ -58,9 +58,9 @@ void Enemy::Move()
 {
 	const float speed = 0.1f;
 
-	enemyVec = { player->GetWorldTransform().translation_.x - enemy.x,
-				 player->GetWorldTransform().translation_.y - enemy.y, 
-				 player->GetWorldTransform().translation_.z - enemy.z };
+	enemyVec = { player->GetPlayerWorldTransform().translation_.x - enemy.x,
+				 player->GetPlayerWorldTransform().translation_.y - enemy.y,
+				 player->GetPlayerWorldTransform().translation_.z - enemy.z };
 	normEnemyVec = enemyVec.normalization();
 
 	enemy.x += normEnemyVec.x * speed;

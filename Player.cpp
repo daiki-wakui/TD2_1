@@ -13,24 +13,25 @@ void Player::Initialize(ViewProjection viewProjection)
 {
 	//シングルトン代入
 	input = Input::GetInstance();
-	
+
 	textureHundle = TextureManager::Load("sample.png");
 	playerModel = Model::Create();
 	playerWorldTransform.scale_ = { 2,2,2 };
 	playerWorldTransform.Initialize();
 
-	taleModel= Model::Create();
+	taleModel = Model::Create();
 	taleWorldTransform.scale_;
 	taleWorldTransform.Initialize();
 
 	player = { 0,0,0 };
 	front = { 0,0,1 };
+	angle = MathUtility::PI;
 	viewProjection.Initialize();
 }
 
 void Player::Update()
 {
-	Bomb();
+	Tale();
 	Rotation();//プレイヤーの回転処理
 	Move();//プレイヤーの移動処理
 
@@ -64,7 +65,7 @@ void Player::Move()
 
 	front.x -= normFrontVec.x * speed;
 	front.z -= normFrontVec.z * speed;
-	
+
 	frontPosition.x -= normFrontVec.x * speed;
 	frontPosition.z -= normFrontVec.z * speed;
 	taleWorldTransform.translation_.x = frontPosition.x;
@@ -93,15 +94,24 @@ void Player::Rotation()
 		angle += rotSpeed;
 	}
 
+	if (angle > 2 * MathUtility::PI)
+	{
+		angle = 0;//オーバーフロー回避処理
+	}
+	else if (angle < 0)
+	{
+		angle = 2 * MathUtility::PI;//オーバーフロー回避処理
+	}
+
 	playerWorldTransform.rotation_.y = angle;
 	taleWorldTransform.rotation_.y = angle;
 }
 
-void Player::Bomb()
+void Player::Tale()
 {
 	if (!input->PushKey(DIK_SPACE))
 	{
-		bombCharge += 0.1f;
+		bombCharge += 0.2f;
 	}
 
 	if (bombCharge > 10.0f)
@@ -109,7 +119,7 @@ void Player::Bomb()
 		bombCharge = 10.0f;
 	}
 
-	taleWorldTransform.scale_.z = 1.0 + bombCharge / 4;
+	taleWorldTransform.scale_.z = 1.0 + bombCharge / 4;//尻尾の長さ
 }
 
 void Player::Draw(ViewProjection viewProjection)
@@ -118,9 +128,14 @@ void Player::Draw(ViewProjection viewProjection)
 	taleModel->Draw(taleWorldTransform, viewProjection, textureHundle);
 }
 
-WorldTransform Player::GetWorldTransform()
+WorldTransform Player::GetPlayerWorldTransform()
 {
 	return playerWorldTransform;
+}
+
+WorldTransform Player::GetTaleWorldTransform()
+{
+	return taleWorldTransform;
 }
 
 float Player::GetSpeed()
