@@ -43,7 +43,8 @@ public:
 	void Draw(ViewProjection viewProjection);
 
 	//ÉQÉbÉ^Å[
-	WorldTransform GetWorldTransform();
+	WorldTransform GetPlayerWorldTransform();
+	WorldTransform GetTaleWorldTransform();
 	float GetSpeed();
 	static Player* GetInstance();
 };

@@ -128,9 +128,14 @@ void Player::Draw(ViewProjection viewProjection)
 	taleModel->Draw(taleWorldTransform, viewProjection, textureHundle);
 }
 
-WorldTransform Player::GetWorldTransform()
+WorldTransform Player::GetPlayerWorldTransform()
 {
 	return playerWorldTransform;
+}
+
+WorldTransform Player::GetTaleWorldTransform()
+{
+	return taleWorldTransform;
 }
 
 float Player::GetSpeed()
