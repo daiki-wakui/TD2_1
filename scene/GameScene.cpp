@@ -19,7 +19,30 @@ void GameScene::Initialize() {
 
 void GameScene::Update()
 {
-	player->Update();
+	//ゲームのシーン管理
+	switch (scene)
+	{
+		//タイトル画面
+	case Title:
+		if (input_->TriggerKey(DIK_SPACE)) {
+			scene++;	//ゲームシーンへ
+		}
+
+		break;
+
+
+		//ゲームシーン
+	case Game:
+		player->Update();
+		break;
+
+
+		//リザルト画面
+	case Result:
+
+		break;
+	}
+	
 }
 
 void GameScene::Draw() {
@@ -47,8 +70,36 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
-	player->Draw(viewProjection);
 	/// </summary>
+
+	//ゲームのシーン管理
+	switch (scene)
+	{
+		//タイトル画面
+	case Title:
+
+		debugText_->SetPos(550, 300);
+		debugText_->Printf("Title Scene Space Start");
+
+		break;
+
+
+		//ゲームシーン
+	case Game:
+
+		player->Draw(viewProjection);
+
+		break;
+
+
+		//リザルト画面
+	case Result:
+
+		break;
+	}
+
+	debugText_->SetPos(20, 20);
+	debugText_->Printf("Scene %d", scene);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

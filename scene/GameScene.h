@@ -19,6 +19,13 @@
 #include "sstream"
 #include "fstream"
 
+enum SceneName
+{
+	Title,
+	Game,
+	Result,
+};
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -87,4 +94,6 @@ class GameScene {
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+
+	int scene = 0;
 };

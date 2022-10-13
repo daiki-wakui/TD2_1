@@ -49,9 +49,6 @@
     <Filter Include="ヘッダー ファイル\math">
       <UniqueIdentifier>{647f4977-924a-4954-923f-5619e5afc9a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\audio">
-      <UniqueIdentifier>{68399022-945e-44b3-b33b-13d00744ee1c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,9 +77,6 @@
     </ClCompile>
     <ClCompile Include="Score.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Audio\AudioManager.cpp">
-      <Filter>ソース ファイル\audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
