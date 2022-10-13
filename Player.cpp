@@ -51,9 +51,9 @@ void Player::Move()
 	}
 
 	trans.x -= normFrontVec.x * speed;
-	trans.y -= normFrontVec.z * speed;
+	trans.z -= normFrontVec.z * speed;
 	worldTransform.translation_.x += trans.x;
-	worldTransform.translation_.y += trans.y;
+	worldTransform.translation_.z += trans.z;
 }
 
 void Player::Rotation()
@@ -76,7 +76,7 @@ void Player::Rotation()
 		angle += rotSpeed;
 	}
 
-	worldTransform.rotation_.z = -angle;
+	worldTransform.rotation_.y = angle;
 }
 
 void Player::Bomb()

@@ -12,6 +12,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
+	viewProjection.eye = { 0,25,-50 };
 	viewProjection.Initialize();
 	player = Player::GetInstance();
 	player->Initialize(viewProjection);
