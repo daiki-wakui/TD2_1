@@ -111,12 +111,12 @@ void Player::Tale()
 {
 	if (!   input->PushKey(DIK_SPACE))
 	{
-		bombCharge += 0.2f;
+		bombCharge += 0.2f;//—£‚µ‚Ä‚¢‚éŠÔ”š’e‚ğƒ`ƒƒ[ƒW
 	}
 
 	if (bombCharge > 10.0f)
 	{
-		bombCharge = 10.0f;
+		bombCharge = 10.0f;//ãŒÀ‚ğİ’è
 	}
 
 	taleWorldTransform.scale_.z = 1.0 + bombCharge / 4;//K”ö‚Ì’·‚³
