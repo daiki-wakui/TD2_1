@@ -31,7 +31,7 @@ void Player::Initialize(ViewProjection viewProjection)
 
 void Player::Update()
 {
-	Tale();
+	Tale();//尻尾の処理
 	Rotation();//プレイヤーの回転処理
 	Move();//プレイヤーの移動処理
 
