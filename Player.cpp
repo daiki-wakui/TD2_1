@@ -13,6 +13,7 @@ void Player::Initialize(ViewProjection viewProjection)
 {
 	//ƒVƒ“ƒOƒ‹ƒgƒ“‘ã“ü
 	input = Input::GetInstance();
+	debugText_ = DebugText::GetInstance();
 
 	textureHundle = TextureManager::Load("sample.png");
 	playerModel = Model::Create();
@@ -58,6 +59,8 @@ void Player::Move()
 	frontVec = front - player;
 	normFrontVec = frontVec.normalization();
 
+	MoveLimit();
+
 	speed -= 0.01f;
 	if (input->TriggerKey(DIK_SPACE))
 	{
@@ -74,6 +77,26 @@ void Player::Move()
 	player.z -= normFrontVec.z * speed;
 	playerWorldTransform.translation_.x = player.x;
 	playerWorldTransform.translation_.z = player.z;
+}
+
+void Player::MoveLimit()
+{
+	if (player.x <= -150)
+	{
+		player.x = -150;
+	}
+	else if (player.x >= 150)
+	{
+		player.x = 150;
+	}
+	if (player.z <= -100)
+	{
+		player.z = -100;
+	}
+	else if (player.z >= 100)
+	{
+		player.z = 100;
+	}
 }
 
 void Player::Rotation()
@@ -151,6 +174,9 @@ void Player::Draw(ViewProjection viewProjection)
 	{
 		attackModel->Draw(attackWorldTransform, viewProjection, textureHundle);
 	}
+
+	debugText_->SetPos(20, 60);
+	debugText_->Printf("player.x %f,player.z %f", player.x, player.z);
 }
 
 WorldTransform Player::GetPlayerWorldTransform()

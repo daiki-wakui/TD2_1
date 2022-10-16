@@ -5,6 +5,7 @@
 #include"ViewProjection.h"
 #include"Model.h"
 #include"MathUtility.h"
+#include "DebugText.h"
 
 class Player
 {
@@ -12,6 +13,7 @@ private:
 
 	//ÉNÉâÉXì«Ç›çûÇ›
 	Input* input = nullptr;
+	DebugText* debugText_ = nullptr;
 
 	Model* playerModel = nullptr;
 	Model* taleModel = nullptr;
@@ -42,6 +44,7 @@ public:
 	void Initialize(ViewProjection viewProjection);
 	void Update();
 	void Move();
+	void MoveLimit();
 	void Rotation();
 	void Attack();
 	void Tale();
