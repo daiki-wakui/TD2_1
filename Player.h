@@ -15,11 +15,13 @@ private:
 
 	Model* playerModel = nullptr;
 	Model* taleModel = nullptr;
+	Model* attackModel = nullptr;
 
 	uint32_t textureHundle = 0;
 	//ワールドトランスフォーム
 	WorldTransform playerWorldTransform;
 	WorldTransform taleWorldTransform;
+	WorldTransform attackWorldTransform;
 
 	myMath::Vector3 player;
 	myMath::Vector3 front;
@@ -30,6 +32,8 @@ private:
 	float speed = 0.0f;
 	float bombCharge = 1.0f;
 	float angle = 0.0f;
+	bool attackFlag = false;
+	int attackTimer = 10;
 
 public:
 
@@ -39,6 +43,7 @@ public:
 	void Update();
 	void Move();
 	void Rotation();
+	void Attack();
 	void Tale();
 	void Draw(ViewProjection viewProjection);
 

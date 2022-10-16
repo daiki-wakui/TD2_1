@@ -23,9 +23,13 @@ void Player::Initialize(ViewProjection viewProjection)
 	taleWorldTransform.scale_;
 	taleWorldTransform.Initialize();
 
+	attackModel = Model::Create();
+	attackWorldTransform.Initialize();
+
 	player = { 0,0,0 };
 	front = { 0,0,1 };
 	angle = MathUtility::PI;
+	attackTimer = 10;
 	viewProjection.Initialize();
 }
 
@@ -34,12 +38,19 @@ void Player::Update()
 	Tale();//尻尾の処理
 	Rotation();//プレイヤーの回転処理
 	Move();//プレイヤーの移動処理
+	if (attackFlag == true)
+	{
+		Attack();//攻撃処理
+	}
 
 	MathUtility::MatrixCalculation(playerWorldTransform);//行列の更新
 	playerWorldTransform.TransferMatrix();//行列の転送
 
 	MathUtility::MatrixCalculation(taleWorldTransform);//行列の更新
 	taleWorldTransform.TransferMatrix();//行列の転送
+
+	MathUtility::MatrixCalculation(attackWorldTransform);//行列の更新
+	attackWorldTransform.TransferMatrix();//行列の転送
 }
 
 void Player::Move()
@@ -52,6 +63,7 @@ void Player::Move()
 	{
 		speed += 0.06f * bombCharge;
 		bombCharge = 0.0f;
+		attackFlag = true;
 	}
 	if (speed <= 0.0f)
 	{
@@ -62,14 +74,6 @@ void Player::Move()
 	player.z -= normFrontVec.z * speed;
 	playerWorldTransform.translation_.x = player.x;
 	playerWorldTransform.translation_.z = player.z;
-
-	front.x -= normFrontVec.x * speed;
-	front.z -= normFrontVec.z * speed;
-
-	frontPosition.x -= normFrontVec.x * speed;
-	frontPosition.z -= normFrontVec.z * speed;
-	taleWorldTransform.translation_.x = frontPosition.x;
-	taleWorldTransform.translation_.z = frontPosition.z;
 }
 
 void Player::Rotation()
@@ -81,8 +85,11 @@ void Player::Rotation()
 		front.x = player.x + sinf(angle) * 2;
 		front.z = player.z + cosf(angle) * 2;
 	}
-	frontPosition.x = player.x + sinf(angle) * 2;
-	frontPosition.z = player.z + cosf(angle) * 2;
+	taleWorldTransform.translation_.x = player.x + sinf(angle) * 2;
+	taleWorldTransform.translation_.z = player.z + cosf(angle) * 2;
+
+	attackWorldTransform.translation_.x = player.x + sinf(angle) * 4;
+	attackWorldTransform.translation_.z = player.z + cosf(angle) * 4;
 
 	if (input->PushKey(DIK_A))
 	{
@@ -105,11 +112,22 @@ void Player::Rotation()
 
 	playerWorldTransform.rotation_.y = angle;
 	taleWorldTransform.rotation_.y = angle;
+	attackWorldTransform.rotation_.y = angle;
+}
+
+void Player::Attack()
+{
+	attackTimer--;
+	if (attackTimer <= 0)
+	{
+		attackTimer = 10;
+		attackFlag = false;
+	}
 }
 
 void Player::Tale()
 {
-	if (!   input->PushKey(DIK_SPACE))
+	if (!input->PushKey(DIK_SPACE))
 	{
 		bombCharge += 0.2f;//離している間爆弾をチャージ
 	}
@@ -120,12 +138,19 @@ void Player::Tale()
 	}
 
 	taleWorldTransform.scale_.z = 1.0 + bombCharge / 4;//尻尾の長さ
+	attackWorldTransform.scale_.x = 1.0 * bombCharge / 2;
+	attackWorldTransform.scale_.y = 1.0 * bombCharge / 2;
+	attackWorldTransform.scale_.z = 1.0 * bombCharge / 2;
 }
 
 void Player::Draw(ViewProjection viewProjection)
 {
 	playerModel->Draw(playerWorldTransform, viewProjection, textureHundle);
 	taleModel->Draw(taleWorldTransform, viewProjection, textureHundle);
+	if (attackFlag == true)
+	{
+		attackModel->Draw(attackWorldTransform, viewProjection, textureHundle);
+	}
 }
 
 WorldTransform Player::GetPlayerWorldTransform()
