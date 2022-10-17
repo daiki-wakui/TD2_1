@@ -60,17 +60,8 @@ class GameScene {
 	/// <summary>
 	/// 敵発生
 	/// </summary>
-	void EnemyOcurrence(const myMath::Vector3& v);
+	void EnemyOcurrence();
 
-	/// <summary>
-	/// 敵発生データの読み込み
-	/// </summary>
-	void LoadEnemyPopData();
-
-	/// <summary>
-	/// 敵発生コマンドの更新
-	/// </summary>
-	void UpdateEnemyPopCommands();
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -82,11 +73,10 @@ class GameScene {
 	Model* model = nullptr;
 	uint32_t texture;
 
-	//敵発生コマンド
-	std::stringstream enemyPopCommands;
-
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;
+
+	int enemyGeneration = 0;
 
 	bool isWait = false;
 

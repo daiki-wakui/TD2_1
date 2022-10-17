@@ -12,15 +12,15 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
+	model = Model::Create();
 	viewProjection.eye = { 0,25,-50 };
 	viewProjection.Initialize();
+
 	player = Player::GetInstance();
 	player->Initialize(viewProjection);
 
-	LoadEnemyPopData();
-
-	model = Model::Create();
 	texture = TextureManager::Load("mario.jpg");
+	
 }
 
 void GameScene::Update()
@@ -44,7 +44,7 @@ void GameScene::Update()
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		player->Update();
 
-		UpdateEnemyPopCommands();
+		EnemyOcurrence();
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
 			enemy->Update();
@@ -144,84 +144,26 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::EnemyOcurrence(const myMath::Vector3& v) {
-	//敵の生成
-	myMath::Vector3 position = { v.x,v.y,v.z };
-	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
-	newEnemy->Initialize(model, position,texture);
-	//Enemyを登録する
-	enemys.push_back(std::move(newEnemy));
+void GameScene::EnemyOcurrence() {
+	if (enemys.size() < 10)
+	{
+		if (enemyGeneration == 0)
+		{
+			myMath::Vector3 position = { 100.0f,0.0f,0.0f };
+			//Enemyを生成し、初期化
+			std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
+			newEnemy->Initialize(model, position,texture);
+			//Enemyを登録する
+			enemys.push_back(std::move(newEnemy));
 
-}
-
-void GameScene::LoadEnemyPopData() {
-	//ファイルを開く
-	std::ifstream file;
-	file.open("Resources/EnemyPop.csv");
-	assert(file.is_open());
-
-	//ファイルの内容を文字列ストリームにコピー
-	enemyPopCommands << file.rdbuf();
-
-	//ファイルを閉じる
-	file.close();
-}
-void GameScene::UpdateEnemyPopCommands() {
-	if (isWait) {
-		waitTimer--;
-		if (waitTimer <= 0) {
-			//待機完了
-			isWait = false;
-		}
-		return;
-	}
-
-	// 1行分の文字列を入れる変数
-	std::string line;
-
-	//コマンド実行ループ
-	while (getline(enemyPopCommands, line)) {
-		// 1行分の文字列をストリームに変換して解析しやすくする
-		std::istringstream line_stream(line);
-
-		std::string word;
-		//,区切りで行の先頭文字列を取得
-		getline(line_stream, word, ',');
-
-		//"//"から始まる行はコメント
-		if (word.find("//") == 0) {
-			//コメント行は飛ばす
-			continue;
-		}
-
-		// POPコマンド
-		if (word.find("POP") == 0) {
-			// x座標
-			getline(line_stream, word, ',');
-			float x = (float)std::atof(word.c_str());
-			// y座標
-			getline(line_stream, word, ',');
-			float y = (float)std::atof(word.c_str());
-			// z座標
-			getline(line_stream, word, ',');
-			float z = (float)std::atof(word.c_str());
-			//敵を発生させる
-			EnemyOcurrence(myMath::Vector3(x, y, z));
-		}
-
-		// WAITコマンド
-		else if (word.find("WAIT") == 0) {
-			getline(line_stream, word, ',');
-
-			//待ち時間
-			int32_t waitTime = atoi(word.c_str());
-
-			//待機開始
-			isWait = true;
-			waitTimer = waitTime;
-
-			//コマンドループを抜ける
-			break;
+			enemyGeneration = 0;
 		}
 	}
+
+	enemyGeneration++;
+	if (enemyGeneration > 10)
+	{
+		enemyGeneration = 0;
+	}
+
 }
