@@ -21,6 +21,8 @@ void GameScene::Initialize() {
 
 	texture = TextureManager::Load("mario.jpg");
 	
+	map = std::make_unique<Map>();
+	map->Initialize(viewProjection);
 }
 
 void GameScene::Update()
@@ -43,6 +45,7 @@ void GameScene::Update()
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		player->Update();
+		map->Update();
 
 		EnemyOcurrence();
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
@@ -133,6 +136,16 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
+	
+	switch (scene)
+	{
+	case Game:
+
+		map->Draw();
+
+		break;
+	}
+
 	/// </summary>
 
 	// デバッグテキストの描画
@@ -161,7 +174,7 @@ void GameScene::EnemyOcurrence() {
 	}
 
 	enemyGeneration++;
-	if (enemyGeneration > 10)
+	if (enemyGeneration > 180)
 	{
 		enemyGeneration = 0;
 	}

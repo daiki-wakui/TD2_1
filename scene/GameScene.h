@@ -10,6 +10,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include"Player.h"
+#include"Map.h"
 
 #include "Enemy.h"
 
@@ -83,6 +84,8 @@ class GameScene {
 	int waitTimer = 300;
 
 	Player* player = nullptr;
+
+	std::unique_ptr<Map>map;
 
 	/// <summary>
 	/// ゲームシーン用

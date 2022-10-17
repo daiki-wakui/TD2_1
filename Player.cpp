@@ -81,21 +81,21 @@ void Player::Move()
 
 void Player::MoveLimit()
 {
-	if (player.x <= -150)
+	if (player.x <= -143)
 	{
-		player.x = -150;
+		player.x = -143;
 	}
-	else if (player.x >= 150)
+	else if (player.x >= 143)
 	{
-		player.x = 150;
+		player.x = 143;
 	}
-	if (player.z <= -100)
+	if (player.z <= -93)
 	{
-		player.z = -100;
+		player.z = -93;
 	}
-	else if (player.z >= 100)
+	else if (player.z >= 93)
 	{
-		player.z = 100;
+		player.z = 93;
 	}
 }
 
