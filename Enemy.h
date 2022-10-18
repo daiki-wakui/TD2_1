@@ -34,6 +34,7 @@ public:
 	bool GetIsDead(){return isDead;}
 
 	void Move();
+	WorldTransform GetWorldTransform();
 
 	//void Score();
 };

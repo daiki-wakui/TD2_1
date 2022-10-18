@@ -1,10 +1,14 @@
 #pragma once
 #include"Sprite.h"
 #include"Player.h"
+#include"Enemy.h"
 
 class Map
 {
 private:
+
+	Player* player = nullptr;
+
 	//テクスチャハンドル
 	uint32_t backHandle = 0;
 	uint32_t playerHandle = 0;
@@ -12,12 +16,17 @@ private:
 
 	Sprite* backSprite = nullptr;
 	Sprite* playerSprite = nullptr;
-	Player* player = nullptr;
+	Sprite* enemySprite = nullptr;
+
+	int generate = 0;
+	//Vector2 enemyPosition;
 
 public:
 	Map();
 	~Map();
 	void Initialize(ViewProjection viewProjection);
-	void Update();
-	void Draw();
+	void Update(std::list<std::unique_ptr<Enemy>>& enemys);
+	void Draw(std::list<std::unique_ptr<Enemy>>& enemys);
+
+	void SetGenerate(int gen);
 };

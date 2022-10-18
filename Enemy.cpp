@@ -72,3 +72,8 @@ void Enemy::Move()
 
 	MathUtility::Matrix4Translation(worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z);
 }
+
+WorldTransform Enemy::GetWorldTransform()
+{
+	return worldTransform;
+}

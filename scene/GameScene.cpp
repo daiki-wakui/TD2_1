@@ -45,9 +45,10 @@ void GameScene::Update()
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		player->Update();
-		map->Update();
 
+		map->SetGenerate(enemyGeneration);
 		EnemyOcurrence();
+		map->Update(enemys);
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
 			enemy->Update();
@@ -141,7 +142,7 @@ void GameScene::Draw() {
 	{
 	case Game:
 
-		map->Draw();
+		map->Draw(enemys);
 
 		break;
 	}
@@ -178,5 +179,4 @@ void GameScene::EnemyOcurrence() {
 	{
 		enemyGeneration = 0;
 	}
-
 }
