@@ -27,8 +27,8 @@ void Player::Initialize(ViewProjection viewProjection)
 	attackModel = Model::Create();
 	attackWorldTransform.Initialize();
 
-	player = { 0,0,0 };
-	front = { 0,0,1 };
+	player = { 0,0,-25 };
+	front = { 0,0,-24 };
 	angle = MathUtility::PI;
 	attackTimer = 3;
 	viewProjection.Initialize();

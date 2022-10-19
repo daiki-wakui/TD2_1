@@ -10,8 +10,9 @@ private:
 	int BonusTime = 0;
 	float scoreBonus = 1.0f;
 	int timeLimit = 65;
-	int minutes = 3;
-	int seconds = 0;
+	int minutes = 1;
+	int seconds = 3;
+	bool isFnish = false;
 
 public:
 	void Initialize();

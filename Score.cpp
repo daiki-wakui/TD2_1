@@ -14,12 +14,21 @@ void Score::Update()
 	if (timeLimit <= 0) {
 		seconds--;
 
-		if (seconds < 0) {
+		if (seconds < 0 && isFnish == false) {
 			minutes--;
 			seconds = 59;
 		}
 		
 		timeLimit = 65;
+	}
+
+	if (minutes <= 0) {
+		minutes = 0;
+	}
+
+	if (minutes == 0 && seconds <= 0) {
+		seconds = 0;
+		isFnish = true;
 	}
 }
 

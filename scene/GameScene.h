@@ -80,13 +80,22 @@ class GameScene {
 	uint32_t texture;
 
 	Model* spawn_ = nullptr;
-	WorldTransform worldtransform_;
 	Model* spawn2_ = nullptr;
-	WorldTransform worldtransform2_;
+	Model* spawn3_ = nullptr;
+	Model* spawn4_ = nullptr;
+	Model* spawn5_ = nullptr;
 
-	//Vector3 spawnPos;
+	WorldTransform worldtransform_;
+	WorldTransform worldtransform2_;
+	WorldTransform worldtransform3_;
+	WorldTransform worldtransform4_;
+	WorldTransform worldtransform5_;
+
 	myMath::Vector3 spawnRightTopPos;
+	myMath::Vector3 spawnRightBottomPos;
+	myMath::Vector3 spawnLeftTopPos;
 	myMath::Vector3 spawnLeftBottomPos;
+	myMath::Vector3 spawnCenterPos;
 
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;

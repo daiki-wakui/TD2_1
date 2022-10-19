@@ -36,6 +36,18 @@ void GameScene::Initialize() {
 	spawn2_ = Model::Create();
 	worldtransform2_.scale_ = { 2.0f,2.0f,2.0f };
 	worldtransform2_.Initialize();
+
+	spawn3_ = Model::Create();
+	worldtransform3_.scale_ = { 2.0f,2.0f,2.0f };
+	worldtransform3_.Initialize();
+
+	spawn4_ = Model::Create();
+	worldtransform4_.scale_ = { 2.0f,2.0f,2.0f };
+	worldtransform4_.Initialize();
+
+	spawn5_ = Model::Create();
+	worldtransform5_.scale_ = { 2.0f,2.0f,2.0f };
+	worldtransform5_.Initialize();
 }
 
 void GameScene::Update()
@@ -55,12 +67,25 @@ void GameScene::Update()
 	case Game:
 		spawnRightTopPos = { 125.0f,0.0f,75.0f };
 		spawnLeftBottomPos = { -125.0f,0.0f,-75.0f };
+		spawnCenterPos = { 0,0,0 };
+		spawnRightBottomPos = { 125.0f,0.0f,-75.0f };
+		spawnLeftTopPos = { -125.0f,0.0f,75.0f };
 
 		worldtransform_.translation_.x = spawnRightTopPos.x;
 		worldtransform_.translation_.z = spawnRightTopPos.z;
 
 		worldtransform2_.translation_.x = spawnLeftBottomPos.x;
 		worldtransform2_.translation_.z = spawnLeftBottomPos.z;
+
+		worldtransform3_.translation_.x = spawnLeftTopPos.x;
+		worldtransform3_.translation_.z = spawnLeftTopPos.z;
+
+		worldtransform4_.translation_.x = spawnRightBottomPos.x;
+		worldtransform4_.translation_.z = spawnRightBottomPos.z;
+
+		worldtransform5_.translation_.x = spawnCenterPos.x;
+		worldtransform5_.translation_.z = spawnCenterPos.z;
+
 
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
@@ -75,6 +100,9 @@ void GameScene::Update()
 		//生成処理
 		EnemySpawn(spawnRightTopPos);	//右
 		EnemySpawn(spawnLeftBottomPos);	//左
+		EnemySpawn(spawnLeftTopPos);	//右
+		EnemySpawn(spawnRightBottomPos);	//左
+		EnemySpawn(spawnCenterPos);	//右
 
 		//スポーンクールタイム
 		enemyGeneration++;
@@ -94,6 +122,12 @@ void GameScene::Update()
 		worldtransform_.TransferMatrix();
 		MathUtility::MatrixCalculation(worldtransform2_);//行列の更新
 		worldtransform2_.TransferMatrix();
+		MathUtility::MatrixCalculation(worldtransform3_);//行列の更新
+		worldtransform3_.TransferMatrix();
+		MathUtility::MatrixCalculation(worldtransform4_);//行列の更新
+		worldtransform4_.TransferMatrix();
+		MathUtility::MatrixCalculation(worldtransform5_);//行列の更新
+		worldtransform5_.TransferMatrix();
 
 		viewProjection.TransferMatrix();
 		viewProjection.UpdateMatrix();
@@ -162,6 +196,9 @@ void GameScene::Draw() {
 
 		spawn_->Draw(worldtransform_, viewProjection, texture);
 		spawn2_->Draw(worldtransform2_, viewProjection, texture);
+		spawn3_->Draw(worldtransform3_, viewProjection, texture);
+		spawn4_->Draw(worldtransform4_, viewProjection, texture);
+		spawn5_->Draw(worldtransform5_, viewProjection, texture);
 
 		break;
 
