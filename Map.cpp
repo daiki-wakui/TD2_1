@@ -31,18 +31,16 @@ void Map::Update(std::list<std::unique_ptr<Enemy>>& enemys)
 	playerPosition.y = 153 - player->GetPlayerWorldTransform().translation_.z;
 	playerSprite->SetPosition(playerPosition);
 
-	if (enemys.size() < 10)
+	if (generate == 0)
 	{
-		if (generate == 0)
+		int count = 0;
+		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
-			int count = 0;
-			for (const std::unique_ptr<Enemy>& enemy : enemys)
-			{
-				enemySprite[count] = Sprite::Create(enemyHandle, {203 + enemy->GetWorldTransform().translation_.x,153 - enemy->GetWorldTransform().translation_.z}, {1,0,0,1}, {0.5f,0.5f});
-				count++;
-			}
+			enemySprite[count] = Sprite::Create(enemyHandle, { 203 + enemy->GetWorldTransform().translation_.x,153 - enemy->GetWorldTransform().translation_.z }, { 1,0,0,1 }, { 0.5f,0.5f });
+			count++;
 		}
 	}
+
 	int count = 0;
 	for (const std::unique_ptr<Enemy>& enemy : enemys)
 	{
