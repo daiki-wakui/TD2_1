@@ -11,6 +11,8 @@
 #include "WorldTransform.h"
 #include"Player.h"
 #include"Map.h"
+#include"MathUtility.h"
+#include "myMath.h"
 
 #include "Enemy.h"
 
@@ -64,7 +66,7 @@ class GameScene {
 	/// 敵発生
 	/// </summary>
 	void EnemyOcurrence(const myMath::Vector3 p);
-
+	void EnemySpawn(const myMath::Vector3 p);
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -77,7 +79,14 @@ class GameScene {
 	Model* model = nullptr;
 	uint32_t texture;
 
-	
+	Model* spawn_ = nullptr;
+	WorldTransform worldtransform_;
+	Model* spawn2_ = nullptr;
+	WorldTransform worldtransform2_;
+
+	//Vector3 spawnPos;
+	myMath::Vector3 spawnPos;
+	myMath::Vector3 spawnPos2;
 
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;

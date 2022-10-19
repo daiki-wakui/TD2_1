@@ -28,6 +28,14 @@ void GameScene::Initialize() {
 
 	score = Score::GetInstance();
 	score->Initialize();
+
+	spawn_ = Model::Create();
+	worldtransform_.scale_ = { 2.0f,2.0f,2.0f };
+	worldtransform_.Initialize();
+	
+	spawn2_ = Model::Create();
+	worldtransform2_.scale_ = { 2.0f,2.0f,2.0f };
+	worldtransform2_.Initialize();
 }
 
 void GameScene::Update()
@@ -45,6 +53,20 @@ void GameScene::Update()
 
 		//ゲームシーン
 	case Game:
+		spawnPos = { 50.0f,0.0f,0.0f };
+		spawnPos2 = { -50.0f,0.0f,0.0f };
+
+		worldtransform_.translation_.x = spawnPos.x;
+		worldtransform_.translation_.z = spawnPos.z;
+
+		worldtransform2_.translation_.x = spawnPos2.x;
+		worldtransform2_.translation_.z = spawnPos2.z;
+
+	/*	spawnPos.x = worldtransform_.translation_.x;
+		spawnPos.y = worldtransform_.translation_.y;
+		spawnPos.z = worldtransform_.translation_.z;*/
+
+		
 
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
@@ -55,12 +77,30 @@ void GameScene::Update()
 		score->Update();
 
 		map->SetGenerate(enemyGeneration);
-		EnemyOcurrence({100.0f,0.0f,0.0f});
+
+		//生成処理
+		EnemySpawn(spawnPos);	//右
+		EnemySpawn(spawnPos2);	//左
+
+		//スポーンクールタイム
+		enemyGeneration++;
+
+		if (enemyGeneration > 180)
+		{
+			enemyGeneration = 0;
+		}
+
 		map->Update(enemys);
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
 			enemy->Update();
 		}
+
+
+		MathUtility::MatrixCalculation(worldtransform_);//行列の更新
+		worldtransform_.TransferMatrix();
+		MathUtility::MatrixCalculation(worldtransform2_);//行列の更新
+		worldtransform2_.TransferMatrix();
 
 		viewProjection.TransferMatrix();
 		viewProjection.UpdateMatrix();
@@ -127,6 +167,9 @@ void GameScene::Draw() {
 
 		score->Draw();
 
+		spawn_->Draw(worldtransform_, viewProjection, texture);
+		spawn2_->Draw(worldtransform2_, viewProjection, texture);
+
 		break;
 
 
@@ -171,25 +214,25 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
+//生成関数
 void GameScene::EnemyOcurrence(const myMath::Vector3 p) {
-	if (enemys.size() < 10)
+
+	myMath::Vector3 position = { p.x,p.y,p.z };
+	//Enemyを生成し、初期化
+	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
+	newEnemy->Initialize(model, position, texture);
+	//Enemyを登録する
+	enemys.push_back(std::move(newEnemy));
+}
+
+//生成関数を呼ぶ為のもの
+void GameScene::EnemySpawn(const myMath::Vector3 p)
+{
+	if (enemys.size() < 100)
 	{
 		if (enemyGeneration == 0)
 		{
-			myMath::Vector3 position = { p.x,p.y,p.z };
-			//Enemyを生成し、初期化
-			std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
-			newEnemy->Initialize(model, position,texture);
-			//Enemyを登録する
-			enemys.push_back(std::move(newEnemy));
-
-			enemyGeneration = 0;
+			EnemyOcurrence(p);
 		}
-	}
-
-	enemyGeneration++;
-	if (enemyGeneration > 180)
-	{
-		enemyGeneration = 0;
 	}
 }
