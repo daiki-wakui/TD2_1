@@ -1,6 +1,11 @@
 #include "Score.h"
 #include <stdio.h>
 
+void Score::Initialize()
+{
+	debugText_ = DebugText::GetInstance();
+}
+
 void Score::Update()
 {
 	BonusTime--;
@@ -22,7 +27,8 @@ void Score::ScoreAdd()
 
 void Score::Draw()
 {
-	
+	debugText_->SetPos(1000, 60);
+	debugText_->Printf("test");
 }
 
 Score* Score::GetInstance()

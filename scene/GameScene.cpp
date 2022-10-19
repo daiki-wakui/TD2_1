@@ -23,6 +23,9 @@ void GameScene::Initialize() {
 	
 	map = std::make_unique<Map>();
 	map->Initialize(viewProjection);
+
+	score = Score::GetInstance();
+	score->Initialize();
 }
 
 void GameScene::Update()
@@ -45,6 +48,8 @@ void GameScene::Update()
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		player->Update();
+
+		score->Update();
 
 		map->SetGenerate(enemyGeneration);
 		EnemyOcurrence();
@@ -113,6 +118,8 @@ void GameScene::Draw() {
 		{
 			enemy->Draw(viewProjection);
 		}
+
+		score->Draw();
 
 		break;
 

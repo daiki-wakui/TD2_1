@@ -20,6 +20,8 @@
 #include "sstream"
 #include "fstream"
 
+#include "Score.h"
+
 enum SceneName
 {
 	Title,
@@ -74,6 +76,8 @@ class GameScene {
 	Model* model = nullptr;
 	uint32_t texture;
 
+	
+
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;
 
@@ -84,6 +88,7 @@ class GameScene {
 	int waitTimer = 300;
 
 	Player* player = nullptr;
+	Score* score = nullptr;
 
 	std::unique_ptr<Map>map;
 
