@@ -16,7 +16,7 @@ private:
 
 	Sprite* backSprite = nullptr;
 	Sprite* playerSprite = nullptr;
-	Sprite* enemySprite = nullptr;
+	Sprite* enemySprite[100];
 
 	int generate = 0;
 	//Vector2 enemyPosition;
