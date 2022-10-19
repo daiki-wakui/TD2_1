@@ -30,7 +30,7 @@ void Player::Initialize(ViewProjection viewProjection)
 	player = { 0,0,0 };
 	front = { 0,0,1 };
 	angle = MathUtility::PI;
-	attackTimer = 10;
+	attackTimer = 3;
 	viewProjection.Initialize();
 }
 
@@ -143,7 +143,7 @@ void Player::Attack()
 	if (attackTimer <= 0)
 	{
 		bombCharge = 0.0f;
-		attackTimer = 1;
+		attackTimer = 3;
 		attackFlag = false;
 	}
 }
