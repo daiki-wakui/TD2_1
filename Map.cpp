@@ -48,7 +48,7 @@ void Map::Update(std::list<std::unique_ptr<Enemy>>& enemys)
 	{
 		Vector2 enemyPosition = enemySprite[count]->GetPosition();
 		enemyPosition.x = 203 + enemy->GetWorldTransform().translation_.x;
-		enemyPosition.y = 153 - enemy->GetWorldTransform().translation_.y;
+		enemyPosition.y = 153 - enemy->GetWorldTransform().translation_.z;
 		enemySprite[count]->SetPosition(enemyPosition);
 		count++;
 	}
