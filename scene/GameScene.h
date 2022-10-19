@@ -85,8 +85,8 @@ class GameScene {
 	WorldTransform worldtransform2_;
 
 	//Vector3 spawnPos;
-	myMath::Vector3 spawnPos;
-	myMath::Vector3 spawnPos2;
+	myMath::Vector3 spawnRightTopPos;
+	myMath::Vector3 spawnLeftBottomPos;
 
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;

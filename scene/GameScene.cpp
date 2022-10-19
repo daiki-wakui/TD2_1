@@ -53,20 +53,14 @@ void GameScene::Update()
 
 		//ゲームシーン
 	case Game:
-		spawnPos = { 50.0f,0.0f,0.0f };
-		spawnPos2 = { -50.0f,0.0f,0.0f };
+		spawnRightTopPos = { 125.0f,0.0f,75.0f };
+		spawnLeftBottomPos = { -125.0f,0.0f,-75.0f };
 
-		worldtransform_.translation_.x = spawnPos.x;
-		worldtransform_.translation_.z = spawnPos.z;
+		worldtransform_.translation_.x = spawnRightTopPos.x;
+		worldtransform_.translation_.z = spawnRightTopPos.z;
 
-		worldtransform2_.translation_.x = spawnPos2.x;
-		worldtransform2_.translation_.z = spawnPos2.z;
-
-	/*	spawnPos.x = worldtransform_.translation_.x;
-		spawnPos.y = worldtransform_.translation_.y;
-		spawnPos.z = worldtransform_.translation_.z;*/
-
-		
+		worldtransform2_.translation_.x = spawnLeftBottomPos.x;
+		worldtransform2_.translation_.z = spawnLeftBottomPos.z;
 
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
@@ -79,8 +73,8 @@ void GameScene::Update()
 		map->SetGenerate(enemyGeneration);
 
 		//生成処理
-		EnemySpawn(spawnPos);	//右
-		EnemySpawn(spawnPos2);	//左
+		EnemySpawn(spawnRightTopPos);	//右
+		EnemySpawn(spawnLeftBottomPos);	//左
 
 		//スポーンクールタイム
 		enemyGeneration++;
@@ -95,7 +89,6 @@ void GameScene::Update()
 		{
 			enemy->Update();
 		}
-
 
 		MathUtility::MatrixCalculation(worldtransform_);//行列の更新
 		worldtransform_.TransferMatrix();
