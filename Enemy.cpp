@@ -14,7 +14,6 @@ void Enemy::Initialize(Model* model, const myMath::Vector3 position, uint32_t te
 	worldTransform.Initialize();
 	worldTransform.translation_ = { position.x,position.y,position.z };
 
-	worldTransform.Initialize();
 
 	//scoreBonus = 1.0;
 }
@@ -25,24 +24,30 @@ void Enemy::Update()
 
 	if (player->GetSpeed() > 0.0f)
 	{
-		if (1.0f * radius >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x)
-			+(enemy.y - player->GetPlayerWorldTransform().translation_.y) * (enemy.y - player->GetPlayerWorldTransform().translation_.y)
+		if ((1.0f + radius) * (1.0f + radius) >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x)
+			
 			+ (enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
 			isDead = true;
 		}
-		
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (enemy.x - player->GetAttackWorldTransform().translation_.x) * (enemy.x - player->GetAttackWorldTransform().translation_.x) +
+			
+			(enemy.z - player->GetAttackWorldTransform().translation_.z) * (enemy.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			isDead = true;
+		}
 	}
 	else
 	{
 		if ((1.0f + radius)* (1.0f + radius) >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x) +
-			(enemy.y - player->GetPlayerWorldTransform().translation_.y) * (enemy.y - player->GetPlayerWorldTransform().translation_.y) +
+			
 			(enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			//time-=3;
 			isDead = true;
 		}
+	
 	}
 
 	MathUtility::MatrixCalculation(worldTransform);//s—ñ‚ÌXV
