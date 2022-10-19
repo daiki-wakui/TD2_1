@@ -37,6 +37,11 @@ private:
 	bool attackFlag = false;
 	int attackTimer = 1;
 
+	int LimitPosX = 143;
+	int LimitPosZ = 93;
+	int LimitPosNX = -143;
+	int LimitPosNZ = -93;
+
 public:
 
 	Player();

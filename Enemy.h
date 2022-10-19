@@ -21,8 +21,15 @@ private:
 	myMath::Vector3 enemyVec = { 0,0,0 };
 	myMath::Vector3 normEnemyVec = { 0,0,0 };
 
+	myMath::Vector3 enemyRay = { 0,0,0 };
+	myMath::Vector3 normEnemyRay = {0,0,0};
 	bool isDead = false;
 	float radius = 2.0f;
+
+	float distance = 0.0f;
+
+	bool left = false;
+	bool right = false;
 
 	uint32_t texture_;
 
@@ -34,6 +41,13 @@ public:
 	bool GetIsDead(){return isDead;}
 
 	void Move();
+	void Leave();
+
+	void LRDecision();
+	void Straight();
+
+	void MoveLimit();
+
 	WorldTransform GetWorldTransform();
 
 	//void Score();

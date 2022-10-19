@@ -1,6 +1,6 @@
 #include "Enemy.h"
-#include "TextureManager.h"
 
+using namespace MathUtility;
 
 void Enemy::Initialize(Model* model, const myMath::Vector3 position, uint32_t texture)
 {
@@ -13,15 +13,17 @@ void Enemy::Initialize(Model* model, const myMath::Vector3 position, uint32_t te
 	enemy = position;
 	worldTransform.Initialize();
 	worldTransform.translation_ = { position.x,position.y,position.z };
-
+	LRDecision();
 
 	//scoreBonus = 1.0;
 }
 
 void Enemy::Update()
 {
-	Move();
-
+	/*Move();*/
+	/*Leave();*/
+	Straight();
+	MoveLimit();
 	if (player->GetAttackFlag())
 	{
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (enemy.x - player->GetAttackWorldTransform().translation_.x) * (enemy.x - player->GetAttackWorldTransform().translation_.x) +
@@ -80,6 +82,96 @@ void Enemy::Move()
 	worldTransform.translation_.z = enemy.z;
 
 	MathUtility::Matrix4Translation(worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z);
+}
+
+void Enemy::Leave()
+{
+	const float speed = 3.0f;
+	enemyRay = { (player->GetPlayerWorldTransform().translation_.x - enemy.x)*(player->GetPlayerWorldTransform().translation_.x - enemy.x),
+				 (player->GetPlayerWorldTransform().translation_.y - enemy.y)* (player->GetPlayerWorldTransform().translation_.y - enemy.y),
+				 (player->GetPlayerWorldTransform().translation_.z - enemy.z)* (player->GetPlayerWorldTransform().translation_.z - enemy.z) };
+	normEnemyRay = enemyRay.normalization();
+	distance = enemy.x- player->GetPlayerWorldTransform().translation_.x
+		+ enemy.z  -player->GetPlayerWorldTransform().translation_.z ;
+	if (distance <=1.0f)
+	{
+		enemy.x -= normEnemyRay.x * speed;
+		enemy.z -= normEnemyRay.z * speed;
+		speed - 1.0f;;
+	}
+	else
+	{
+		enemy.x = enemy.x;
+		enemy.z = enemy.z;
+	}
+	/*if (normEnemyRay.z <= 0.5f)
+	{
+		
+	}*/
+	
+	worldTransform.translation_.x = enemy.x;
+	worldTransform.translation_.y = enemy.y;
+	worldTransform.translation_.z = enemy.z;
+	MathUtility::Matrix4Translation(worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z);
+}
+
+void Enemy::Straight()
+{
+	const float speed = 1.0f;
+	enemyRay = { 0 - enemy.x,0 - enemy.y,0 - enemy.z };
+	if (left == true)
+	{
+		enemy.x += speed;
+		
+	}
+	else if(right == true)
+	{
+		enemy.x -=speed;
+	}
+	worldTransform.translation_.x = enemy.x;
+	worldTransform.translation_.y = enemy.y;
+	worldTransform.translation_.z = enemy.z;
+	MathUtility::Matrix4Translation(worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z);
+}
+
+void Enemy::LRDecision()
+{
+	enemyRay = { 0 - enemy.x,0 - enemy.y,0 - enemy.z };
+	if (enemyRay.x > 0)
+	{
+		left = true;
+		right = false;
+	}
+	else if(enemyRay.x < 0)
+	{
+		right = true;
+		left = false;
+	}
+	else
+	{
+		left = false;
+		right = false;
+	}
+}
+
+void Enemy::MoveLimit()
+{
+	if (enemy.x <= -143)
+	{
+		isDead = true;
+	}
+	else if (enemy.x >= 143)
+	{
+		isDead = true;
+	}
+	if (enemy.z <= -93)
+	{
+		isDead = true;
+	}
+	else if (enemy.z >= 93)
+	{
+		isDead = true;
+	}
 }
 
 WorldTransform Enemy::GetWorldTransform()
