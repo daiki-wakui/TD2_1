@@ -13,8 +13,10 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 	model = Model::Create();
-	viewProjection.eye = { 0,25,-50 };
+	viewProjection.eye = { 0,75,-10 };
 	viewProjection.Initialize();
+	oldViewProjection.eye = { 0,75,-10 };
+	oldViewProjection.Initialize();
 
 	player = Player::GetInstance();
 	player->Initialize(viewProjection);
@@ -48,6 +50,8 @@ void GameScene::Update()
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		player->Update();
+		viewProjection.eye = { player->GetPlayerWorldTransform().translation_.x,75,player->GetPlayerWorldTransform().translation_.z-20 };
+		viewProjection.target = { player->GetPlayerWorldTransform().translation_.x,0,player->GetPlayerWorldTransform().translation_.z };
 
 		score->Update();
 
@@ -58,6 +62,9 @@ void GameScene::Update()
 		{
 			enemy->Update();
 		}
+
+		viewProjection.TransferMatrix();
+		viewProjection.UpdateMatrix();
 		debugText_->SetPos(20, 40);
 		debugText_->Printf("%d", enemys.size());
 		break;

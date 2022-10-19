@@ -72,6 +72,7 @@ class GameScene {
 	Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
 	ViewProjection viewProjection;
+	ViewProjection oldViewProjection;
 
 	Model* model = nullptr;
 	uint32_t texture;
