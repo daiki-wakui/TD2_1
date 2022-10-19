@@ -9,6 +9,18 @@ void Score::Initialize()
 void Score::Update()
 {
 	BonusTime--;
+	timeLimit--;
+
+	if (timeLimit <= 0) {
+		seconds--;
+
+		if (seconds < 0) {
+			minutes--;
+			seconds = 59;
+		}
+		
+		timeLimit = 65;
+	}
 }
 
 void Score::ScoreAdd()
@@ -28,7 +40,14 @@ void Score::ScoreAdd()
 void Score::Draw()
 {
 	debugText_->SetPos(1000, 60);
-	debugText_->Printf("test");
+	debugText_->Printf("time %d", timeLimit);
+
+	debugText_->SetPos(1000, 80);
+	debugText_->Printf("minutes,second %2d:%2d", minutes, seconds);
+	if (seconds < 10) {
+		debugText_->SetPos(1162, 80);
+		debugText_->Printf("0");
+	}
 }
 
 Score* Score::GetInstance()
