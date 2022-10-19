@@ -52,7 +52,7 @@ void GameScene::Update()
 		score->Update();
 
 		map->SetGenerate(enemyGeneration);
-		EnemyOcurrence();
+		EnemyOcurrence({100.0f,0.0f,0.0f});
 		map->Update(enemys);
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
@@ -165,12 +165,12 @@ void GameScene::Draw() {
 #pragma endregion
 }
 
-void GameScene::EnemyOcurrence() {
+void GameScene::EnemyOcurrence(const myMath::Vector3 p) {
 	if (enemys.size() < 10)
 	{
 		if (enemyGeneration == 0)
 		{
-			myMath::Vector3 position = { 100.0f,0.0f,0.0f };
+			myMath::Vector3 position = { p.x,p.y,p.z };
 			//Enemyを生成し、初期化
 			std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
 			newEnemy->Initialize(model, position,texture);

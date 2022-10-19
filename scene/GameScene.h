@@ -63,7 +63,7 @@ class GameScene {
 	/// <summary>
 	/// 敵発生
 	/// </summary>
-	void EnemyOcurrence();
+	void EnemyOcurrence(const myMath::Vector3 p);
 
 
   private: // メンバ変数
