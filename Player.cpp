@@ -204,6 +204,11 @@ float Player::GetBombCharge()
 	return bombCharge;
 }
 
+bool Player::GetAttackFlag()
+{
+	return attackFlag;
+}
+
 Player* Player::GetInstance()
 {
 	static Player instance;

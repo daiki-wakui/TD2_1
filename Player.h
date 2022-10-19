@@ -56,5 +56,6 @@ public:
 	WorldTransform GetAttackWorldTransform();//”š”­‚Ì’†SÀ•W
 	float GetSpeed();
 	float GetBombCharge();//”š”­‚Ì”¼Œa
+	bool GetAttackFlag();
 	static Player* GetInstance();
 };
