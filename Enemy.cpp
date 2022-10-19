@@ -22,6 +22,16 @@ void Enemy::Update()
 {
 	Move();
 
+	if (player->GetAttackFlag())
+	{
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (enemy.x - player->GetAttackWorldTransform().translation_.x) * (enemy.x - player->GetAttackWorldTransform().translation_.x) +
+
+			(enemy.z - player->GetAttackWorldTransform().translation_.z) * (enemy.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			isDead = true;
+		}
+	}
+
 	if (player->GetSpeed() > 0.0f)
 	{
 		if ((1.0f + radius) * (1.0f + radius) >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x)
@@ -29,12 +39,6 @@ void Enemy::Update()
 			+ (enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
-			isDead = true;
-		}
-		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (enemy.x - player->GetAttackWorldTransform().translation_.x) * (enemy.x - player->GetAttackWorldTransform().translation_.x) +
-			
-			(enemy.z - player->GetAttackWorldTransform().translation_.z) * (enemy.z - player->GetAttackWorldTransform().translation_.z))
-		{
 			isDead = true;
 		}
 	}

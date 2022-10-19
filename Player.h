@@ -35,7 +35,7 @@ private:
 	float bombCharge = 1.0f;
 	float angle = 0.0f;
 	bool attackFlag = false;
-	int attackTimer = 10;
+	int attackTimer = 1;
 
 public:
 

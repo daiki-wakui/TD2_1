@@ -143,7 +143,7 @@ void Player::Attack()
 	if (attackTimer <= 0)
 	{
 		bombCharge = 0.0f;
-		attackTimer = 10;
+		attackTimer = 1;
 		attackFlag = false;
 	}
 }
