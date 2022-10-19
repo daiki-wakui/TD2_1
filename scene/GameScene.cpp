@@ -43,7 +43,6 @@ void GameScene::Update()
 
 		break;
 
-
 		//ゲームシーン
 	case Game:
 

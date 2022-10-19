@@ -111,8 +111,8 @@ void Player::Rotation()
 	taleWorldTransform.translation_.x = player.x + sinf(angle) * 2;
 	taleWorldTransform.translation_.z = player.z + cosf(angle) * 2;
 
-	attackWorldTransform.translation_.x = player.x + sinf(angle) * 4;
-	attackWorldTransform.translation_.z = player.z + cosf(angle) * 4;
+	attackWorldTransform.translation_.x = player.x + sinf(angle) * 8;
+	attackWorldTransform.translation_.z = player.z + cosf(angle) * 8;
 
 	if (input->PushKey(DIK_A))
 	{
@@ -161,9 +161,9 @@ void Player::Tale()
 	}
 
 	taleWorldTransform.scale_.z = 1.0 + bombCharge / 4;//êKîˆÇÃí∑Ç≥
-	attackWorldTransform.scale_.x = 1.0 * bombCharge / 2;
-	attackWorldTransform.scale_.y = 1.0 * bombCharge / 2;
-	attackWorldTransform.scale_.z = 1.0 * bombCharge / 2;
+	attackWorldTransform.scale_.x = 1.0 * bombCharge;
+	attackWorldTransform.scale_.y = 1.0 * bombCharge;
+	attackWorldTransform.scale_.z = 1.0 * bombCharge;
 }
 
 void Player::Draw(ViewProjection viewProjection)
@@ -189,9 +189,19 @@ WorldTransform Player::GetTaleWorldTransform()
 	return taleWorldTransform;
 }
 
+WorldTransform Player::GetAttackWorldTransform()
+{
+	return attackWorldTransform;
+}
+
 float Player::GetSpeed()
 {
 	return speed;
+}
+
+float Player::GetBombCharge()
+{
+	return bombCharge;
 }
 
 Player* Player::GetInstance()

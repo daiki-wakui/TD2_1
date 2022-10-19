@@ -21,9 +21,9 @@ private:
 
 	uint32_t textureHundle = 0;
 	//ワールドトランスフォーム
-	WorldTransform playerWorldTransform;
-	WorldTransform taleWorldTransform;
-	WorldTransform attackWorldTransform;
+	WorldTransform playerWorldTransform;//プレイヤーの中心座標
+	WorldTransform taleWorldTransform;//プレイヤーのけつの座標
+	WorldTransform attackWorldTransform;//爆発の中心座標
 
 	myMath::Vector3 player;
 	myMath::Vector3 front;
@@ -51,8 +51,10 @@ public:
 	void Draw(ViewProjection viewProjection);
 
 	//ゲッター
-	WorldTransform GetPlayerWorldTransform();
-	WorldTransform GetTaleWorldTransform();
+	WorldTransform GetPlayerWorldTransform();//プレイヤーの中心座標
+	WorldTransform GetTaleWorldTransform();//プレイヤーのけつの座標
+	WorldTransform GetAttackWorldTransform();//爆発の中心座標
 	float GetSpeed();
+	float GetBombCharge();//爆発の半径
 	static Player* GetInstance();
 };
