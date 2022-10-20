@@ -105,7 +105,7 @@ void GameScene::Update()
 		}
 #pragma endregion
 
-#pragma region　敵の更新処理
+#pragma region  敵の更新処理
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
 			enemy->Update();
