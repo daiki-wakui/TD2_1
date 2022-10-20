@@ -30,6 +30,7 @@ void Player::Initialize(ViewProjection viewProjection)
 	player = { 0,0,-25 };
 	front = { 0,0,-24 };
 	angle = MathUtility::PI;
+	bombCharge = 2.0f;
 	attackTimer = 3;
 	viewProjection.Initialize();
 }
@@ -56,14 +57,14 @@ void Player::Update()
 
 void Player::Move()
 {
-	frontVec = front - player;
-	normFrontVec = frontVec.normalization();
 
 	MoveLimit();
 
-	speed -= 0.01f;
+	speed -= 0.005f;
 	if (input->TriggerKey(DIK_SPACE))
 	{
+		frontVec = front - player;
+		normFrontVec = frontVec.normalization();
 		speed = 0.065f * bombCharge;
 		attackFlag = true;
 	}
@@ -80,21 +81,41 @@ void Player::Move()
 
 void Player::MoveLimit()
 {
-	if (player.x <= -143)
+	if (player.x < -144)
 	{
-		player.x = -143;
+		if (speed < 0.2f) {
+			player.x = -143.9f;
+		}
+		else {
+			normFrontVec.x = -normFrontVec.x;
+		}
 	}
-	else if (player.x >= 143)
+	else if (player.x > 144)
 	{
-		player.x = 143;
+		if (speed < 0.2f) {
+			player.x = 143.9f;
+		}
+		else {
+			normFrontVec.x = -normFrontVec.x;
+		}
 	}
-	if (player.z <= -93)
+	if (player.z < -94)
 	{
-		player.z = -93;
+		if (speed < 0.2f) {
+			player.z = -93.9f;
+		}
+		else {
+			normFrontVec.z = -normFrontVec.z;
+		}
 	}
-	else if (player.z >= 93)
+	else if (player.z > 94)
 	{
-		player.z = 93;
+		if (speed < 0.2f) {
+			player.z = 93.9f;
+		}
+		else {
+			normFrontVec.z = -normFrontVec.z;
+		}
 	}
 }
 
@@ -142,7 +163,7 @@ void Player::Attack()
 	attackTimer--;
 	if (attackTimer <= 0)
 	{
-		bombCharge = 0.0f;
+		bombCharge = 2.0f;
 		attackTimer = 3;
 		attackFlag = false;
 	}
@@ -177,6 +198,9 @@ void Player::Draw(ViewProjection viewProjection)
 
 	debugText_->SetPos(20, 60);
 	debugText_->Printf("player.x %f,player.z %f", player.x, player.z);
+
+	debugText_->SetPos(20, 100);
+	debugText_->Printf("speed %f", speed);
 }
 
 WorldTransform Player::GetPlayerWorldTransform()
