@@ -29,25 +29,13 @@ void GameScene::Initialize() {
 	score = Score::GetInstance();
 	score->Initialize();
 
+#pragma region スポーン地点の生成
+
 	spawn_ = Model::Create();
 	worldtransform_.scale_ = { 2.0f,2.0f,2.0f };
 	worldtransform_.Initialize();
-	
-	/*spawn2_ = Model::Create();
-	worldtransform2_.scale_ = { 2.0f,2.0f,2.0f };
-	worldtransform2_.Initialize();
 
-	spawn3_ = Model::Create();
-	worldtransform3_.scale_ = { 2.0f,2.0f,2.0f };
-	worldtransform3_.Initialize();
-
-	spawn4_ = Model::Create();
-	worldtransform4_.scale_ = { 2.0f,2.0f,2.0f };
-	worldtransform4_.Initialize();
-
-	spawn5_ = Model::Create();
-	worldtransform5_.scale_ = { 2.0f,2.0f,2.0f };
-	worldtransform5_.Initialize();*/
+#pragma endregion
 }
 
 void GameScene::Update()
@@ -65,31 +53,21 @@ void GameScene::Update()
 
 		//ゲームシーン
 	case Game:
+
+#pragma region worldTransformにスポーン地点の座標代入
+
 		spawnRightTopPos = { 125.0f,0.0f,75.0f };
-	/*	spawnLeftBottomPos = { -125.0f,0.0f,-75.0f };
-		spawnCenterPos = { 0,0,0 };
-		spawnRightBottomPos = { 125.0f,0.0f,-75.0f };
-		spawnLeftTopPos = { -125.0f,0.0f,75.0f };*/
 
 		worldtransform_.translation_.x = spawnRightTopPos.x;
 		worldtransform_.translation_.z = spawnRightTopPos.z;
 
-	/*	worldtransform2_.translation_.x = spawnLeftBottomPos.x;
-		worldtransform2_.translation_.z = spawnLeftBottomPos.z;
+#pragma endregion
 
-		worldtransform3_.translation_.x = spawnLeftTopPos.x;
-		worldtransform3_.translation_.z = spawnLeftTopPos.z;
-
-		worldtransform4_.translation_.x = spawnRightBottomPos.x;
-		worldtransform4_.translation_.z = spawnRightBottomPos.z;
-
-		worldtransform5_.translation_.x = spawnCenterPos.x;
-		worldtransform5_.translation_.z = spawnCenterPos.z;*/
-
-
+#pragma region 敵の削除処理
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetIsDead(); });
+#pragma endregion
 
 		viewProjection.eye = { player->GetPlayerWorldTransform().translation_.x,75,player->GetPlayerWorldTransform().translation_.z-20 };
 		viewProjection.target = { player->GetPlayerWorldTransform().translation_.x,0,player->GetPlayerWorldTransform().translation_.z };
@@ -97,33 +75,37 @@ void GameScene::Update()
 
 		score->Update();
 
-		//生成処理
-		EnemySpawn(spawnRightTopPos);	//右
-		//EnemySpawn(spawnLeftBottomPos);	//左
-		//EnemySpawn(spawnLeftTopPos);	//右
-		//EnemySpawn(spawnRightBottomPos);	//左
-		//EnemySpawn(spawnCenterPos);	//右
+#pragma region 敵の生成処理
 
+		EnemySpawn(spawnRightTopPos);	//右
 		EnemyStraightsSpawn({ 0,0,0 }, 1.5f);
+
+#pragma endregion
+
+#pragma region マップ関連
 
 		map->Update();
 		map->EnemyUpdate(enemys, enemyGeneration);
 		map->EnemyStraightUpdate(enemyStraights,enemyStraightsGen);
 
+#pragma endregion
+
+#pragma region クールタイム処理
 		//スポーンクールタイム
 		enemyGeneration++;
-		enemyStraightsGen++;
-
 		if (enemyGeneration > 50)
 		{
 			enemyGeneration = 0;
 		}
 
+		enemyStraightsGen++;
 		if (enemyStraightsGen > 180)
 		{
 			enemyStraightsGen = 0;
 		}
+#pragma endregion
 
+#pragma region　敵の更新処理
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
 			enemy->Update();
@@ -133,17 +115,10 @@ void GameScene::Update()
 		{
 			enemy->Update();
 		}
+#pragma endregion
 
 		MathUtility::MatrixCalculation(worldtransform_);//行列の更新
 		worldtransform_.TransferMatrix();
-		//MathUtility::MatrixCalculation(worldtransform2_);//行列の更新
-		//worldtransform2_.TransferMatrix();
-		//MathUtility::MatrixCalculation(worldtransform3_);//行列の更新
-		//worldtransform3_.TransferMatrix();
-		//MathUtility::MatrixCalculation(worldtransform4_);//行列の更新
-		//worldtransform4_.TransferMatrix();
-		//MathUtility::MatrixCalculation(worldtransform5_);//行列の更新
-		//worldtransform5_.TransferMatrix();
 
 		viewProjection.TransferMatrix();
 		viewProjection.UpdateMatrix();
@@ -203,6 +178,9 @@ void GameScene::Draw() {
 	case Game:
 
 		player->Draw(viewProjection);
+
+#pragma region 敵の描画処理
+
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
 			enemy->Draw(viewProjection);
@@ -213,13 +191,15 @@ void GameScene::Draw() {
 			enemy->Draw(viewProjection);
 		}
 
+#pragma endregion
+
 		score->Draw();
 
+#pragma region スポーン地点の描画
+
 		spawn_->Draw(worldtransform_, viewProjection, texture);
-		/*spawn2_->Draw(worldtransform2_, viewProjection, texture);
-		spawn3_->Draw(worldtransform3_, viewProjection, texture);
-		spawn4_->Draw(worldtransform4_, viewProjection, texture);
-		spawn5_->Draw(worldtransform5_, viewProjection, texture);*/
+		
+#pragma endregion
 
 		break;
 
@@ -249,9 +229,13 @@ void GameScene::Draw() {
 	{
 	case Game:
 
+#pragma region マップ関連
+
 		map->Draw();
 		map->EnemyDraw(enemys);
 		map->EnemyStraightDraw(enemyStraights);
+
+#pragma endregion
 
 		break;
 	}
