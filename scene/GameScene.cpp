@@ -35,6 +35,9 @@ void GameScene::Initialize() {
 	worldtransform_.scale_ = { 2.0f,2.0f,2.0f };
 	worldtransform_.Initialize();
 
+	/*spawnEnemyCircle.scale_ = { 2.0f,2.0f,2.0f };
+	spawnEnemyCircle.Initialize();*/
+
 #pragma endregion
 }
 
@@ -61,12 +64,18 @@ void GameScene::Update()
 		worldtransform_.translation_.x = spawnRightTopPos.x;
 		worldtransform_.translation_.z = spawnRightTopPos.z;
 
+		spawnCenterPos = { 0,0,0 };
+		spawnEnemyCircle.translation_.x = spawnCenterPos.x;
+		spawnEnemyCircle.translation_.z = spawnCenterPos.z;
+
 #pragma endregion
 
 #pragma region 敵の削除処理
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetIsDead(); });
+		enemyCircles.remove_if([](std::unique_ptr<EnemyCircle>& enemy_) { return enemy_->GetIsDead(); });
+
 #pragma endregion
 
 		viewProjection.eye = { player->GetPlayerWorldTransform().translation_.x,75,player->GetPlayerWorldTransform().translation_.z-20 };
@@ -90,6 +99,18 @@ void GameScene::Update()
 		}
 		EnemyStraightsSpawn({ 0,0,0 }, enemyStraightAngle);
 
+
+		enemyCircleAngle -= 0.2f;
+		if (enemyCircleAngle > 2 * MathUtility::PI)
+		{
+			enemyCircleAngle = 0;//オーバーフロー回避処理
+		}
+		else if (enemyCircleAngle < 0)
+		{
+			enemyCircleAngle = 2 * MathUtility::PI;//オーバーフロー回避処理
+		}
+		EnemyCirclesSpawn({ 20,0,20 }, enemyCircleAngle);
+
 #pragma endregion
 
 #pragma region マップ関連
@@ -97,6 +118,7 @@ void GameScene::Update()
 		map->Update();
 		map->EnemyUpdate(enemys, enemyGeneration);
 		map->EnemyStraightUpdate(enemyStraights,enemyStraightsGen);
+		map->EnemyCircleUpdate(enemyCircles,enemyCirclesGen);
 
 #pragma endregion
 
@@ -113,6 +135,11 @@ void GameScene::Update()
 		{
 			enemyStraightsGen = 0;
 		}
+		enemyCirclesGen++;
+		if (enemyCirclesGen > 180)
+		{
+			enemyCirclesGen = 0;
+		}
 #pragma endregion
 
 #pragma region 敵の更新処理
@@ -126,11 +153,17 @@ void GameScene::Update()
 		{
 			enemy->Update();
 		}
-
+		for (const std::unique_ptr<EnemyCircle>& enemy : enemyCircles)
+		{
+			enemy->Update();
+		}
 #pragma endregion
 
 		MathUtility::MatrixCalculation(worldtransform_);//行列の更新
 		worldtransform_.TransferMatrix();
+
+		//MathUtility::MatrixCalculation(spawnEnemyCircle);//行列の更新
+		//spawnEnemyCircle.TransferMatrix();
 
 		viewProjection.TransferMatrix();
 		viewProjection.UpdateMatrix();
@@ -202,6 +235,10 @@ void GameScene::Draw() {
 		{
 			enemy->Draw(viewProjection);
 		}
+		for (const std::unique_ptr<EnemyCircle>& enemy : enemyCircles)
+		{
+			enemy->Draw(viewProjection);
+		}
 
 #pragma endregion
 
@@ -210,7 +247,7 @@ void GameScene::Draw() {
 #pragma region スポーン地点の描画
 
 		spawn_->Draw(worldtransform_, viewProjection, texture);
-		
+		/*spawn_->Draw(spawnEnemyCircle, viewProjection, texture);*/
 #pragma endregion
 
 		break;
@@ -246,6 +283,7 @@ void GameScene::Draw() {
 		map->Draw();
 		map->EnemyDraw(enemys);
 		map->EnemyStraightDraw(enemyStraights);
+		map->EnemyCircleDraw(enemyCircles);
 
 #pragma endregion
 
@@ -302,4 +340,26 @@ void GameScene::EnemyStraightsSpawn(const myMath::Vector3& p, float angle)
 	{
 		EnemyStraightsGen(p, angle);
 	}
+}
+
+void GameScene::EnemyCirclesGen(const myMath::Vector3& p, float angle)
+{
+	myMath::Vector3 position = { p.x,p.y,p.z };
+	//Enemyを生成し、初期化
+	std::unique_ptr<EnemyCircle> newEnemy = std::make_unique<EnemyCircle>();
+	newEnemy->Initialize(viewProjection, position, angle);
+	//Enemyを登録する
+	enemyCircles.push_back(std::move(newEnemy));
+}
+
+void GameScene::EnemyCirclesSpawn(const myMath::Vector3& p, float angle)
+{
+	if (enemyCircles.size() < 8)
+	{
+		if (enemyCirclesGen == 0)
+		{
+			EnemyCirclesGen(p, angle);
+		}
+	}
+	
 }

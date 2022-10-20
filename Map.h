@@ -3,6 +3,7 @@
 #include"Player.h"
 #include"Enemy.h"
 #include"EnemyStraight.h"
+#include "EnemyCircle.h"
 
 class Map
 {
@@ -19,7 +20,7 @@ private:
 	Sprite* playerSprite = nullptr;
 	Sprite* enemySprite[100];
 	Sprite* enemyStraightSprite[100];
-
+	Sprite* enemyCircleSprite[100];
 	//Vector2 enemyPosition;
 
 public:
@@ -43,6 +44,8 @@ public:
 
 	void EnemyStraightUpdate(std::list<std::unique_ptr<EnemyStraight>>& enemys, int& generate);
 
+	void EnemyCircleUpdate(std::list<std::unique_ptr<EnemyCircle>>& enemys, int& generate);
+
 	/// <summary>
 	/// ƒvƒŒƒCƒ„[‚Æ”wŒi‚Ì•`‰æ
 	/// </summary>
@@ -55,4 +58,6 @@ public:
 	void EnemyDraw(std::list<std::unique_ptr<Enemy>>& enemys);
 
 	void EnemyStraightDraw(std::list<std::unique_ptr<EnemyStraight>>& enemys);
+
+	void EnemyCircleDraw(std::list<std::unique_ptr<EnemyCircle>>& enemys);
 };

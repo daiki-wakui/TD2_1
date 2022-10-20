@@ -102,3 +102,36 @@ void Map::EnemyStraightDraw(std::list<std::unique_ptr<EnemyStraight>>& enemys)
 		count++;
 	}
 }
+
+void Map::EnemyCircleUpdate(std::list<std::unique_ptr<EnemyCircle>>& enemys, int& generate)
+{
+	if (generate == 0)
+	{
+		int count = 0;
+		for (const std::unique_ptr<EnemyCircle>& enemy : enemys)
+		{
+			enemyCircleSprite[count] = Sprite::Create(objectHandle, { 203 + enemy->GetWorldTransform().translation_.x,153 - enemy->GetWorldTransform().translation_.z }, { 1,0,0,1 }, { 0.5f,0.5f });
+			count++;
+		}
+	}
+
+	int count = 0;
+	for (const std::unique_ptr<EnemyCircle>& enemy : enemys)
+	{
+		Vector2 enemyPosition = enemyCircleSprite[count]->GetPosition();
+		enemyPosition.x = 203 + enemy->GetWorldTransform().translation_.x;
+		enemyPosition.y = 153 - enemy->GetWorldTransform().translation_.z;
+		enemyCircleSprite[count]->SetPosition(enemyPosition);
+		count++;
+	}
+}
+
+void Map::EnemyCircleDraw(std::list<std::unique_ptr<EnemyCircle>>& enemys)
+{
+	int count = 0;
+	for (const std::unique_ptr<EnemyCircle>& enemy : enemys)
+	{
+		enemyCircleSprite[count]->Draw();
+		count++;
+	}
+}

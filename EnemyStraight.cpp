@@ -69,7 +69,7 @@ void EnemyStraight::Collider()
 	}
 	if (player->GetSpeed() >= 0.0f)
 	{
-		if ((1.0f + radius) * (1.0f + radius) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x)+
+		if ((1.0f + 1.0f) * (1.0f + 1.0f) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x)+
 			(pos.x - player->GetPlayerWorldTransform().translation_.z) * (pos.x - player->GetPlayerWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
@@ -78,7 +78,7 @@ void EnemyStraight::Collider()
 	}
 	else
 	{
-		if ((1.0f + radius) * (1.0f + radius) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x) +
+		if ((1.0f + 1.0f) * (1.0f + 1.0f) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x) +
 			(pos.x - player->GetPlayerWorldTransform().translation_.z) * (pos.x - player->GetPlayerWorldTransform().translation_.z))
 		{
 			//time-=3;
