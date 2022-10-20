@@ -16,27 +16,35 @@ void Map::Initialize(ViewProjection viewProjection)
 	player->Initialize(viewProjection);
 
 	backHandle = TextureManager::Load("mapBack.png");
-	playerHandle= TextureManager::Load("mapPlayer.png");
-	enemyHandle = TextureManager::Load("mapPlayer.png");
+	objectHandle= TextureManager::Load("mapPlayer.png");
 
 	//スプライト生成
 	backSprite = Sprite::Create(backHandle, { 50,50 });
-	playerSprite = Sprite::Create(playerHandle, { 203 + player->GetPlayerWorldTransform().translation_.x,153 - player->GetPlayerWorldTransform().translation_.z }, { 1,1,1,1 }, { 0.5f,0.5f });
+	playerSprite = Sprite::Create(objectHandle, { 203 + player->GetPlayerWorldTransform().translation_.x,153 - player->GetPlayerWorldTransform().translation_.z }, { 1,1,1,1 }, { 0.5f,0.5f });
 }
 
-void Map::Update(std::list<std::unique_ptr<Enemy>>& enemys)
+void Map::Update()
 {
 	Vector2 playerPosition = playerSprite->GetPosition();
 	playerPosition.x = 203 + player->GetPlayerWorldTransform().translation_.x;
 	playerPosition.y = 153 - player->GetPlayerWorldTransform().translation_.z;
 	playerSprite->SetPosition(playerPosition);
+}
 
+void Map::Draw()
+{
+	backSprite->Draw();
+	playerSprite->Draw();
+}
+
+void Map::EnemyUpdate(std::list<std::unique_ptr<Enemy>>& enemys, int& generate)
+{
 	if (generate == 0)
 	{
 		int count = 0;
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
-			enemySprite[count] = Sprite::Create(enemyHandle, { 203 + enemy->GetWorldTransform().translation_.x,153 - enemy->GetWorldTransform().translation_.z }, { 1,0,0,1 }, { 0.5f,0.5f });
+			enemySprite[count] = Sprite::Create(objectHandle, { 203 + enemy->GetWorldTransform().translation_.x,153 - enemy->GetWorldTransform().translation_.z }, { 1,0,0,1 }, { 0.5f,0.5f });
 			count++;
 		}
 	}
@@ -52,10 +60,8 @@ void Map::Update(std::list<std::unique_ptr<Enemy>>& enemys)
 	}
 }
 
-void Map::Draw(std::list<std::unique_ptr<Enemy>>& enemys)
+void Map::EnemyDraw(std::list<std::unique_ptr<Enemy>>& enemys)
 {
-	backSprite->Draw();
-	playerSprite->Draw();
 	int count = 0;
 	for (const std::unique_ptr<Enemy>& enemy : enemys)
 	{
@@ -64,7 +70,35 @@ void Map::Draw(std::list<std::unique_ptr<Enemy>>& enemys)
 	}
 }
 
-void Map::SetGenerate(int gen)
+void Map::EnemyStraightUpdate(std::list<std::unique_ptr<EnemyStraight>>& enemys, int& generate)
 {
-	generate = gen;
+	if (generate == 0)
+	{
+		int count = 0;
+		for (const std::unique_ptr<EnemyStraight>& enemy : enemys)
+		{
+			enemyStraightSprite[count] = Sprite::Create(objectHandle, { 203 + enemy->GetWorldTransform().translation_.x,153 - enemy->GetWorldTransform().translation_.z }, { 1,0,0,1 }, { 0.5f,0.5f });
+			count++;
+		}
+	}
+
+	int count = 0;
+	for (const std::unique_ptr<EnemyStraight>& enemy : enemys)
+	{
+		Vector2 enemyPosition = enemyStraightSprite[count]->GetPosition();
+		enemyPosition.x = 203 + enemy->GetWorldTransform().translation_.x;
+		enemyPosition.y = 153 - enemy->GetWorldTransform().translation_.z;
+		enemyStraightSprite[count]->SetPosition(enemyPosition);
+		count++;
+	}
+}
+
+void Map::EnemyStraightDraw(std::list<std::unique_ptr<EnemyStraight>>& enemys)
+{
+	int count = 0;
+	for (const std::unique_ptr<EnemyStraight>& enemy : enemys)
+	{
+		enemyStraightSprite[count]->Draw();
+		count++;
+	}
 }

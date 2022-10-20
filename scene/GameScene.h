@@ -15,6 +15,7 @@
 #include "myMath.h"
 
 #include "Enemy.h"
+#include"EnemyStraight.h"
 
 #include <list>
 #include <memory>
@@ -65,8 +66,10 @@ class GameScene {
 	/// <summary>
 	/// 敵発生
 	/// </summary>
-	void EnemyOcurrence(const myMath::Vector3 p);
-	void EnemySpawn(const myMath::Vector3 p);
+	void EnemyOcurrence(const myMath::Vector3& p);
+	void EnemySpawn(const myMath::Vector3& p);
+	void EnemyStraightsGen(const myMath::Vector3& p, float angle);
+	void EnemyStraightsSpawn(const myMath::Vector3& p, float angle);
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -80,27 +83,29 @@ class GameScene {
 	uint32_t texture;
 
 	Model* spawn_ = nullptr;
-	Model* spawn2_ = nullptr;
+	/*Model* spawn2_ = nullptr;
 	Model* spawn3_ = nullptr;
 	Model* spawn4_ = nullptr;
-	Model* spawn5_ = nullptr;
+	Model* spawn5_ = nullptr;*/
 
 	WorldTransform worldtransform_;
-	WorldTransform worldtransform2_;
+	/*WorldTransform worldtransform2_;
 	WorldTransform worldtransform3_;
 	WorldTransform worldtransform4_;
-	WorldTransform worldtransform5_;
+	WorldTransform worldtransform5_;*/
 
 	myMath::Vector3 spawnRightTopPos;
-	myMath::Vector3 spawnRightBottomPos;
-	myMath::Vector3 spawnLeftTopPos;
-	myMath::Vector3 spawnLeftBottomPos;
-	myMath::Vector3 spawnCenterPos;
+	//myMath::Vector3 spawnRightBottomPos;
+	//myMath::Vector3 spawnLeftTopPos;
+	//myMath::Vector3 spawnLeftBottomPos;
+	//myMath::Vector3 spawnCenterPos;
 
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;
+	std::list<std::unique_ptr<EnemyStraight>> enemyStraights;
 
 	int enemyGeneration = 0;
+	int enemyStraightsGen = 0;
 
 	bool isWait = false;
 

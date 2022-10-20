@@ -33,7 +33,7 @@ void GameScene::Initialize() {
 	worldtransform_.scale_ = { 2.0f,2.0f,2.0f };
 	worldtransform_.Initialize();
 	
-	spawn2_ = Model::Create();
+	/*spawn2_ = Model::Create();
 	worldtransform2_.scale_ = { 2.0f,2.0f,2.0f };
 	worldtransform2_.Initialize();
 
@@ -47,13 +47,7 @@ void GameScene::Initialize() {
 
 	spawn5_ = Model::Create();
 	worldtransform5_.scale_ = { 2.0f,2.0f,2.0f };
-	worldtransform5_.Initialize();
-
-	spawnRightTopPos = { 125.0f,0.0f,75.0f };
-	spawnLeftBottomPos = { -125.0f,0.0f,-75.0f };
-	spawnCenterPos = { 0,0,0 };
-	spawnRightBottomPos = { 125.0f,0.0f,-75.0f };
-	spawnLeftTopPos = { -125.0f,0.0f,75.0f };
+	worldtransform5_.Initialize();*/
 }
 
 void GameScene::Update()
@@ -71,11 +65,16 @@ void GameScene::Update()
 
 		//ゲームシーン
 	case Game:
+		spawnRightTopPos = { 125.0f,0.0f,75.0f };
+	/*	spawnLeftBottomPos = { -125.0f,0.0f,-75.0f };
+		spawnCenterPos = { 0,0,0 };
+		spawnRightBottomPos = { 125.0f,0.0f,-75.0f };
+		spawnLeftTopPos = { -125.0f,0.0f,75.0f };*/
 
 		worldtransform_.translation_.x = spawnRightTopPos.x;
 		worldtransform_.translation_.z = spawnRightTopPos.z;
 
-		worldtransform2_.translation_.x = spawnLeftBottomPos.x;
+	/*	worldtransform2_.translation_.x = spawnLeftBottomPos.x;
 		worldtransform2_.translation_.z = spawnLeftBottomPos.z;
 
 		worldtransform3_.translation_.x = spawnLeftTopPos.x;
@@ -85,50 +84,66 @@ void GameScene::Update()
 		worldtransform4_.translation_.z = spawnRightBottomPos.z;
 
 		worldtransform5_.translation_.x = spawnCenterPos.x;
-		worldtransform5_.translation_.z = spawnCenterPos.z;
+		worldtransform5_.translation_.z = spawnCenterPos.z;*/
 
 
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
+		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetIsDead(); });
+
 		viewProjection.eye = { player->GetPlayerWorldTransform().translation_.x,75,player->GetPlayerWorldTransform().translation_.z-20 };
 		viewProjection.target = { player->GetPlayerWorldTransform().translation_.x,0,player->GetPlayerWorldTransform().translation_.z };
 		player->Update();
 
 		score->Update();
 
-		map->SetGenerate(enemyGeneration);
-
 		//生成処理
 		EnemySpawn(spawnRightTopPos);	//右
-		EnemySpawn(spawnLeftBottomPos);	//左
-		EnemySpawn(spawnLeftTopPos);	//右
-		EnemySpawn(spawnRightBottomPos);	//左
-		EnemySpawn(spawnCenterPos);	//右
+		//EnemySpawn(spawnLeftBottomPos);	//左
+		//EnemySpawn(spawnLeftTopPos);	//右
+		//EnemySpawn(spawnRightBottomPos);	//左
+		//EnemySpawn(spawnCenterPos);	//右
+
+		EnemyStraightsSpawn({ 0,0,0 }, 1.5f);
+
+		map->Update();
+		map->EnemyUpdate(enemys, enemyGeneration);
+		map->EnemyStraightUpdate(enemyStraights,enemyStraightsGen);
 
 		//スポーンクールタイム
 		enemyGeneration++;
+		enemyStraightsGen++;
 
 		if (enemyGeneration > 50)
 		{
 			enemyGeneration = 0;
 		}
 
-		map->Update(enemys);
+		if (enemyStraightsGen > 180)
+		{
+			enemyStraightsGen = 0;
+		}
+
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
+		{
+			enemy->Update();
+		}
+
+		for (const std::unique_ptr<EnemyStraight>& enemy : enemyStraights)
 		{
 			enemy->Update();
 		}
 
 		MathUtility::MatrixCalculation(worldtransform_);//行列の更新
 		worldtransform_.TransferMatrix();
-		MathUtility::MatrixCalculation(worldtransform2_);//行列の更新
-		worldtransform2_.TransferMatrix();
-		MathUtility::MatrixCalculation(worldtransform3_);//行列の更新
-		worldtransform3_.TransferMatrix();
-		MathUtility::MatrixCalculation(worldtransform4_);//行列の更新
-		worldtransform4_.TransferMatrix();
-		MathUtility::MatrixCalculation(worldtransform5_);//行列の更新
-		worldtransform5_.TransferMatrix();
+		//MathUtility::MatrixCalculation(worldtransform2_);//行列の更新
+		//worldtransform2_.TransferMatrix();
+		//MathUtility::MatrixCalculation(worldtransform3_);//行列の更新
+		//worldtransform3_.TransferMatrix();
+		//MathUtility::MatrixCalculation(worldtransform4_);//行列の更新
+		//worldtransform4_.TransferMatrix();
+		//MathUtility::MatrixCalculation(worldtransform5_);//行列の更新
+		//worldtransform5_.TransferMatrix();
 
 		viewProjection.TransferMatrix();
 		viewProjection.UpdateMatrix();
@@ -193,13 +208,18 @@ void GameScene::Draw() {
 			enemy->Draw(viewProjection);
 		}
 
+		for (const std::unique_ptr<EnemyStraight>& enemy : enemyStraights)
+		{
+			enemy->Draw(viewProjection);
+		}
+
 		score->Draw();
 
 		spawn_->Draw(worldtransform_, viewProjection, texture);
-		spawn2_->Draw(worldtransform2_, viewProjection, texture);
+		/*spawn2_->Draw(worldtransform2_, viewProjection, texture);
 		spawn3_->Draw(worldtransform3_, viewProjection, texture);
 		spawn4_->Draw(worldtransform4_, viewProjection, texture);
-		spawn5_->Draw(worldtransform5_, viewProjection, texture);
+		spawn5_->Draw(worldtransform5_, viewProjection, texture);*/
 
 		break;
 
@@ -229,7 +249,9 @@ void GameScene::Draw() {
 	{
 	case Game:
 
-		map->Draw(enemys);
+		map->Draw();
+		map->EnemyDraw(enemys);
+		map->EnemyStraightDraw(enemyStraights);
 
 		break;
 	}
@@ -246,7 +268,7 @@ void GameScene::Draw() {
 }
 
 //生成関数
-void GameScene::EnemyOcurrence(const myMath::Vector3 p) {
+void GameScene::EnemyOcurrence(const myMath::Vector3& p) {
 
 	myMath::Vector3 position = { p.x,p.y,p.z };
 	//Enemyを生成し、初期化
@@ -257,7 +279,7 @@ void GameScene::EnemyOcurrence(const myMath::Vector3 p) {
 }
 
 //生成関数を呼ぶ為のもの
-void GameScene::EnemySpawn(const myMath::Vector3 p)
+void GameScene::EnemySpawn(const myMath::Vector3& p)
 {
 	if (enemys.size() < 100)
 	{
@@ -265,5 +287,23 @@ void GameScene::EnemySpawn(const myMath::Vector3 p)
 		{
 			EnemyOcurrence(p);
 		}
+	}
+}
+
+void GameScene::EnemyStraightsGen(const myMath::Vector3& p,float angle)
+{
+	myMath::Vector3 position = { p.x,p.y,p.z };
+	//Enemyを生成し、初期化
+	std::unique_ptr<EnemyStraight> newEnemy = std::make_unique<EnemyStraight>();
+	newEnemy->Initialize(viewProjection, position, angle);
+	//Enemyを登録する
+	enemyStraights.push_back(std::move(newEnemy));
+}
+
+void GameScene::EnemyStraightsSpawn(const myMath::Vector3& p, float angle)
+{
+	if (enemyStraightsGen ==0)
+	{
+		EnemyStraightsGen(p, angle);
 	}
 }
