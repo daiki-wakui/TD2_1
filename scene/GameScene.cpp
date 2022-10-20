@@ -78,7 +78,17 @@ void GameScene::Update()
 #pragma region 敵の生成処理
 
 		EnemySpawn(spawnRightTopPos);	//右
-		EnemyStraightsSpawn({ 0,0,0 }, 1.5f);
+
+		enemyStraightAngle += 0.02f;
+		if (enemyStraightAngle > 2 * MathUtility::PI)
+		{
+			enemyStraightAngle = 0;//オーバーフロー回避処理
+		}
+		else if (enemyStraightAngle < 0)
+		{
+			enemyStraightAngle = 2 * MathUtility::PI;//オーバーフロー回避処理
+		}
+		EnemyStraightsSpawn({ 0,0,0 }, enemyStraightAngle);
 
 #pragma endregion
 
@@ -99,13 +109,14 @@ void GameScene::Update()
 		}
 
 		enemyStraightsGen++;
-		if (enemyStraightsGen > 180)
+		if (enemyStraightsGen > 25)
 		{
 			enemyStraightsGen = 0;
 		}
 #pragma endregion
 
-#pragma region  敵の更新処理
+#pragma region 敵の更新処理
+
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
 			enemy->Update();
@@ -115,6 +126,7 @@ void GameScene::Update()
 		{
 			enemy->Update();
 		}
+
 #pragma endregion
 
 		MathUtility::MatrixCalculation(worldtransform_);//行列の更新

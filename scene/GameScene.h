@@ -106,6 +106,7 @@ class GameScene {
 
 	int enemyGeneration = 0;
 	int enemyStraightsGen = 0;
+	float enemyStraightAngle = 0;
 
 	bool isWait = false;
 
