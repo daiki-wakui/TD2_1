@@ -64,7 +64,7 @@ void Player::Move()
 	speed -= 0.01f;
 	if (input->TriggerKey(DIK_SPACE))
 	{
-		speed += 0.06f * bombCharge;
+		speed += 0.065f * bombCharge;
 		attackFlag = true;
 	}
 	if (speed <= 0.0f)

@@ -48,6 +48,12 @@ void GameScene::Initialize() {
 	spawn5_ = Model::Create();
 	worldtransform5_.scale_ = { 2.0f,2.0f,2.0f };
 	worldtransform5_.Initialize();
+
+	spawnRightTopPos = { 125.0f,0.0f,75.0f };
+	spawnLeftBottomPos = { -125.0f,0.0f,-75.0f };
+	spawnCenterPos = { 0,0,0 };
+	spawnRightBottomPos = { 125.0f,0.0f,-75.0f };
+	spawnLeftTopPos = { -125.0f,0.0f,75.0f };
 }
 
 void GameScene::Update()
@@ -65,11 +71,6 @@ void GameScene::Update()
 
 		//ゲームシーン
 	case Game:
-		spawnRightTopPos = { 125.0f,0.0f,75.0f };
-		spawnLeftBottomPos = { -125.0f,0.0f,-75.0f };
-		spawnCenterPos = { 0,0,0 };
-		spawnRightBottomPos = { 125.0f,0.0f,-75.0f };
-		spawnLeftTopPos = { -125.0f,0.0f,75.0f };
 
 		worldtransform_.translation_.x = spawnRightTopPos.x;
 		worldtransform_.translation_.z = spawnRightTopPos.z;
@@ -107,7 +108,7 @@ void GameScene::Update()
 		//スポーンクールタイム
 		enemyGeneration++;
 
-		if (enemyGeneration > 180)
+		if (enemyGeneration > 50)
 		{
 			enemyGeneration = 0;
 		}
