@@ -1,4 +1,5 @@
 #pragma once
+#include "Score.h"
 #include"myMath.h"
 #include"WorldTransform.h"
 #include"ViewProjection.h"
@@ -21,6 +22,9 @@ private:
 	uint32_t textureHundle = 0;
 	WorldTransform worldTransform;
 	Model* model = nullptr;
+	Score* score = nullptr;
+
+	float radius = 2.0f;
 public:
 	void Initialize(ViewProjection viewProjection,myMath::Vector3 position, float enemyAngle);
 	void Update();

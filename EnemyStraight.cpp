@@ -7,6 +7,7 @@ void EnemyStraight::Initialize(ViewProjection viewProjection,myMath::Vector3 pos
 	textureHundle = TextureManager::Load("mario.jpg");
 	model = Model::Create();
 	worldTransform.Initialize();
+	score = Score::GetInstance();
 
 	pos = position;
 	speed = 0.5f;
@@ -65,6 +66,25 @@ void EnemyStraight::Collider()
 		{
 			isDead = true;
 		}
+	}
+	if (player->GetSpeed() >= 0.0f)
+	{
+		if ((1.0f + radius) * (1.0f + radius) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x)+
+			(pos.x - player->GetPlayerWorldTransform().translation_.z) * (pos.x - player->GetPlayerWorldTransform().translation_.z))
+		{
+			score->ScoreAdd();
+			isDead = true;
+		}
+	}
+	else
+	{
+		if ((1.0f + radius) * (1.0f + radius) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x) +
+			(pos.x - player->GetPlayerWorldTransform().translation_.z) * (pos.x - player->GetPlayerWorldTransform().translation_.z))
+		{
+			//time-=3;
+			isDead = true;
+		}
+
 	}
 }
 

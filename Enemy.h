@@ -43,9 +43,6 @@ public:
 	void Move();
 	void Leave();
 
-	void LRDecision();
-	void Straight();
-
 	void MoveLimit();
 
 	WorldTransform GetWorldTransform();

@@ -13,7 +13,6 @@ void Enemy::Initialize(Model* model, const myMath::Vector3 position, uint32_t te
 	enemy = position;
 	worldTransform.Initialize();
 	worldTransform.translation_ = { position.x,position.y,position.z };
-	LRDecision();
 
 	//scoreBonus = 1.0;
 }
@@ -22,7 +21,6 @@ void Enemy::Update()
 {
 	/*Move();*/
 	/*Leave();*/
-	Straight();
 	MoveLimit();
 	if (player->GetAttackFlag())
 	{
@@ -113,45 +111,6 @@ void Enemy::Leave()
 	worldTransform.translation_.y = enemy.y;
 	worldTransform.translation_.z = enemy.z;
 	MathUtility::Matrix4Translation(worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z);
-}
-
-void Enemy::Straight()
-{
-	const float speed = 1.0f;
-	enemyRay = { 0 - enemy.x,0 - enemy.y,0 - enemy.z };
-	if (left == true)
-	{
-		enemy.x += speed;
-		
-	}
-	else if(right == true)
-	{
-		enemy.x -=speed;
-	}
-	worldTransform.translation_.x = enemy.x;
-	worldTransform.translation_.y = enemy.y;
-	worldTransform.translation_.z = enemy.z;
-	MathUtility::Matrix4Translation(worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z);
-}
-
-void Enemy::LRDecision()
-{
-	enemyRay = { 0 - enemy.x,0 - enemy.y,0 - enemy.z };
-	if (enemyRay.x > 0)
-	{
-		left = true;
-		right = false;
-	}
-	else if(enemyRay.x < 0)
-	{
-		right = true;
-		left = false;
-	}
-	else
-	{
-		left = false;
-		right = false;
-	}
 }
 
 void Enemy::MoveLimit()
