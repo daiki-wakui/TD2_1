@@ -85,7 +85,7 @@ void EnemyCircle::Collider()
 	if (player->GetSpeed() >= 0.0f)
 	{
 		if ((1.0f + radius) * (1.0f + radius) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x) +
-			(pos.x - player->GetPlayerWorldTransform().translation_.z) * (pos.x - player->GetPlayerWorldTransform().translation_.z))
+			(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
 			isDead = true;
@@ -94,7 +94,7 @@ void EnemyCircle::Collider()
 	else
 	{
 		if ((1.0f + radius) * (1.0f + radius) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x) +
-			(pos.x - player->GetPlayerWorldTransform().translation_.z) * (pos.x - player->GetPlayerWorldTransform().translation_.z))
+			(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			//time-=3;
 			isDead = true;

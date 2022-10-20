@@ -70,7 +70,7 @@ void EnemyStraight::Collider()
 	if (player->GetSpeed() >= 0.0f)
 	{
 		if ((1.0f + 1.0f) * (1.0f + 1.0f) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x)+
-			(pos.x - player->GetPlayerWorldTransform().translation_.z) * (pos.x - player->GetPlayerWorldTransform().translation_.z))
+			(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
 			isDead = true;
@@ -79,7 +79,7 @@ void EnemyStraight::Collider()
 	else
 	{
 		if ((1.0f + 1.0f) * (1.0f + 1.0f) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x) +
-			(pos.x - player->GetPlayerWorldTransform().translation_.z) * (pos.x - player->GetPlayerWorldTransform().translation_.z))
+			(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			//time-=3;
 			isDead = true;
