@@ -9,7 +9,7 @@ private:
 	int score = 0;
 	int BonusTime = 0;
 	float scoreBonus = 1.0f;
-	int timeLimit = 65;
+	int timeLimit = 60;
 	int minutes = 1;
 	int seconds = 3;
 	bool isFnish = false;
@@ -19,6 +19,8 @@ public:
 	void Update();
 	void ScoreAdd();
 	void Draw();
+
+	void Reset();
 
 	static Score* GetInstance();
 };
