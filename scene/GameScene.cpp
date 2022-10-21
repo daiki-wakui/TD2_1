@@ -88,7 +88,7 @@ void GameScene::Update()
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetIsDead(); });
 		enemyCircles.remove_if([](std::unique_ptr<EnemyCircle>& enemy_) { return enemy_->GetIsDead(); });
-
+		enemyBombs.remove_if([](std::unique_ptr<EnemyBomb>& enemy_) { return enemy_->GetIsDead(); });
 #pragma endregion
 
 		score->Update();
@@ -120,6 +120,8 @@ void GameScene::Update()
 		}
 		EnemyCirclesSpawn({ 20,0,20 }, enemyCircleAngle);
 
+		EnemyBombsSpawn({10,0,10});
+
 #pragma endregion
 
 #pragma region マップ関連
@@ -149,6 +151,12 @@ void GameScene::Update()
 		{
 			enemyCirclesGen = 0;
 		}
+		enemyBombsGen++;
+		if (enemyBombsGen > 180)
+		{
+			enemyBombsGen = 0;
+		}
+
 #pragma endregion
 
 #pragma region 敵の更新処理
@@ -163,6 +171,10 @@ void GameScene::Update()
 			enemy->Update();
 		}
 		for (const std::unique_ptr<EnemyCircle>& enemy : enemyCircles)
+		{
+			enemy->Update();
+		}
+		for (const std::unique_ptr<EnemyBomb>& enemy : enemyBombs)
 		{
 			enemy->Update();
 		}
@@ -248,7 +260,10 @@ void GameScene::Draw() {
 		{
 			enemy->Draw(viewProjection);
 		}
-
+		for (const std::unique_ptr<EnemyBomb>& enemy : enemyBombs)
+		{
+			enemy->Draw(viewProjection);
+		}
 #pragma endregion
 
 		score->Draw();
@@ -371,6 +386,28 @@ void GameScene::EnemyCirclesSpawn(const myMath::Vector3& p, float angle)
 		}
 	}
 	
+}
+
+void GameScene::EnemyBombsGen(const myMath::Vector3& p)
+{
+	myMath::Vector3 position = { p.x,p.y,p.z };
+	//Enemyを生成し、初期化
+	std::unique_ptr<EnemyBomb> newEnemy = std::make_unique<EnemyBomb>();
+	newEnemy->Initialize(viewProjection, position);
+	//Enemyを登録する
+	enemyBombs.push_back(std::move(newEnemy));
+}
+
+void GameScene::EnemyBombsSpawn(const myMath::Vector3& p)
+{
+	if (enemyBombs.size() < 3)
+	{
+		if (enemyBombsGen == 0)
+		{
+			EnemyBombsGen(p);
+		}
+	}
+
 }
 
 void GameScene::Reset()

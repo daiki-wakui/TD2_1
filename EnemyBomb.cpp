@@ -4,7 +4,7 @@ void EnemyBomb::Initialize(ViewProjection viewProjection, myMath::Vector3 positi
 {
 	player = Player::GetInstance();
 
-	textureHandle = TextureManager::Load("mario.jpg");
+	textureHandle = TextureManager::Load("bomuhei.jpg");
 	model = Model::Create();
 	worldTransform.Initialize();
 	score = Score::GetInstance();
@@ -27,7 +27,9 @@ void EnemyBomb::Update()
 
 void EnemyBomb::Move()
 {
-
+	worldTransform.translation_.x = pos.x;
+	worldTransform.translation_.y = pos.y;
+	worldTransform.translation_.z = pos.z;
 }
 
 void EnemyBomb::Draw(ViewProjection viewProjection)
