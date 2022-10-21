@@ -57,6 +57,19 @@ void GameScene::Update()
 		//ゲームシーン
 	case Game:
 
+#pragma region リセット処理
+
+		if (input_->TriggerKey(DIK_R))
+		{
+			Reset();
+		}
+
+#pragma endregion
+
+		player->Update();
+		viewProjection.eye = { player->GetPlayerWorldTransform().translation_.x,75,player->GetPlayerWorldTransform().translation_.z - 20 };
+		viewProjection.target = { player->GetPlayerWorldTransform().translation_.x,0,player->GetPlayerWorldTransform().translation_.z };
+
 #pragma region worldTransformにスポーン地点の座標代入
 
 		spawnRightTopPos = { 125.0f,0.0f,75.0f };
@@ -77,10 +90,6 @@ void GameScene::Update()
 		enemyCircles.remove_if([](std::unique_ptr<EnemyCircle>& enemy_) { return enemy_->GetIsDead(); });
 
 #pragma endregion
-
-		viewProjection.eye = { player->GetPlayerWorldTransform().translation_.x,75,player->GetPlayerWorldTransform().translation_.z-20 };
-		viewProjection.target = { player->GetPlayerWorldTransform().translation_.x,0,player->GetPlayerWorldTransform().translation_.z };
-		player->Update();
 
 		score->Update();
 
@@ -362,4 +371,18 @@ void GameScene::EnemyCirclesSpawn(const myMath::Vector3& p, float angle)
 		}
 	}
 	
+}
+
+void GameScene::Reset()
+{
+	player->Reset();
+	score->Reset();
+	enemys.clear();
+	enemyCircles.clear();
+	enemyStraights.clear();
+	enemyGeneration = 0;
+	enemyStraightsGen = 0;
+	enemyStraightAngle = 0;
+	enemyCirclesGen = 0;
+	enemyCircleAngle = 0;
 }

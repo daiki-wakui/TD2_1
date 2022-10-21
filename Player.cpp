@@ -27,8 +27,8 @@ void Player::Initialize(ViewProjection viewProjection)
 	attackModel = Model::Create();
 	attackWorldTransform.Initialize();
 
-	player = { 0,0,-25 };
-	front = { 0,0,-24 };
+	player = { 0,0,-50 };
+	front = { 0,0,-49 };
 	angle = MathUtility::PI;
 	bombCharge = 2.0f;
 	attackTimer = 3;
@@ -201,6 +201,17 @@ void Player::Draw(ViewProjection viewProjection)
 
 	debugText_->SetPos(20, 100);
 	debugText_->Printf("speed %f", speed);
+}
+
+void Player::Reset()
+{
+	speed = 0.0f;
+	player = { 0,0,-50 };
+	front = { 0,0,-49 };
+	angle = MathUtility::PI;
+	bombCharge = 2.0f;
+	attackTimer = 3;
+	attackFlag = false;
 }
 
 WorldTransform Player::GetPlayerWorldTransform()

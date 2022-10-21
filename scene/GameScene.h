@@ -73,6 +73,9 @@ class GameScene {
 	void EnemyStraightsSpawn(const myMath::Vector3& p, float angle);
 	void EnemyCirclesGen(const myMath::Vector3& p, float angle);
 	void EnemyCirclesSpawn(const myMath::Vector3& p, float angle);
+
+	void Reset();
+
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;

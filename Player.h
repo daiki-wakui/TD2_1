@@ -32,10 +32,10 @@ private:
 	myMath::Vector3 normFrontVec;
 
 	float speed = 0.0f;
-	float bombCharge = 1.0f;
+	float bombCharge = 0.0f;
 	float angle = 0.0f;
 	bool attackFlag = false;
-	int attackTimer = 1;
+	int attackTimer = 0;
 
 	int LimitPosX = 143;
 	int LimitPosZ = 93;
@@ -54,6 +54,7 @@ public:
 	void Attack();
 	void Tale();
 	void Draw(ViewProjection viewProjection);
+	void Reset();
 
 	//ゲッター
 	WorldTransform GetPlayerWorldTransform();//プレイヤーの中心座標
