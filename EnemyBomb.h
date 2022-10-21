@@ -16,9 +16,6 @@ public:
 	void Limit();
 	void Collider();
 
-	void bombDrop();
-	float GetBombRadius();
-
 	WorldTransform GetWorldTransform();
 
 private:
@@ -32,14 +29,10 @@ private:
 	myMath::Vector3 pos = { 0,0,0 };
 	myMath::Vector3 moveVec;
 	myMath::Vector3 normMoveVec;
-	myMath::Vector3 bomb = { 0,0,0 };
-
 
 	float speed = 5.0f;
 	bool isDead = false;
 	float radius = 2.0f;
-	float bombRadius = 3.0f;
 
-	int bombTimer = 60;
 };
 

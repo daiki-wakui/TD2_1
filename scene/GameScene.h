@@ -17,7 +17,6 @@
 #include "Enemy.h"
 #include"EnemyStraight.h"
 #include "EnemyCircle.h"
-#include "EnemyBomb.h"
 
 #include <list>
 #include <memory>
@@ -74,11 +73,6 @@ class GameScene {
 	void EnemyStraightsSpawn(const myMath::Vector3& p, float angle);
 	void EnemyCirclesGen(const myMath::Vector3& p, float angle);
 	void EnemyCirclesSpawn(const myMath::Vector3& p, float angle);
-
-	void EnemyBombsGen(const myMath::Vector3& p);
-	void EnemyBombSpawn(const myMath::Vector3& p);
-
-
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -98,21 +92,20 @@ class GameScene {
 
 	WorldTransform worldtransform_;
 	WorldTransform spawnEnemyCircle;
-	WorldTransform spawnEnemyBomb;
-	/*WorldTransform worldtransform4_;
+	/*WorldTransform worldtransform3_;
+	WorldTransform worldtransform4_;
 	WorldTransform worldtransform5_;*/
 
 	myMath::Vector3 spawnRightTopPos;
 	/*myMath::Vector3 spawnRightBottomPos;
-	myMath::Vector3 spawnLeftTopPos;*/
-	myMath::Vector3 spawnLeftBottomPos;
+	myMath::Vector3 spawnLeftTopPos;
+	myMath::Vector3 spawnLeftBottomPos;*/
 	myMath::Vector3 spawnCenterPos;
 
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;
 	std::list<std::unique_ptr<EnemyStraight>> enemyStraights;
-	std::list<std::unique_ptr<EnemyCircle>> enemyCircles;
-	std::list<std::unique_ptr<EnemyBomb>> enemyBombs;
+	std::list <std::unique_ptr<EnemyCircle>> enemyCircles;
 
 	int enemyGeneration = 0;
 	int enemyStraightsGen = 0;
@@ -120,8 +113,6 @@ class GameScene {
 
 	int enemyCirclesGen = 0;
 	float enemyCircleAngle = 0;
-
-	int enemyBombsGen = 0;
 
 	bool isWait = false;
 

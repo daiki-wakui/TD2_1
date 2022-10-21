@@ -31,7 +31,7 @@ private:
 	bool left = false;
 	bool right = false;
 
-	uint32_t texture_ = 0;;
+	uint32_t texture_;
 
 public:
 

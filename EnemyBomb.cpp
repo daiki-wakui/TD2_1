@@ -17,7 +17,7 @@ void EnemyBomb::Initialize(ViewProjection viewProjection, myMath::Vector3 positi
 
 void EnemyBomb::Update()
 {
-	/*Move();*/
+	Move();
 	Limit();
 	Collider();
 
@@ -32,7 +32,7 @@ void EnemyBomb::Move()
 
 void EnemyBomb::Draw(ViewProjection viewProjection)
 {
-	model->Draw(worldTransform, viewProjection, textureHandle);
+	model->Draw(worldTransform,viewProjection,textureHandle);
 }
 
 bool EnemyBomb::GetIsDead()
@@ -55,42 +55,15 @@ void EnemyBomb::Collider()
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (pos.x - player->GetAttackWorldTransform().translation_.x) * (pos.x - player->GetAttackWorldTransform().translation_.x) + (pos.z - player->GetAttackWorldTransform().translation_.z) * (pos.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			isDead = true;
-			bombDrop();
 		}
 	}
 	if ((1.0f + radius) * (1.0f + radius) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x) +
 		(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 	{
+	
 		isDead = true;
 	}
-	
-	bomb = { 0,0,0 };
 }
-
-void EnemyBomb::bombDrop()
-{
-	if (isDead == true)
-	{
-		bomb = { 3.0f,0,3.0f };
-		bombTimer--;
-	}
-	if (bombTimer <= 0)
-	{
-		if ((1.0f + bombRadius) * (1.0f + bombRadius)) >= (bomb.x - player->GetPlayerWorldTransform().translation_.x) * (bomb.x - player->GetPlayerWorldTransform().translation_.x) +
-			(bomb.z - player->GetPlayerWorldTransform().translation_.z) * (bomb.z - player->GetPlayerWorldTransform().translation_.z))
-		{
-			isDead = true;
-			bombTimer = 60;
-
-		}
-	}
-}
-
-float EnemyBomb::GetBombRadius()
-{
-	return bombRadius;
-}
-
 WorldTransform EnemyBomb::GetWorldTransform()
 {
 	return worldTransform;
