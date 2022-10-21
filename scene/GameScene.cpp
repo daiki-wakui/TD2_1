@@ -59,15 +59,18 @@ void GameScene::Update()
 
 #pragma region worldTransformにスポーン地点の座標代入
 
-		spawnRightTopPos = { 125.0f,0.0f,75.0f };
+	spawnRightTopPos = { 125.0f,0.0f,75.0f };
 
-		worldtransform_.translation_.x = spawnRightTopPos.x;
-		worldtransform_.translation_.z = spawnRightTopPos.z;
+	worldtransform_.translation_.x = spawnRightTopPos.x;
+	worldtransform_.translation_.z = spawnRightTopPos.z;
 
-		spawnCenterPos = { 0,0,0 };
-		spawnEnemyCircle.translation_.x = spawnCenterPos.x;
-		spawnEnemyCircle.translation_.z = spawnCenterPos.z;
+	spawnCenterPos = { 0,0,0 };
+	spawnEnemyCircle.translation_.x = spawnCenterPos.x;
+	spawnEnemyCircle.translation_.z = spawnCenterPos.z;
 
+	spawnLeftBottomPos = { -125.0f, 0.0f, -75.0f };
+	spawnEnemyBomb.translation_.x = spawnLeftBottomPos.x;
+	spawnEnemyBomb.translation_.z = spawnLeftBottomPos.z;
 #pragma endregion
 
 #pragma region 敵の削除処理
@@ -75,6 +78,7 @@ void GameScene::Update()
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetIsDead(); });
 		enemyCircles.remove_if([](std::unique_ptr<EnemyCircle>& enemy_) { return enemy_->GetIsDead(); });
+		enemyBombs.remove_if([](std::unique_ptr<EnemyBomb>& enemy_) {return enemy_->GetIsDead(); });
 
 #pragma endregion
 
@@ -111,6 +115,8 @@ void GameScene::Update()
 		}
 		EnemyCirclesSpawn({ 20,0,20 }, enemyCircleAngle);
 
+		EnemyBombSpawn({10,0,10});
+
 #pragma endregion
 
 #pragma region マップ関連
@@ -140,6 +146,13 @@ void GameScene::Update()
 		{
 			enemyCirclesGen = 0;
 		}
+
+		enemyBombsGen++;
+		if (enemyBombsGen > 180)
+		{
+			enemyBombsGen = 0;
+		}
+
 #pragma endregion
 
 #pragma region 敵の更新処理
@@ -157,6 +170,11 @@ void GameScene::Update()
 		{
 			enemy->Update();
 		}
+		for (const std::unique_ptr<EnemyBomb>& enemy : enemyBombs)
+		{
+			enemy->Update();
+		}
+
 #pragma endregion
 
 		MathUtility::MatrixCalculation(worldtransform_);//行列の更新
@@ -236,6 +254,10 @@ void GameScene::Draw() {
 			enemy->Draw(viewProjection);
 		}
 		for (const std::unique_ptr<EnemyCircle>& enemy : enemyCircles)
+		{
+			enemy->Draw(viewProjection);
+		}
+		for (const std::unique_ptr<EnemyBomb>& enemy : enemyBombs)
 		{
 			enemy->Draw(viewProjection);
 		}
@@ -363,3 +385,25 @@ void GameScene::EnemyCirclesSpawn(const myMath::Vector3& p, float angle)
 	}
 	
 }
+
+void GameScene::EnemyBombsGen(const myMath::Vector3& p)
+{
+	myMath::Vector3 position = { p.x,p.y,p.z };
+
+	std::unique_ptr<EnemyBomb> newEnemy = std::make_unique<EnemyBomb>();
+	newEnemy->Initialize(viewProjection,position);
+
+	enemyBombs.push_back(std::move(newEnemy));
+}
+
+void GameScene::EnemyBombSpawn(const myMath::Vector3& p)
+{
+	if (enemyBombs.size() < 8)
+	{
+		if (enemyBombsGen == 0)
+		{
+			EnemyBombsGen(p);
+		}
+	}
+}
+
