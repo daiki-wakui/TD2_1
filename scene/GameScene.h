@@ -94,6 +94,9 @@ class GameScene {
 	Model* floorModel = nullptr;
 	WorldTransform floorWorldTransform;
 
+	Model* wallModel = nullptr;
+	WorldTransform wallWorldTransform[4];
+
 	Model* spawn_ = nullptr;
 	/*Model* spawn2_ = nullptr;
 	Model* spawn3_ = nullptr;

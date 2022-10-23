@@ -28,9 +28,35 @@ void GameScene::Initialize() {
 	map = std::make_unique<Map>();
 	map->Initialize(viewProjection);
 
+#pragma region フィールドマップの初期化とモデル読み込み
+
+	//床
 	floorModel = Model::CreateFromOBJ("floor", true);
 	floorWorldTransform.scale_ = { 15.0f,10.0f,10.0f };
 	floorWorldTransform.Initialize();
+
+	//壁
+	wallModel = Model::CreateFromOBJ("wall", true);
+	//上壁
+	wallWorldTransform[0].scale_ = {5.0f,5.0f,30.0f};
+	wallWorldTransform[0].rotation_ = {0.0f,1.57f,0.0f};
+	wallWorldTransform[0].translation_ = {0.0f,0.0f,97.0f};
+	//下壁
+	wallWorldTransform[1].scale_ = { 5.0f,5.0f,30.0f };
+	wallWorldTransform[1].rotation_ = { 0.0f,1.57f,0.0f };
+	wallWorldTransform[1].translation_ = { 0.0f,0.0f,-97.0f };
+	//右壁
+	wallWorldTransform[2].scale_ = { 5.0f,5.0f,19.5f };
+	wallWorldTransform[2].translation_ = { 148.0f,0.0f,0.0f };
+	//左壁
+	wallWorldTransform[3].scale_ = { 5.0f,5.0f,19.5f };
+	wallWorldTransform[3].translation_ = { -148.0f,0.0f,0.0f };
+
+	for (int i = 0; i < 4; i++) {
+		wallWorldTransform[i].Initialize();
+	}
+
+#pragma endregion
 
 	score = Score::GetInstance();
 	score->Initialize();
@@ -132,8 +158,17 @@ void GameScene::Update()
 
 #pragma region マップ関連
 
+		//床の行列更新
 		MathUtility::MatrixCalculation(floorWorldTransform);//行列の更新
 		floorWorldTransform.TransferMatrix();
+
+		//壁の行列更新
+		for (int i = 0; i < 4; i++) 
+		{
+			MathUtility::MatrixCalculation(wallWorldTransform[i]);//行列の更新
+			wallWorldTransform[i].TransferMatrix();
+		}
+
 		map->Update();
 		map->EnemyUpdate(enemys, enemyGeneration);
 		map->EnemyStraightUpdate(enemyStraights,enemyStraightsGen);
@@ -251,7 +286,16 @@ void GameScene::Draw() {
 		//ゲームシーン
 	case Game:
 
+#pragma region  フィールドマップの描画
+
 		floorModel->Draw(floorWorldTransform, viewProjection);
+
+		for (int i = 0; i < 4; i++)
+		{
+			wallModel->Draw(wallWorldTransform[i], viewProjection);
+		}
+#pragma endregion
+
 		player->Draw(viewProjection);
 
 #pragma region 敵の描画処理
