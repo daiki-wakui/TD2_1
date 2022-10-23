@@ -24,6 +24,7 @@ void GameScene::Initialize() {
 	player->Initialize(viewProjection);
 
 	texture = TextureManager::Load("mario.jpg");
+	redTexture_ = TextureManager::Load("red.png");
 	
 	map = std::make_unique<Map>();
 	map->Initialize(viewProjection);
@@ -99,6 +100,22 @@ void GameScene::Update()
 
 		//ゲームシーン
 	case Game:
+
+		if (input_->TriggerKey(DIK_6)) {
+			for (int i = 0; i < 20; i++) {
+				std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+				newobj->Initialize(model, redTexture_, 0);
+				objs_.push_back(std::move(newobj));
+			}
+		}
+
+		objs_.remove_if([](std::unique_ptr<Effect>& obj_) {
+			return obj_->IsDead();
+			});
+
+		for (std::unique_ptr<Effect>& object : objs_) {
+			object->Update();
+		}
 
 #pragma region リセット処理
 
@@ -337,6 +354,11 @@ void GameScene::Draw() {
 		spawn_->Draw(worldtransform_, viewProjection, texture);
 		/*spawn_->Draw(spawnEnemyCircle, viewProjection, texture);*/
 #pragma endregion
+
+
+		for (std::unique_ptr<Effect>& object : objs_) {
+			object->Draw(viewProjection);
+		}
 
 		break;
 

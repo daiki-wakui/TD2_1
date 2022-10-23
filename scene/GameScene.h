@@ -26,6 +26,7 @@
 #include "fstream"
 
 #include "Score.h"
+#include "Effect.h"
 
 enum SceneName
 {
@@ -136,4 +137,7 @@ class GameScene {
 	int scene = 0;
 	uint32_t titleScene = 0;
 	uint32_t gameScene = 0;
+
+	std::list<std::unique_ptr<Effect>> objs_;
+	uint32_t redTexture_;
 };
