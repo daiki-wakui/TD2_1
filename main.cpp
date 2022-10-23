@@ -1,4 +1,4 @@
-﻿#include "Audio.h"
+﻿#include "AudioManager.h"
 #include "DirectXCommon.h"
 #include "GameScene.h"
 #include "TextureManager.h"
@@ -12,7 +12,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	DirectXCommon* dxCommon = nullptr;
 	// 汎用機能
 	Input* input = nullptr;
-	Audio* audio = nullptr;
 	DebugText* debugText = nullptr;
 	AxisIndicator* axisIndicator = nullptr;
 	PrimitiveDrawer* primitiveDrawer = nullptr;
@@ -32,8 +31,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	input->Initialize();
 
 	// オーディオの初期化
-	audio = Audio::GetInstance();
-	audio->Initialize();
+	AudioManager* audioManager = AudioManager::GetInstance();
+	audioManager->Initialize();
 
 	// テクスチャマネージャの初期化
 	TextureManager::GetInstance()->Initialize(dxCommon->GetDevice());
@@ -70,6 +69,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// 入力関連の毎フレーム処理
 		input->Update();
+		audioManager->Update();
 		// ゲームシーンの毎フレーム処理
 		gameScene->Update();
 		// 軸表示の更新
@@ -89,7 +89,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// 各種解放
 	SafeDelete(gameScene);
-	audio->Finalize();
+	audioManager->Destroy();
 
 	// ゲームウィンドウの破棄
 	win->TerminateGameWindow();

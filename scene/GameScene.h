@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Audio.h"
+#include "AudioManager.h"
 #include "DirectXCommon.h"
 #include "DebugText.h"
 #include "Input.h"
@@ -83,7 +83,7 @@ class GameScene {
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
-	Audio* audio_ = nullptr;
+	AudioManager* audioManager = nullptr;
 	DebugText* debugText_ = nullptr;
 	ViewProjection viewProjection;
 	ViewProjection oldViewProjection;
@@ -98,21 +98,11 @@ class GameScene {
 	WorldTransform wallWorldTransform[4];
 
 	Model* spawn_ = nullptr;
-	/*Model* spawn2_ = nullptr;
-	Model* spawn3_ = nullptr;
-	Model* spawn4_ = nullptr;
-	Model* spawn5_ = nullptr;*/
 
 	WorldTransform worldtransform_;
 	WorldTransform spawnEnemyCircle;
-	/*WorldTransform worldtransform3_;
-	WorldTransform worldtransform4_;
-	WorldTransform worldtransform5_;*/
 
 	myMath::Vector3 spawnRightTopPos;
-	/*myMath::Vector3 spawnRightBottomPos;
-	myMath::Vector3 spawnLeftTopPos;
-	myMath::Vector3 spawnLeftBottomPos;*/
 	myMath::Vector3 spawnCenterPos;
 
 	//敵リスト
@@ -144,4 +134,6 @@ class GameScene {
 	/// </summary>
 
 	int scene = 0;
+	uint32_t titleScene = 0;
+	uint32_t gameScene = 0;
 };

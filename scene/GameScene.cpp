@@ -12,7 +12,7 @@ void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
-	audio_ = Audio::GetInstance();
+	audioManager = audioManager->GetInstance();
 	debugText_ = DebugText::GetInstance();
 	model = Model::Create();
 	viewProjection.eye = { 0,75,-10 };
@@ -71,6 +71,14 @@ void GameScene::Initialize() {
 	spawnEnemyCircle.Initialize();*/
 
 #pragma endregion
+
+#pragma region
+
+	titleScene = AudioManager::GetInstance()->LoadAudio("Resources/title.mp3");
+	AudioManager::GetInstance()->PlayWave(titleScene, true);
+	gameScene = AudioManager::GetInstance()->LoadAudio("Resources/game.mp3");
+
+#pragma endregion
 }
 
 void GameScene::Update()
@@ -81,7 +89,9 @@ void GameScene::Update()
 		//タイトル画面
 	case Title:
 		if (input_->TriggerKey(DIK_SPACE)) {
-			scene++;	//ゲームシーンへ
+			AudioManager::GetInstance()->StopWave(titleScene);
+			AudioManager::GetInstance()->PlayWave(gameScene, true);
+			scene = Game;	//ゲームシーンへ
 		}
 
 		break;
