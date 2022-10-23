@@ -4,7 +4,9 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	delete floorModel;
+}
 
 void GameScene::Initialize() {
 
@@ -25,6 +27,10 @@ void GameScene::Initialize() {
 	
 	map = std::make_unique<Map>();
 	map->Initialize(viewProjection);
+
+	floorModel = Model::CreateFromOBJ("floor", true);
+	floorWorldTransform.scale_ = { 15.0f,10.0f,10.0f };
+	floorWorldTransform.Initialize();
 
 	score = Score::GetInstance();
 	score->Initialize();
@@ -126,6 +132,8 @@ void GameScene::Update()
 
 #pragma region マップ関連
 
+		MathUtility::MatrixCalculation(floorWorldTransform);//行列の更新
+		floorWorldTransform.TransferMatrix();
 		map->Update();
 		map->EnemyUpdate(enemys, enemyGeneration);
 		map->EnemyStraightUpdate(enemyStraights,enemyStraightsGen);
@@ -243,6 +251,7 @@ void GameScene::Draw() {
 		//ゲームシーン
 	case Game:
 
+		floorModel->Draw(floorWorldTransform, viewProjection);
 		player->Draw(viewProjection);
 
 #pragma region 敵の描画処理
