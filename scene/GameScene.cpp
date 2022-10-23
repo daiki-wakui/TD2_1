@@ -72,11 +72,11 @@ void GameScene::Initialize() {
 
 #pragma endregion
 
-#pragma region
+#pragma region BGM初期化
 
-	titleScene = AudioManager::GetInstance()->LoadAudio("Resources/title.mp3");
-	AudioManager::GetInstance()->PlayWave(titleScene, true);
-	gameScene = AudioManager::GetInstance()->LoadAudio("Resources/game.mp3");
+	titleScene = AudioManager::GetInstance()->LoadAudio("Resources/title.mp3");//タイトルシーンBGM読み込み
+	AudioManager::GetInstance()->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
+	gameScene = AudioManager::GetInstance()->LoadAudio("Resources/game.mp3");//ゲームシーンBGM読み込み
 
 #pragma endregion
 }
@@ -88,9 +88,10 @@ void GameScene::Update()
 	{
 		//タイトル画面
 	case Title:
+
 		if (input_->TriggerKey(DIK_SPACE)) {
-			AudioManager::GetInstance()->StopWave(titleScene);
-			AudioManager::GetInstance()->PlayWave(gameScene, true);
+			AudioManager::GetInstance()->StopWave(titleScene);//タイトルシーンのBGMを止める
+			AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
 			scene = Game;	//ゲームシーンへ
 		}
 
