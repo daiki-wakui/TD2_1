@@ -5,6 +5,7 @@
 #include "WinApp.h"
 #include "AxisIndicator.h"
 #include "PrimitiveDrawer.h"
+#include"FPS.h"
 
 // Windowsアプリでのエントリーポイント(main関数)
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
@@ -60,8 +61,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	gameScene = new GameScene();
 	gameScene->Initialize();
 
+	FPS* fps = new FPS;
+
 	// メインループ
 	while (true) {
+
+		fps->FpsControlBegin();
+		fps->SetFrameRate(60.0f);
+
 		// メッセージ処理
 		if (win->ProcessMessage()) {
 			break;
@@ -85,11 +92,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		primitiveDrawer->Reset();
 		// 描画終了
 		dxCommon->PostDraw();
+
+		fps->FpsControlEnd();
 	}
 
 	// 各種解放
 	SafeDelete(gameScene);
 	audioManager->Destroy();
+	delete fps;
 
 	// ゲームウィンドウの破棄
 	win->TerminateGameWindow();

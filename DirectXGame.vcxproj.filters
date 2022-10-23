@@ -102,6 +102,9 @@
     <ClCompile Include="AudioManager.cpp">
       <Filter>ソース ファイル\audio</Filter>
     </ClCompile>
+    <ClCompile Include="FPS.cpp">
+      <Filter>ソース ファイル\base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>ヘッダー ファイル\audo</Filter>
+    </ClInclude>
+    <ClInclude Include="FPS.h">
+      <Filter>ヘッダー ファイル\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
