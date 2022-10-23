@@ -17,7 +17,7 @@ void Player::Initialize(ViewProjection viewProjection)
 
 	textureHundle = TextureManager::Load("sample.png");
 	playerModel = Model::Create();
-	playerWorldTransform.scale_ = { 2,2,2 };
+	playerWorldTransform.scale_ = { 3,3,3 };
 	playerWorldTransform.Initialize();
 
 	taleModel = Model::Create();
@@ -26,6 +26,13 @@ void Player::Initialize(ViewProjection viewProjection)
 
 	attackModel = Model::Create();
 	attackWorldTransform.Initialize();
+
+	playerModel_ = Model::CreateFromOBJ("player_body", true);
+	taleModel_ = Model::CreateFromOBJ("player_tail", true);
+	playerModelWorldTransform.scale_ = { 5,5,5 };
+	playerModelWorldTransform.Initialize();
+	taleModelWorldTransform.Initialize();
+
 
 	player = { 0,0,-50 };
 	front = { 0,0,-49 };
@@ -45,11 +52,24 @@ void Player::Update()
 		Attack();//UŒ‚ˆ—
 	}
 
+	playerModelWorldTransform.rotation_ = playerWorldTransform.rotation_;
+	playerModelWorldTransform.translation_ = playerWorldTransform.translation_;
+
+	taleModelWorldTransform.scale_ = taleWorldTransform.scale_;
+	taleModelWorldTransform.rotation_ = taleWorldTransform.rotation_;
+	taleModelWorldTransform.translation_ = taleWorldTransform.translation_;
+
 	MathUtility::MatrixCalculation(playerWorldTransform);//s—ñ‚ÌXV
 	playerWorldTransform.TransferMatrix();//s—ñ‚Ì“]‘—
 
+	MathUtility::MatrixCalculation(playerModelWorldTransform);//s—ñ‚ÌXV
+	playerModelWorldTransform.TransferMatrix();//s—ñ‚Ì“]‘—
+
 	MathUtility::MatrixCalculation(taleWorldTransform);//s—ñ‚ÌXV
 	taleWorldTransform.TransferMatrix();//s—ñ‚Ì“]‘—
+
+	MathUtility::MatrixCalculation(taleModelWorldTransform);//s—ñ‚ÌXV
+	taleModelWorldTransform.TransferMatrix();//s—ñ‚Ì“]‘—
 
 	MathUtility::MatrixCalculation(attackWorldTransform);//s—ñ‚ÌXV
 	attackWorldTransform.TransferMatrix();//s—ñ‚Ì“]‘—
@@ -128,8 +148,8 @@ void Player::Rotation()
 		front.x = player.x + sinf(angle) * 2;
 		front.z = player.z + cosf(angle) * 2;
 	}
-	taleWorldTransform.translation_.x = player.x + sinf(angle) * 2;
-	taleWorldTransform.translation_.z = player.z + cosf(angle) * 2;
+	taleWorldTransform.translation_.x = player.x + sinf(angle) * 7;
+	taleWorldTransform.translation_.z = player.z + cosf(angle) * 7;
 
 	attackWorldTransform.translation_.x = player.x + sinf(angle) * 8;
 	attackWorldTransform.translation_.z = player.z + cosf(angle) * 8;
@@ -181,7 +201,9 @@ void Player::Tale()
 		bombCharge = 10.0f;//ãŒÀ‚ðÝ’è
 	}
 
-	taleWorldTransform.scale_.z = 1.0 + bombCharge / 4;//K”ö‚Ì’·‚³
+	taleWorldTransform.scale_.x = 1.0 + bombCharge / 1.5f;//K”ö‚Ì’·‚³
+	taleWorldTransform.scale_.y = 1.0 + bombCharge / 1.5f;//K”ö‚Ì’·‚³
+	taleWorldTransform.scale_.z = 1.0 + bombCharge / 1.5f;//K”ö‚Ì’·‚³
 	attackWorldTransform.scale_.x = 1.0 * bombCharge;
 	attackWorldTransform.scale_.y = 1.0 * bombCharge;
 	attackWorldTransform.scale_.z = 1.0 * bombCharge;
@@ -189,8 +211,12 @@ void Player::Tale()
 
 void Player::Draw(ViewProjection viewProjection)
 {
-	playerModel->Draw(playerWorldTransform, viewProjection, textureHundle);
-	taleModel->Draw(taleWorldTransform, viewProjection, textureHundle);
+	//playerModel->Draw(playerWorldTransform, viewProjection, textureHundle);
+	//taleModel->Draw(taleWorldTransform, viewProjection, textureHundle);
+
+	playerModel_->Draw(playerModelWorldTransform, viewProjection);
+	taleModel_->Draw(taleModelWorldTransform, viewProjection);
+
 	if (attackFlag == true)
 	{
 		attackModel->Draw(attackWorldTransform, viewProjection, textureHundle);

@@ -19,10 +19,15 @@ private:
 	Model* taleModel = nullptr;
 	Model* attackModel = nullptr;
 
+	Model* playerModel_ = nullptr;
+	Model* taleModel_ = nullptr;
+
 	uint32_t textureHundle = 0;
 	//ワールドトランスフォーム
 	WorldTransform playerWorldTransform;//プレイヤーの中心座標
+	WorldTransform playerModelWorldTransform;//プレイヤーモデルの中心座標
 	WorldTransform taleWorldTransform;//プレイヤーのけつの座標
+	WorldTransform taleModelWorldTransform;//プレイヤーのけつモデルの座標
 	WorldTransform attackWorldTransform;//爆発の中心座標
 
 	myMath::Vector3 player;
