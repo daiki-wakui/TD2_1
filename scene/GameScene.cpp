@@ -16,6 +16,7 @@ void GameScene::Initialize() {
 	audioManager = audioManager->GetInstance();
 	debugText_ = DebugText::GetInstance();
 	model = Model::CreateFromOBJ("enemy", true);
+	bombModel = Model::CreateFromOBJ("enemy_bomb",true);
 	viewProjection.eye = { 0,75,-10 };
 	viewProjection.Initialize();
 	oldViewProjection.eye = { 0,75,-10 };
@@ -87,7 +88,9 @@ void GameScene::Initialize() {
 
 	titleScene = AudioManager::GetInstance()->LoadAudio("Resources/title.mp3");//タイトルシーンBGM読み込み
 	AudioManager::GetInstance()->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
+	AudioManager::GetInstance()->ChangeVolume(titleScene,0.2f);
 	gameScene = AudioManager::GetInstance()->LoadAudio("Resources/game.mp3");//ゲームシーンBGM読み込み
+	AudioManager::GetInstance()->ChangeVolume(gameScene, 0.2f);
 
 #pragma endregion
 
@@ -107,6 +110,7 @@ void GameScene::Update()
 		if (input_->TriggerKey(DIK_SPACE)) {
 			AudioManager::GetInstance()->StopWave(titleScene);//タイトルシーンのBGMを止める
 			AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
+		
 			scene = Game;	//ゲームシーンへ
 		}
 
@@ -129,7 +133,11 @@ void GameScene::Update()
 			}
 			
 		}
-
+		if (input_->TriggerKey(DIK_RETURN))
+		{
+			AudioManager::GetInstance()->StopWave(gameScene);
+			scene = Result;
+		}
 #pragma region リセット処理
 
 		if (input_->TriggerKey(DIK_R))
@@ -330,7 +338,7 @@ void GameScene::Update()
 
 		//リザルト画面
 	case Result:
-
+		
 		if (input_->TriggerKey(DIK_SPACE))
 		{
 			Reset();
@@ -551,7 +559,7 @@ void GameScene::EnemyBombsGen(const myMath::Vector3& p)
 	myMath::Vector3 position = { p.x,p.y,p.z };
 	//Enemyを生成し、初期化
 	std::unique_ptr<EnemyBomb> newEnemy = std::make_unique<EnemyBomb>();
-	newEnemy->Initialize(viewProjection, position);
+	newEnemy->Initialize(bombModel, viewProjection, position);
 	//Enemyを登録する
 	enemyBombs.push_back(std::move(newEnemy));
 }

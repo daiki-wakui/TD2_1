@@ -8,7 +8,7 @@
 class EnemyBomb
 {
 public:
-	void Initialize(ViewProjection viewProjection, myMath::Vector3 position);
+	void Initialize(Model*model,ViewProjection viewProjection, myMath::Vector3 position);
 	void Update();
 	void Move();
 	void Draw(ViewProjection viewProjection);
@@ -21,8 +21,7 @@ public:
 private:
 	WorldTransform worldTransform;
 	ViewProjection viewProjection;
-	Model* model = nullptr;
-	uint32_t textureHandle = 0;
+	Model* model_ = nullptr;
 	Player* player = nullptr;
 	Score* score = nullptr;
 	

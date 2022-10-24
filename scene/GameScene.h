@@ -90,6 +90,7 @@ class GameScene {
 	ViewProjection oldViewProjection;
 
 	Model* model = nullptr;
+	Model* bombModel = nullptr;
 	uint32_t texture;
 	Model* boxModel = nullptr;
 

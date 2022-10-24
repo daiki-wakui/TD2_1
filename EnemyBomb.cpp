@@ -1,12 +1,13 @@
 #include "EnemyBomb.h"
 
-void EnemyBomb::Initialize(ViewProjection viewProjection, myMath::Vector3 position)
+void EnemyBomb::Initialize(Model* model, ViewProjection viewProjection, myMath::Vector3 position)
 {
+	assert(model);
 	player = Player::GetInstance();
 
-	textureHandle = TextureManager::Load("bomuhei.jpg");
-	model = Model::Create();
+	model_ = model;
 	worldTransform.Initialize();
+	worldTransform.scale_ = { 3,3,3 };
 	score = Score::GetInstance();
 
 	pos = position;
@@ -34,7 +35,7 @@ void EnemyBomb::Move()
 
 void EnemyBomb::Draw(ViewProjection viewProjection)
 {
-	model->Draw(worldTransform,viewProjection,textureHandle);
+	model_->Draw(worldTransform,viewProjection);
 }
 
 bool EnemyBomb::GetIsDead()

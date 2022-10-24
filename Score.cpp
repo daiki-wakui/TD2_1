@@ -7,8 +7,8 @@ void Score::Initialize()
 
 	scoreBonus = 1.0f;
 	timeLimit = 60;
-	minutes = 3;
-	seconds = 0;
+	minutes = 0;
+	seconds = 30;
 }
 
 void Score::Update()
