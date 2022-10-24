@@ -8,6 +8,7 @@
 class Effect {
 private:
 	WorldTransform worldTransform_;
+	WorldTransform worldTransformbig_;
 	WorldTransform popWorldTransform_;
 
 	Model* model_ = nullptr;
@@ -19,6 +20,7 @@ private:
 
 	int isAnimation = false;
 	Vector3 Power;
+	Vector3 PowerBig;
 	float fallPowerY = 0;
 	int change = 0;
 	int isDead = 0;

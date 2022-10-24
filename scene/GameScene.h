@@ -141,6 +141,12 @@ class GameScene {
 
 	std::list<std::unique_ptr<Effect>> objs_;
 	uint32_t redTexture_;
+	uint32_t whiteTexture_;
+	uint32_t orangeTexture_;
 	bool isAnimation = false;
 	WorldTransform effectWorldTransform;
+	WorldTransform World;
+
+	Model* exModel_ = nullptr;
+	WorldTransform explosionTransform;
 };

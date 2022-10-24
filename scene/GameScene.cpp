@@ -27,6 +27,9 @@ void GameScene::Initialize() {
 
 	texture = TextureManager::Load("mario.jpg");
 	redTexture_ = TextureManager::Load("red.png");
+	whiteTexture_ = TextureManager::Load("wit.png");
+	orangeTexture_ = TextureManager::Load("orange.png");
+	
 	
 	map = std::make_unique<Map>();
 	map->Initialize(viewProjection);
@@ -59,6 +62,11 @@ void GameScene::Initialize() {
 		wallWorldTransform[i].Initialize();
 	}
 
+	//爆発モデル
+	exModel_ = Model::CreateFromOBJ("ex", true);
+	explosionTransform.Initialize();
+
+
 #pragma endregion
 
 	score = Score::GetInstance();
@@ -85,6 +93,7 @@ void GameScene::Initialize() {
 
 	effectWorldTransform.translation_ = { 50,0,0 };
 	effectWorldTransform.Initialize();
+	World.Initialize();
 }
 
 void GameScene::Update()
@@ -115,9 +124,10 @@ void GameScene::Update()
 		if (input_->TriggerKey(DIK_6)) {
 			for (int i = 0; i < 20; i++) {
 				std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
-				newobj->Initialize(effectWorldTransform,model, redTexture_, 0);
+				newobj->Initialize(World, boxModel, orangeTexture_, 2);
 				objs_.push_back(std::move(newobj));
 			}
+			
 		}
 
 #pragma region リセット処理
@@ -145,6 +155,9 @@ void GameScene::Update()
 		spawnEnemyCircle.translation_.z = spawnCenterPos.z;
 
 #pragma endregion
+
+
+#pragma region  エフェクト関連の更新処理
 
 		for (const std::unique_ptr<EnemyCircle>& enemycir : enemyCircles) {
 			if (enemycir->GetIsDead() == true) {
@@ -188,6 +201,11 @@ void GameScene::Update()
 		for (std::unique_ptr<Effect>& object : objs_) {
 			object->Update();
 		}
+
+		MathUtility::MatrixCalculation(explosionTransform);//行列の更新
+		explosionTransform.TransferMatrix();
+
+#pragma endregion
 
 #pragma region 敵の削除処理
 		//デスフラグが立った敵を削除
@@ -411,6 +429,8 @@ void GameScene::Draw() {
 		for (std::unique_ptr<Effect>& object : objs_) {
 			object->Draw(viewProjection);
 		}
+
+		exModel_->Draw(explosionTransform, viewProjection);
 
 		break;
 

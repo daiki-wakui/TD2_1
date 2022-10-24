@@ -14,6 +14,7 @@ void Effect::Initialize(WorldTransform worldTransform,Model* model, uint32_t tex
 	model_ = model;
 	textureHandle_ = textureHandle;
 	worldTransform_ = worldTransform;
+	worldTransformbig_ = worldTransform;
 
 	boxModel_ = Model::CreateFromOBJ("box", true);
 
@@ -25,13 +26,14 @@ void Effect::Initialize(WorldTransform worldTransform,Model* model, uint32_t tex
 
 	//ワールド座標変換の初期化
 	worldTransform_.Initialize();
+	worldTransformbig_.Initialize();
 	popWorldTransform_.Initialize();
 
 	//乱数シード生成器
 	std::random_device seed_gen;
 	//メルセンヌ・ツイスターの乱数エンジン
 	std::mt19937_64 engine(seed_gen());
-	std::uniform_real_distribution<float> posYDist(-1.0f, 1.0f);
+	std::uniform_real_distribution<float> posYDist(0.5f, 1.0f);
 	std::uniform_real_distribution<float> posXDist(-0.5f, 0.5f);
 
 	fallPowerY = 0.1f;
@@ -47,6 +49,16 @@ void Effect::Initialize(WorldTransform worldTransform,Model* model, uint32_t tex
 		Power.z = 0.25f;
 
 		worldTransform_.scale_ = { 3.0f,3.0f,3.0f };
+	}
+	else if (Case == 2) {
+		worldTransformbig_.scale_ = { 0.45,0.45,0.45 };
+		worldTransform_.scale_ = { 0.35,0.35,0.35 };
+		Power.y = posYDist(engine);
+		Power.x = posXDist(engine) * 4;
+		Power.z = posXDist(engine) * 4;
+		PowerBig.y = posYDist(engine);
+		PowerBig.x = posXDist(engine)*2;
+		PowerBig.z = posXDist(engine)*2;
 	}
 
 	change = Case;
@@ -109,8 +121,32 @@ void Effect::Update() {
 		break;
 
 	case 2:
-		if (input_->PushKey(DIK_3)) {
-			popWorldTransform_.scale_.y += 0.05f;
+
+		timer++;
+
+		worldTransform_.rotation_.x += 0.35f;
+		worldTransform_.rotation_.y += 0.35f;
+
+		worldTransformbig_.rotation_.x += 0.55f;
+		worldTransformbig_.rotation_.y += 0.55f;
+		worldTransformbig_.rotation_.z += 0.55f;
+
+		if (Power.x <= 0) {
+			Power.x -= 0.005f;
+		}
+		else {
+			Power.x += 0.005f;
+		}
+
+		worldTransform_.translation_.x += Power.x;
+		worldTransform_.translation_.y += Power.y;
+		worldTransform_.translation_.z += Power.z;
+
+		worldTransformbig_.translation_ += PowerBig;
+
+		if (timer > 50) {
+			isDead = true;
+			timer = 0;
 		}
 
 		break;
@@ -118,20 +154,19 @@ void Effect::Update() {
 
 	//行列変換
 	MathUtility::MatrixCalculation(worldTransform_);
+	MathUtility::MatrixCalculation(worldTransformbig_);
 	MathUtility::MatrixCalculation(popWorldTransform_);
 	//行列を送信
 	worldTransform_.TransferMatrix();
+	worldTransformbig_.TransferMatrix();
 	popWorldTransform_.TransferMatrix();
 }
 
 void Effect::Draw(ViewProjection& viewProjection) {
 	//3Dモデル描画
-	if (change != 2) {
-		model_->Draw(worldTransform_, viewProjection, textureHandle_);
-	}
-
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 	if (change == 2) {
-		boxModel_->Draw(popWorldTransform_, viewProjection, textureHandle_);
+		model_->Draw(worldTransformbig_, viewProjection, textureHandle_);
 	}
-
+	//boxModel_->Draw(popWorldTransform_, viewProjection, textureHandle_);
 }
