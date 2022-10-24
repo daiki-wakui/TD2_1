@@ -1,13 +1,19 @@
 #include "Effect.h"
 #include <cassert>
 
-void Effect::Initialize(Model* model, uint32_t textureHandle, const int& Case) {
+Effect::~Effect()
+{
+	delete boxModel_;
+}
+
+void Effect::Initialize(WorldTransform worldTransform,Model* model, uint32_t textureHandle, const int& Case) {
 	//NULLポインタチェック
 	assert(model);
 
 	//引数のデータをメンバ変数に代入
 	model_ = model;
 	textureHandle_ = textureHandle;
+	worldTransform_ = worldTransform;
 
 	boxModel_ = Model::CreateFromOBJ("box", true);
 
@@ -75,7 +81,7 @@ void Effect::Update() {
 		worldTransform_.translation_.y += Power.y;
 		worldTransform_.translation_.z += Power.z;
 
-		if (timer > 100) {
+		if (timer > 50) {
 			isDead = true;
 			timer = 0;
 		}

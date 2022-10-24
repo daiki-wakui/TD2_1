@@ -25,8 +25,8 @@ private:
 	int timer = 0;
 
 public:
-
-	void Initialize(Model* model, uint32_t textureHandle, const int& Case);
+	~Effect();
+	void Initialize(WorldTransform worldTransform ,Model* model, uint32_t textureHandle, const int& Case);
 	void Update();
 	void Draw(ViewProjection& viewProjection);
 

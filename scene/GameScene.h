@@ -140,4 +140,6 @@ class GameScene {
 
 	std::list<std::unique_ptr<Effect>> objs_;
 	uint32_t redTexture_;
+	bool isAnimation = false;
+	WorldTransform effectWorldTransform;
 };

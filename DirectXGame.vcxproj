@@ -101,6 +101,7 @@
     <ClCompile Include="base\TextureManager.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="Effectlist.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBomb.cpp" />
     <ClCompile Include="EnemyCircle.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="base\TextureManager.h" />
     <ClInclude Include="base\WinApp.h" />
     <ClInclude Include="Effect.h" />
+    <ClInclude Include="Effectlist.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="EnemyCircle.h" />
