@@ -57,6 +57,7 @@ void Player::Update()
 
 	taleModelWorldTransform.scale_ = taleWorldTransform.scale_;
 	taleModelWorldTransform.rotation_ = taleWorldTransform.rotation_;
+	taleModelWorldTransform.rotation_.y += 1.57f;
 	taleModelWorldTransform.translation_ = taleWorldTransform.translation_;
 
 	MathUtility::MatrixCalculation(playerWorldTransform);//çsóÒÇÃçXêV
