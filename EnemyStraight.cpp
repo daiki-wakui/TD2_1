@@ -1,15 +1,16 @@
 #include "EnemyStraight.h"
 
-void EnemyStraight::Initialize(ViewProjection viewProjection,myMath::Vector3 position,float enemyAngle)
+void EnemyStraight::Initialize(Model* model, ViewProjection viewProjection, myMath::Vector3 position, float enemyAngle)
 {
+	assert(model);
 	player = Player::GetInstance();
 
 	textureHundle = TextureManager::Load("mario.jpg");
-	model = Model::Create();
+	model_ = model;
 	worldTransform.scale_ = { 3,3,3 };
 	worldTransform.Initialize();
 	score = Score::GetInstance();
-	model_ = Model::CreateFromOBJ("enemy", true);
+	
 
 	pos = position;
 	speed = 0.5f;

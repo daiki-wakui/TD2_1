@@ -15,7 +15,7 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audioManager = audioManager->GetInstance();
 	debugText_ = DebugText::GetInstance();
-	model = Model::Create();
+	model = Model::CreateFromOBJ("enemy", true);
 	viewProjection.eye = { 0,75,-10 };
 	viewProjection.Initialize();
 	oldViewProjection.eye = { 0,75,-10 };
@@ -490,7 +490,7 @@ void GameScene::EnemyStraightsGen(const myMath::Vector3& p,float angle)
 	myMath::Vector3 position = { p.x,p.y,p.z };
 	//Enemyを生成し、初期化
 	std::unique_ptr<EnemyStraight> newEnemy = std::make_unique<EnemyStraight>();
-	newEnemy->Initialize(viewProjection, position, angle);
+	newEnemy->Initialize(model,viewProjection, position, angle);
 	//Enemyを登録する
 	enemyStraights.push_back(std::move(newEnemy));
 }
@@ -508,7 +508,7 @@ void GameScene::EnemyCirclesGen(const myMath::Vector3& p, float angle)
 	myMath::Vector3 position = { p.x,p.y,p.z };
 	//Enemyを生成し、初期化
 	std::unique_ptr<EnemyCircle> newEnemy = std::make_unique<EnemyCircle>();
-	newEnemy->Initialize(viewProjection, position, angle);
+	newEnemy->Initialize(model,viewProjection, position, angle);
 	//Enemyを登録する
 	enemyCircles.push_back(std::move(newEnemy));
 }

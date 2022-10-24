@@ -28,7 +28,7 @@ private:
 
 	float radius = 2.0f;
 public:
-	void Initialize(ViewProjection viewProjection,myMath::Vector3 position, float enemyAngle);
+	void Initialize(Model* model,ViewProjection viewProjection,myMath::Vector3 position, float enemyAngle);
 	void Update();
 	void Move();
 	void Draw(ViewProjection viewProjection);

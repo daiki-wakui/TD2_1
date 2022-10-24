@@ -30,7 +30,7 @@ private:
 	Model* model_ = nullptr;
 
 public:
-	void Initialize(ViewProjection viewProjection, myMath::Vector3 position, float enemyAngle);
+	void Initialize(Model*model,ViewProjection viewProjection, myMath::Vector3 position, float enemyAngle);
 	void Update();
 	void Move();
 	void Draw(ViewProjection viewProjection);
