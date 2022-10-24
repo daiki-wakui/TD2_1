@@ -24,6 +24,8 @@ private:
 	Model* model = nullptr;
 	Score* score = nullptr;
 
+	Model* model_ = nullptr;
+
 	float radius = 2.0f;
 public:
 	void Initialize(ViewProjection viewProjection,myMath::Vector3 position, float enemyAngle);

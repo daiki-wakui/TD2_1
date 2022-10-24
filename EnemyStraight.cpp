@@ -6,8 +6,10 @@ void EnemyStraight::Initialize(ViewProjection viewProjection,myMath::Vector3 pos
 
 	textureHundle = TextureManager::Load("mario.jpg");
 	model = Model::Create();
+	worldTransform.scale_ = { 3,3,3 };
 	worldTransform.Initialize();
 	score = Score::GetInstance();
+	model_ = Model::CreateFromOBJ("enemy", true);
 
 	pos = position;
 	speed = 0.5f;
@@ -42,7 +44,8 @@ void EnemyStraight::Move()
 
 void EnemyStraight::Draw(ViewProjection viewProjection)
 {
-	model->Draw(worldTransform, viewProjection, textureHundle);
+	//model->Draw(worldTransform, viewProjection, textureHundle);
+	model_->Draw(worldTransform, viewProjection);
 }
 
 bool EnemyStraight::GetIsDead()
