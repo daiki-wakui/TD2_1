@@ -21,6 +21,7 @@ public:
 	void Draw();
 
 	void Reset();
+	bool IsFnish();
 
 	static Score* GetInstance();
 };

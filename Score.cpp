@@ -75,6 +75,11 @@ void Score::Reset()
 	isFnish = false;
 }
 
+bool Score::IsFnish()
+{
+	return isFnish;
+}
+
 Score* Score::GetInstance()
 {
 	static Score instance;

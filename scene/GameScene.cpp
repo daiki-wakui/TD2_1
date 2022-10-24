@@ -105,6 +105,12 @@ void GameScene::Update()
 		//ゲームシーン
 	case Game:
 
+		if (score->IsFnish())
+		{
+			AudioManager::GetInstance()->StopWave(gameScene);//タイトルシーンのBGMを止める
+			scene = Result;//リザルトシーン
+		}
+
 		if (input_->TriggerKey(DIK_6)) {
 			for (int i = 0; i < 20; i++) {
 				std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
@@ -306,9 +312,15 @@ void GameScene::Update()
 		//リザルト画面
 	case Result:
 
+		if (input_->TriggerKey(DIK_SPACE))
+		{
+			Reset();
+			AudioManager::GetInstance()->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
+			scene = Title;
+		}
+
 		break;
 	}
-	
 }
 
 void GameScene::Draw() {
