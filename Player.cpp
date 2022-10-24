@@ -86,7 +86,7 @@ void Player::Move()
 	{
 		frontVec = front - player;
 		normFrontVec = frontVec.normalization();
-		speed = 0.065f * bombCharge;
+		speed = 0.1f * bombCharge;
 		attackFlag = true;
 	}
 	if (speed <= 0.0f)
