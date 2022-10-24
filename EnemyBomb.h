@@ -16,6 +16,7 @@ public:
 	void Limit();
 	void Collider();
 
+	void Detonation();
 	WorldTransform GetWorldTransform();
 
 private:
@@ -33,5 +34,9 @@ private:
 	bool isDead = false;
 	float radius = 2.0f;
 
+	int bombTimer = 180;
+
+	bool isCollision = false;
+	bool isBomber = false;
 };
 

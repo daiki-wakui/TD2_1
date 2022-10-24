@@ -11,6 +11,9 @@ private:
 	Player* player = nullptr;
 
 	myMath::Vector3 pos;//ìGÇÃç¿ïW
+
+	myMath::Vector3 reapown;
+
 	myMath::Vector3 front;
 	myMath::Vector3 moveVec;
 	myMath::Vector3 normMoveVec;

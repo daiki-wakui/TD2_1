@@ -119,7 +119,7 @@ void GameScene::Update()
 		//ゲームシーン
 	case Game:
 
-		if (score->IsFnish())
+		if (score->IsFinish())
 		{
 			AudioManager::GetInstance()->StopWave(gameScene);//タイトルシーンのBGMを止める
 			scene = Result;//リザルトシーン
@@ -425,7 +425,7 @@ void GameScene::Draw() {
 		}
 #pragma endregion
 
-		score->Draw();
+		
 
 #pragma region スポーン地点の描画
 
@@ -467,7 +467,7 @@ void GameScene::Draw() {
 	switch (scene)
 	{
 	case Game:
-
+		score->Draw();
 #pragma region マップ関連
 
 		map->Draw();

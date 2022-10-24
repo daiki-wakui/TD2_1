@@ -1,40 +1,36 @@
 #include "Score.h"
 #include <stdio.h>
-
+#include "TextureManager.h"
 void Score::Initialize()
 {
 	debugText_ = DebugText::GetInstance();
 
 	scoreBonus = 1.0f;
 	timeLimit = 60;
-	minutes = 0;
-	seconds = 30;
+
+	//スコア用画像の読み込み
+	numZero = TextureManager::Load("texture/num0Tex.png");
+	numOne = TextureManager::Load("texture/num1Tex.png");
+	numTwo = TextureManager::Load("texture/num2Tex.png");
+	numThree = TextureManager::Load("texture/num3Tex.png");
+	numFour = TextureManager::Load("texture/num4Tex.png");
+	numFive = TextureManager::Load("texture/num5Tex.png");
+	numSix = TextureManager::Load("texture/num6Tex.png");
+	numSeven = TextureManager::Load("texture/num7Tex.png");
+	numEight = TextureManager::Load("texture/num8Tex.png");
+	numNine = TextureManager::Load("texture/num9Tex.png");
 }
 
 void Score::Update()
 {
 	BonusTime--;
-	timeLimit--;
-
-	if (timeLimit <= 0) {
-		seconds--;
-
-		if (seconds < 0 && isFnish == false) {
-			minutes--;
-			seconds = 59;
-		}
-		
-		timeLimit = 60;
-	}
-
-	if (minutes <= 0) {
-		minutes = 0;
-	}
-
-	if (minutes == 0 && seconds <= 0) {
-		seconds = 0;
-		isFnish = true;
-	}
+	TimerUpdate();
+	scoreDigits[0] = score % 10;
+	scoreDigits[1] = score / 10;
+	scoreDigits[2] = score / 100;
+	scoreDigits[3] = score / 1000;
+	scoreDigits[4] = score / 10000;
+	scoreDigits[5] = score / 100000;
 }
 
 void Score::ScoreAdd()
@@ -48,7 +44,9 @@ void Score::ScoreAdd()
 		scoreBonus = 1.0f;//スコアボーナスを1.0倍に
 	}
 	score += 100 * scoreBonus;//スコア増加
-	BonusTime = 50;//倍率が上がる時間
+	BonusTime = 60;//倍率が上がる時間
+
+	
 }
 
 void Score::Draw()
@@ -57,11 +55,469 @@ void Score::Draw()
 	debugText_->Printf("time %d", timeLimit);
 
 	debugText_->SetPos(1000, 80);
-	debugText_->Printf("minutes,second %2d:%2d", minutes, seconds);
-	if (seconds < 10) {
-		debugText_->SetPos(1162, 80);
-		debugText_->Printf("0");
+	debugText_->Printf("score %d", score);
+	TimerDraw();
+	ScoreDraw();
+}
+
+void Score::TimerDraw()
+{
+	if (timeLimit <= 10)
+	{
+		timerColor = { 0.9f,0,0.15f,1 };
 	}
+	else
+	{
+		timerColor = { 1,1,1,1 };
+	}
+#pragma region 1桁目
+	if (timerDigits[0] == 0)
+	{
+		timerDigOne_.reset(Sprite::Create(numZero, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (timerDigits[0] == 1)
+	{
+		timerDigOne_.reset(Sprite::Create(numOne, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[0] == 2)
+	{
+		timerDigOne_.reset(Sprite::Create(numTwo, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[0] == 3)
+	{
+		timerDigOne_.reset(Sprite::Create(numThree, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[0] == 4)
+	{
+		timerDigOne_.reset(Sprite::Create(numFour, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[0] == 5)
+	{
+		timerDigOne_.reset(Sprite::Create(numFive, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[0] == 6)
+	{
+		timerDigOne_.reset(Sprite::Create(numSix, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[0] == 7)
+	{
+		timerDigOne_.reset(Sprite::Create(numSeven, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[0] == 8)
+	{
+		timerDigOne_.reset(Sprite::Create(numEight, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (timerDigits[0] == 9)
+	{
+		timerDigOne_.reset(Sprite::Create(numNine, Vector2(timerPosX2, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion
+
+#pragma region 2桁目
+	//2桁目
+	if (timerDigits[1] == 0)
+	{
+		timerDigTwo_.reset(Sprite::Create(numZero, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (timerDigits[1] == 1)
+	{
+		timerDigTwo_.reset(Sprite::Create(numOne, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[1] == 2)
+	{
+		timerDigTwo_.reset(Sprite::Create(numTwo, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[1] == 3)
+	{
+		timerDigTwo_.reset(Sprite::Create(numThree, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[1] == 4)
+	{
+		timerDigTwo_.reset(Sprite::Create(numFour, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[1] == 5)
+	{
+		timerDigTwo_.reset(Sprite::Create(numFive, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[1] == 6)
+	{
+		timerDigTwo_.reset(Sprite::Create(numSix, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+#pragma endregion
+	timerDigOne_->Draw();
+	timerDigTwo_->Draw();
+
+}
+
+void Score::ScoreDraw()
+{
+#pragma region 1桁目
+	if (scoreDigits[0] == 0)
+	{
+		scoreDigOne_.reset(Sprite::Create(numZero, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[0] == 1)
+	{
+		scoreDigOne_.reset(Sprite::Create(numOne, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 2)
+	{
+		scoreDigOne_.reset(Sprite::Create(numTwo, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 3)
+	{
+		scoreDigOne_.reset(Sprite::Create(numThree, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 4)
+	{
+		scoreDigOne_.reset(Sprite::Create(numFour, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 5)
+	{
+		scoreDigOne_.reset(Sprite::Create(numFive, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 6)
+	{
+		scoreDigOne_.reset(Sprite::Create(numSix, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 7)
+	{
+		scoreDigOne_.reset(Sprite::Create(numSeven, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 8)
+	{
+		scoreDigOne_.reset(Sprite::Create(numEight, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[0] == 9)
+	{
+		scoreDigOne_.reset(Sprite::Create(numNine, Vector2(scorePosX6, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion
+
+#pragma region 2桁目
+	//2桁目
+	if (scoreDigits[1] == 0)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numZero, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[1] == 1)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numOne, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 2)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numTwo, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 3)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numThree, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 4)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numFour, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 5)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numFive, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 6)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numSix, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 7)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numSeven, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 8)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numEight, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[1] == 9)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numNine, Vector2(scorePosX5, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+
+#pragma region 3桁目
+	//3桁目
+	if (scoreDigits[2] == 0)
+	{
+		scoreDigThree_.reset(Sprite::Create(numZero, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[2] == 1)
+	{
+		scoreDigThree_.reset(Sprite::Create(numOne, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 2)
+	{
+		scoreDigThree_.reset(Sprite::Create(numTwo, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 3)
+	{
+		scoreDigThree_.reset(Sprite::Create(numThree, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 4)
+	{
+		scoreDigThree_.reset(Sprite::Create(numFour, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 5)
+	{
+		scoreDigThree_.reset(Sprite::Create(numFive, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 6)
+	{
+		scoreDigThree_.reset(Sprite::Create(numSix, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 7)
+	{
+		scoreDigThree_.reset(Sprite::Create(numSeven, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 8)
+	{
+		scoreDigThree_.reset(Sprite::Create(numEight, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[2] == 9)
+	{
+		scoreDigThree_.reset(Sprite::Create(numNine, Vector2(scorePosX4, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+
+#pragma region 4桁目
+	//4桁目
+	if (scoreDigits[3] == 0)
+	{
+		scoreDigFour_.reset(Sprite::Create(numZero, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[3] == 1)
+	{
+		scoreDigFour_.reset(Sprite::Create(numOne, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 2)
+	{
+		scoreDigFour_.reset(Sprite::Create(numTwo, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 3)
+	{
+		scoreDigFour_.reset(Sprite::Create(numThree, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 4)
+	{
+		scoreDigFour_.reset(Sprite::Create(numFour, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 5)
+	{
+		scoreDigFour_.reset(Sprite::Create(numFive, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 6)
+	{
+		scoreDigFour_.reset(Sprite::Create(numSix, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 7)
+	{
+		scoreDigFour_.reset(Sprite::Create(numSeven, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 8)
+	{
+		scoreDigFour_.reset(Sprite::Create(numEight, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[3] == 9)
+	{
+		scoreDigFour_.reset(Sprite::Create(numNine, Vector2(scorePosX3, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+
+#pragma region 5桁目
+	//5桁目
+	if (scoreDigits[4] == 0)
+	{
+		scoreDigFive_.reset(Sprite::Create(numZero, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[4] == 1)
+	{
+		scoreDigFive_.reset(Sprite::Create(numOne, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 2)
+	{
+		scoreDigFive_.reset(Sprite::Create(numTwo, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 3)
+	{
+		scoreDigFive_.reset(Sprite::Create(numThree, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 4)
+	{
+		scoreDigFive_.reset(Sprite::Create(numFour, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 5)
+	{
+		scoreDigFive_.reset(Sprite::Create(numFive, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 6)
+	{
+		scoreDigFive_.reset(Sprite::Create(numSix, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 7)
+	{
+		scoreDigFive_.reset(Sprite::Create(numSeven, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 8)
+	{
+		scoreDigFive_.reset(Sprite::Create(numEight, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[4] == 9)
+	{
+		scoreDigFive_.reset(Sprite::Create(numNine, Vector2(scorePosX2, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+
+#pragma region 6桁目
+	//6桁目
+	if (scoreDigits[5] == 0)
+	{
+		scoreDigSix_.reset(Sprite::Create(numZero, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[5] == 1)
+	{
+		scoreDigSix_.reset(Sprite::Create(numOne, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 2)
+	{
+		scoreDigSix_.reset(Sprite::Create(numTwo, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 3)
+	{
+		scoreDigSix_.reset(Sprite::Create(numThree, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 4)
+	{
+		scoreDigSix_.reset(Sprite::Create(numFour, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 5)
+	{
+		scoreDigSix_.reset(Sprite::Create(numFive, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 6)
+	{
+		scoreDigSix_.reset(Sprite::Create(numSix, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 7)
+	{
+		scoreDigSix_.reset(Sprite::Create(numSeven, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 8)
+	{
+		scoreDigSix_.reset(Sprite::Create(numEight, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[5] == 9)
+	{
+		scoreDigSix_.reset(Sprite::Create(numNine, Vector2(scorePosX1, scorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+	scoreDigOne_->Draw();
+	scoreDigTwo_->Draw();
+	scoreDigThree_->Draw();
+	scoreDigFour_->Draw();
+	scoreDigFive_->Draw();
+	scoreDigSix_->Draw();
 }
 
 void Score::Reset()
@@ -70,14 +526,30 @@ void Score::Reset()
 	BonusTime = 0;
 	scoreBonus = 1.0f;
 	timeLimit = 60;
-	minutes = 3;
-	seconds = 0;
-	isFnish = false;
+	timerFlame = 60;
+	isFinish = false;
 }
 
-bool Score::IsFnish()
+bool Score::IsFinish()
 {
-	return isFnish;
+	return isFinish;
+}
+
+void Score::TimerUpdate()
+{
+	timerFlame--;
+	if (timerFlame <= 0)
+	{
+		timeLimit--;
+		timerFlame= 60;
+	}
+	timerDigits[0] = timeLimit % 10;
+	timerDigits[1] = timeLimit / 10;
+
+	if (timeLimit <= 0)
+	{
+		isFinish = true;
+	}
 }
 
 Score* Score::GetInstance()
