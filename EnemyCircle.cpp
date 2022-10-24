@@ -16,17 +16,18 @@ void EnemyCircle::Initialize(ViewProjection viewProjection, myMath::Vector3 posi
 
 	front.x = pos.x + sinf(angle);
 	front.z = pos.z + cosf(angle);
+	worldTransform.rotation_.y = -(angle + myMath::AX_PI / 2);//“G‚Ìis•ûŒü‚ÉŒü‚«‚ð‡‚í‚¹‚é
 
 	viewProjection.Initialize();
 }
 
 void EnemyCircle::Update()
 {
-	if (angle>2* MathUtility::PI)
+	if (angle > 2 * MathUtility::PI)
 	{
 		angle = 0;
 	}
-	else if(angle<0)
+	else if (angle < 0)
 	{
 		angle = 2 * MathUtility::PI;
 	}
@@ -34,7 +35,8 @@ void EnemyCircle::Update()
 	{
 		angle += 0.02f;
 	}
-	
+	worldTransform.rotation_.y = -(angle + myMath::AX_PI / 2);//“G‚Ìis•ûŒü‚ÉŒü‚«‚ð‡‚í‚¹‚é
+
 	Move();
 	Limit();
 	Collider();

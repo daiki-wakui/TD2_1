@@ -17,6 +17,7 @@ void EnemyStraight::Initialize(ViewProjection viewProjection,myMath::Vector3 pos
 
 	front.x = pos.x + sinf(angle);
 	front.z = pos.z + cosf(angle);
+	worldTransform.rotation_.y = angle + myMath::AX_PI / 2;//“G‚Ìis•ûŒü‚ÉŒü‚«‚ğ‡‚í‚¹‚é
 
 	viewProjection.Initialize();
 }
