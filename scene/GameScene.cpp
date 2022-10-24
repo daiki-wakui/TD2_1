@@ -20,6 +20,7 @@ void GameScene::Initialize() {
 	viewProjection.Initialize();
 	oldViewProjection.eye = { 0,75,-10 };
 	oldViewProjection.Initialize();
+	boxModel = Model::Create();
 
 	player = Player::GetInstance();
 	player->Initialize(viewProjection);
@@ -154,7 +155,7 @@ void GameScene::Update()
 			if (isAnimation == true) {
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
-					newobj->Initialize(effectWorldTransform, model, redTexture_, 0);
+					newobj->Initialize(effectWorldTransform, boxModel, redTexture_, 0);
 					objs_.push_back(std::move(newobj));
 				}
 				isAnimation = false;
@@ -170,7 +171,7 @@ void GameScene::Update()
 			if (isAnimation == true) {
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
-					newobj->Initialize(effectWorldTransform, model, redTexture_, 0);
+					newobj->Initialize(effectWorldTransform, boxModel, redTexture_, 0);
 					objs_.push_back(std::move(newobj));
 				}
 				isAnimation = false;

@@ -91,6 +91,7 @@ class GameScene {
 
 	Model* model = nullptr;
 	uint32_t texture;
+	Model* boxModel = nullptr;
 
 	Model* floorModel = nullptr;
 	WorldTransform floorWorldTransform;
