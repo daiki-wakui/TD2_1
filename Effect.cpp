@@ -6,11 +6,12 @@ Effect::~Effect()
 	delete boxModel_;
 }
 
-void Effect::Initialize(WorldTransform worldTransform,Model* model, uint32_t textureHandle, const int& Case) {
+void Effect::Initialize(Player* player,WorldTransform worldTransform,Model* model, uint32_t textureHandle, const int& Case) {
 	//NULLポインタチェック
 	assert(model);
 
 	//引数のデータをメンバ変数に代入
+	player_ = player;
 	model_ = model;
 	textureHandle_ = textureHandle;
 	worldTransform_ = worldTransform;
@@ -51,14 +52,14 @@ void Effect::Initialize(WorldTransform worldTransform,Model* model, uint32_t tex
 		worldTransform_.scale_ = { 3.0f,3.0f,3.0f };
 	}
 	else if (Case == 2) {
-		worldTransformbig_.scale_ = { 0.45,0.45,0.45 };
+		worldTransformbig_.scale_ = { 0.15,0.15,0.15 };
 		worldTransform_.scale_ = { 0.35,0.35,0.35 };
-		Power.y = posYDist(engine);
-		Power.x = posXDist(engine) * 4;
-		Power.z = posXDist(engine) * 4;
-		PowerBig.y = posYDist(engine);
-		PowerBig.x = posXDist(engine)*2;
-		PowerBig.z = posXDist(engine)*2;
+		Power.y = posYDist(engine) * (player_->GetAttackWorldTransform().scale_.x / 8);
+		Power.x = posXDist(engine) * (player_->GetAttackWorldTransform().scale_.x / 4);
+		Power.z = posXDist(engine) * (player_->GetAttackWorldTransform().scale_.z / 4);
+		PowerBig.y = posYDist(engine) * (player_->GetAttackWorldTransform().scale_.x / 8);
+		PowerBig.x = posXDist(engine)* (player_->GetAttackWorldTransform().scale_.x / 4);
+		PowerBig.z = posXDist(engine)* (player_->GetAttackWorldTransform().scale_.z / 4);
 	}
 
 	change = Case;

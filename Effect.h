@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "DebugText.h"
 #include <random>
+#include "Player.h"
 
 class Effect {
 private:
@@ -18,6 +19,8 @@ private:
 	Input* input_ = nullptr;
 	DebugText* debugText_ = nullptr;
 
+	Player* player_ = nullptr;
+
 	int isAnimation = false;
 	Vector3 Power;
 	Vector3 PowerBig;
@@ -28,7 +31,7 @@ private:
 
 public:
 	~Effect();
-	void Initialize(WorldTransform worldTransform ,Model* model, uint32_t textureHandle, const int& Case);
+	void Initialize(Player* player,WorldTransform worldTransform ,Model* model, uint32_t textureHandle, const int& Case);
 	void Update();
 	void Draw(ViewProjection& viewProjection);
 

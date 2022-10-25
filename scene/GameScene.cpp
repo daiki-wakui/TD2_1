@@ -29,7 +29,7 @@ void GameScene::Initialize() {
 	texture = TextureManager::Load("mario.jpg");
 	redTexture_ = TextureManager::Load("red.png");
 	whiteTexture_ = TextureManager::Load("wit.png");
-	orangeTexture_ = TextureManager::Load("orange.png");
+	orangeTexture_ = TextureManager::Load("orange2.png");
 	
 	
 	map = std::make_unique<Map>();
@@ -68,6 +68,10 @@ void GameScene::Initialize() {
 	explosionTransform.Initialize();
 
 
+	effectWorldTransform.translation_ = { 50,0,0 };
+	effectWorldTransform.Initialize();
+	World.Initialize();
+
 #pragma endregion
 
 	score = Score::GetInstance();
@@ -93,10 +97,6 @@ void GameScene::Initialize() {
 	AudioManager::GetInstance()->ChangeVolume(gameScene, 0.2f);
 
 #pragma endregion
-
-	effectWorldTransform.translation_ = { 50,0,0 };
-	effectWorldTransform.Initialize();
-	World.Initialize();
 }
 
 void GameScene::Update()
@@ -125,14 +125,6 @@ void GameScene::Update()
 			scene = Result;//リザルトシーン
 		}
 
-		if (input_->TriggerKey(DIK_6)) {
-			for (int i = 0; i < 20; i++) {
-				std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
-				newobj->Initialize(World, boxModel, orangeTexture_, 2);
-				objs_.push_back(std::move(newobj));
-			}
-			
-		}
 		if (input_->TriggerKey(DIK_RETURN))
 		{
 			AudioManager::GetInstance()->StopWave(gameScene);
@@ -167,6 +159,45 @@ void GameScene::Update()
 
 #pragma region  エフェクト関連の更新処理
 
+		//playerの爆発エフェクト
+		if (input_->TriggerKey(DIK_SPACE)) {
+			explosionTransform = player->GetTaleWorldTransform();
+			explosionTransform.scale_ = player->GetAttackWorldTransform().scale_;
+			explosionTransform.scale_.x *= 2;
+			explosionTransform.scale_.y *= 2;
+			explosionTransform.scale_.z *= 2;
+
+			isExplosion = true;
+
+			//小爆発の場合散らばるブロックを減らす
+			if (player->GetAttackWorldTransform().scale_.x < 4.0f) {
+				for (int i = 0; i < 5; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, explosionTransform, boxModel, orangeTexture_, 2);
+					objs_.push_back(std::move(newobj));
+				}
+			}
+			//大爆発の場合ブロックを増やす
+			else {
+				for (int i = 0; i < 20; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, explosionTransform, boxModel, orangeTexture_, 2);
+					objs_.push_back(std::move(newobj));
+				}
+			}
+		}
+		//爆発したら
+		if (isExplosion == true) {
+			explosionTransform.scale_.x -= 1.5f;
+			explosionTransform.scale_.y -= 1.5f;
+			explosionTransform.scale_.z -= 1.5f;
+
+			if (explosionTransform.scale_.x < 0) {
+				isExplosion = false;
+			}
+		}
+
+		//敵が死ぬ時の演出
 		for (const std::unique_ptr<EnemyCircle>& enemycir : enemyCircles) {
 			if (enemycir->GetIsDead() == true) {
 				effectWorldTransform = enemycir->GetWorldTransform();
@@ -176,13 +207,12 @@ void GameScene::Update()
 			if (isAnimation == true) {
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
-					newobj->Initialize(effectWorldTransform, boxModel, redTexture_, 0);
+					newobj->Initialize(player,effectWorldTransform, boxModel, redTexture_, 0);
 					objs_.push_back(std::move(newobj));
 				}
 				isAnimation = false;
 			}
 		}
-
 		for (const std::unique_ptr<EnemyStraight>& enemystr : enemyStraights) {
 			if (enemystr->GetIsDead() == true) {
 				effectWorldTransform = enemystr->GetWorldTransform();
@@ -192,7 +222,7 @@ void GameScene::Update()
 			if (isAnimation == true) {
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
-					newobj->Initialize(effectWorldTransform, boxModel, redTexture_, 0);
+					newobj->Initialize(player,effectWorldTransform, boxModel, redTexture_, 0);
 					objs_.push_back(std::move(newobj));
 				}
 				isAnimation = false;
@@ -204,7 +234,7 @@ void GameScene::Update()
 
 		objs_.remove_if([](std::unique_ptr<Effect>& obj_) {
 			return obj_->IsDead();
-			});
+		});
 
 		for (std::unique_ptr<Effect>& object : objs_) {
 			object->Update();
@@ -438,7 +468,9 @@ void GameScene::Draw() {
 			object->Draw(viewProjection);
 		}
 
-		exModel_->Draw(explosionTransform, viewProjection);
+		if (isExplosion == true) {
+			exModel_->Draw(explosionTransform, viewProjection, orangeTexture_);
+		}
 
 		break;
 

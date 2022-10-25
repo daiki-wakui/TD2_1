@@ -220,7 +220,7 @@ void Player::Draw(ViewProjection viewProjection)
 
 	if (attackFlag == true)
 	{
-		attackModel->Draw(attackWorldTransform, viewProjection, textureHundle);
+		//attackModel->Draw(attackWorldTransform, viewProjection, textureHundle);
 	}
 
 	debugText_->SetPos(20, 60);
@@ -228,6 +228,9 @@ void Player::Draw(ViewProjection viewProjection)
 
 	debugText_->SetPos(20, 100);
 	debugText_->Printf("speed %f", speed);
+
+	debugText_->SetPos(20, 140);
+	debugText_->Printf("scale x %f scale y %f scale z %f", attackWorldTransform.scale_.x, attackWorldTransform.scale_.y, attackWorldTransform.scale_.z);
 }
 
 void Player::Reset()

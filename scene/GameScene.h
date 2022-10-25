@@ -150,4 +150,5 @@ class GameScene {
 
 	Model* exModel_ = nullptr;
 	WorldTransform explosionTransform;
+	bool isExplosion = false;
 };
