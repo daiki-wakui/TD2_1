@@ -47,6 +47,9 @@ private:
 	int LimitPosNX = -143;
 	int LimitPosNZ = -93;
 
+	bool isStart_ = false;
+	int timer = 0;
+
 public:
 
 	Player();
@@ -60,6 +63,8 @@ public:
 	void Tale();
 	void Draw(ViewProjection viewProjection);
 	void Reset();
+	void titleSceneUpdate();
+	void titleSceneRotation();
 
 	//ゲッター
 	WorldTransform GetPlayerWorldTransform();//プレイヤーの中心座標
@@ -69,4 +74,5 @@ public:
 	float GetBombCharge();//爆発の半径
 	bool GetAttackFlag();
 	static Player* GetInstance();
+	int GetTimer() { return timer; };
 };

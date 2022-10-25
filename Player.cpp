@@ -42,6 +42,50 @@ void Player::Initialize(ViewProjection viewProjection)
 	viewProjection.Initialize();
 }
 
+void Player::titleSceneUpdate() {
+	Tale();//尻尾の処理
+	titleSceneRotation();
+	if (attackFlag == true)
+	{
+		Attack();//攻撃処理
+	}
+
+	speed -= 0.005f;
+
+	if (speed <= 0.0f)
+	{
+		speed = 0.0f;
+	}
+
+	player.x += normFrontVec.x * speed;
+	player.z += normFrontVec.z * speed;
+	playerWorldTransform.translation_.x = player.x;
+	playerWorldTransform.translation_.z = player.z;
+
+	playerModelWorldTransform.rotation_ = playerWorldTransform.rotation_;
+	playerModelWorldTransform.translation_ = playerWorldTransform.translation_;
+
+	taleModelWorldTransform.scale_ = taleWorldTransform.scale_;
+	taleModelWorldTransform.rotation_ = taleWorldTransform.rotation_;
+	taleModelWorldTransform.rotation_.y += 1.57f;
+	taleModelWorldTransform.translation_ = taleWorldTransform.translation_;
+
+	MathUtility::MatrixCalculation(playerWorldTransform);//行列の更新
+	playerWorldTransform.TransferMatrix();//行列の転送
+
+	MathUtility::MatrixCalculation(playerModelWorldTransform);//行列の更新
+	playerModelWorldTransform.TransferMatrix();//行列の転送
+
+	MathUtility::MatrixCalculation(taleWorldTransform);//行列の更新
+	taleWorldTransform.TransferMatrix();//行列の転送
+
+	MathUtility::MatrixCalculation(taleModelWorldTransform);//行列の更新
+	taleModelWorldTransform.TransferMatrix();//行列の転送
+
+	MathUtility::MatrixCalculation(attackWorldTransform);//行列の更新
+	attackWorldTransform.TransferMatrix();//行列の転送
+}
+
 void Player::Update()
 {
 	Tale();//尻尾の処理
@@ -140,6 +184,54 @@ void Player::MoveLimit()
 	}
 }
 
+void Player::titleSceneRotation()
+{
+	const float rotSpeed = 0.1f;
+
+	if (isStart_ == true)
+	{
+		if (angle != 0 && timer < 33)
+		{
+			timer++;
+			angle += rotSpeed;
+		}
+		if (timer == 32)
+		{
+			frontVec = front - player;
+			normFrontVec = frontVec.normalization();
+			speed = 0.1f * bombCharge;
+			attackFlag = true;
+			timer++;
+		}
+	}
+
+	if (input->TriggerKey(DIK_SPACE))
+	{
+		isStart_ = true;
+		front.x = player.x + sinf(angle) * 2;
+		front.z = player.z + cosf(angle) * 2;
+	}
+
+	taleWorldTransform.translation_.x = player.x + sinf(angle) * 7;
+	taleWorldTransform.translation_.z = player.z + cosf(angle) * 7;
+
+	attackWorldTransform.translation_.x = player.x + sinf(angle) * 8;
+	attackWorldTransform.translation_.z = player.z + cosf(angle) * 8;
+
+	if (angle > 2 * MathUtility::PI)
+	{
+		angle = 0;//オーバーフロー回避処理
+	}
+	else if (angle < 0)
+	{
+		angle = 2 * MathUtility::PI;//オーバーフロー回避処理
+	}
+
+	playerWorldTransform.rotation_.y = angle;
+	taleWorldTransform.rotation_.y = angle;
+	attackWorldTransform.rotation_.y = angle;
+}
+
 void Player::Rotation()
 {
 	const float rotSpeed = 0.075f;
@@ -229,8 +321,11 @@ void Player::Draw(ViewProjection viewProjection)
 	debugText_->SetPos(20, 100);
 	debugText_->Printf("speed %f", speed);
 
-	debugText_->SetPos(20, 140);
-	debugText_->Printf("scale x %f scale y %f scale z %f", attackWorldTransform.scale_.x, attackWorldTransform.scale_.y, attackWorldTransform.scale_.z);
+	debugText_->SetPos(20, 220);
+	debugText_->Printf("timer %d", timer);
+
+	debugText_->SetPos(20, 240);
+	debugText_->Printf("angle %f", angle);
 }
 
 void Player::Reset()

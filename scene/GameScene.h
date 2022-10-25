@@ -198,4 +198,7 @@ class GameScene {
 	uint32_t titleTextrue_ = 0;
 	Sprite* spriteTielelogo_ = nullptr;
 	myMath::Vector2 pos = { 0,0 };
+
+	bool isStart = false;
+	bool isControl = false;
 };

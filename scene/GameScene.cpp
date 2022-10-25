@@ -109,33 +109,113 @@ void GameScene::Update()
 		//タイトル画面
 	case Title:
 
+#pragma region 演出処理
+
 		float rot;
 		rot = spriteTielelogo_->GetRotation();
 		pos = { spriteTielelogo_->GetPosition().x,spriteTielelogo_->GetPosition().y };
 
-		if (input_->PushKey(DIK_8)) {
+		if (isControl == true)
+		{
 			rot += 0.5f;
-			pos.x += 15.0f;
-		}
-		else {
-			pos.x = 1280 / 2;
-			rot = 0;
+			pos.x += 20.0f;
+			pos.y += 3.0f;
 		}
 
 		spriteTielelogo_->SetRotation(rot);
 		spriteTielelogo_->SetPosition({ pos.x,pos.y });
 
 		if (input_->TriggerKey(DIK_SPACE)) {
+			isStart = true;
+		}
+#pragma endregion
+
+		if (player->GetPlayerWorldTransform().translation_.z <= -100)
+		{
 			AudioManager::GetInstance()->StopWave(titleScene);//タイトルシーンのBGMを止める
 			AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
-		
+
+			Reset();
 			scene = Game;	//ゲームシーンへ
 		}
 
+#pragma region マップ関連
+
+		//床の行列更新
+		MathUtility::MatrixCalculation(floorWorldTransform);//行列の更新
+		floorWorldTransform.TransferMatrix();
+
+		//壁の行列更新
+		for (int i = 0; i < 4; i++)
+		{
+			MathUtility::MatrixCalculation(wallWorldTransform[i]);//行列の更新
+			wallWorldTransform[i].TransferMatrix();
+		}
+
+		map->Update();
+		map->EnemyUpdate(enemys, enemyGeneration);
+		map->EnemyStraightUpdate(enemyStraights, enemyStraightsGen);
+		map->EnemyCircleUpdate(enemyCircles, enemyCirclesGen);
+
+#pragma endregion
+
+		player->titleSceneUpdate();
+		viewProjection.eye = { 0,75,-70 };
+		viewProjection.target = { 0,0,-50 };
+
+		if (player->GetTimer() == 33 && isControl == false)
+		{
+			explosionTransform = player->GetTaleWorldTransform();
+			explosionTransform.scale_ = player->GetAttackWorldTransform().scale_;
+			explosionTransform.scale_.x *= 2;
+			explosionTransform.scale_.y *= 2;
+			explosionTransform.scale_.z *= 2;
+			isExplosion = true;
+			isAnimation = true;
+			isControl = true;
+		}
+		if (isAnimation == true)
+		{
+			for (int i = 0; i < 20; i++) {
+				std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+				newobj->Initialize(player, explosionTransform, boxModel, orangeTexture_, 2);
+				objs_.push_back(std::move(newobj));
+			}
+			isAnimation = false;
+		}
+
+		//爆発したら
+		if (isExplosion == true) {
+			explosionTransform.scale_.x -= 1.5f;
+			explosionTransform.scale_.y -= 1.5f;
+			explosionTransform.scale_.z -= 1.5f;
+
+			if (explosionTransform.scale_.x < 0) {
+				isExplosion = false;
+			}
+		}
+
+		MathUtility::MatrixCalculation(effectWorldTransform);//行列の更新
+		effectWorldTransform.TransferMatrix();
+
+		objs_.remove_if([](std::unique_ptr<Effect>& obj_) {
+			return obj_->IsDead();
+			});
+
+		for (std::unique_ptr<Effect>& object : objs_) {
+			object->Update();
+		}
+
+		MathUtility::MatrixCalculation(explosionTransform);//行列の更新
+		explosionTransform.TransferMatrix();
+
+		viewProjection.TransferMatrix();
+		viewProjection.UpdateMatrix();
 		break;
 
 		//ゲームシーン
 	case Game:
+		isControl = false;
 
 		if (score->IsFinish())
 		{
@@ -440,6 +520,26 @@ void GameScene::Draw() {
 	{
 		//タイトル画面
 	case Title:
+
+#pragma region  フィールドマップの描画
+
+		floorModel->Draw(floorWorldTransform, viewProjection);
+
+		for (int i = 0; i < 4; i++)
+		{
+			wallModel->Draw(wallWorldTransform[i], viewProjection);
+		}
+#pragma endregion
+
+		for (std::unique_ptr<Effect>& object : objs_) {
+			object->Draw(viewProjection);
+		}
+
+		if (isExplosion == true) {
+			exModel_->Draw(explosionTransform, viewProjection, orangeTexture_);
+		}
+
+		player->Draw(viewProjection);
 
 		debugText_->SetPos(550, 300);
 		debugText_->Printf("Title Scene Space Start");
