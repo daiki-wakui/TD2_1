@@ -183,7 +183,7 @@ class GameScene {
 	uint32_t titleScene = 0;
 	uint32_t gameScene = 0;
 
-	std::list<std::unique_ptr<Effect>> objs_;
+	std::list<std::unique_ptr<Effect>> effects_;
 	uint32_t redTexture_;
 	uint32_t whiteTexture_;
 	uint32_t orangeTexture_;
@@ -201,4 +201,5 @@ class GameScene {
 
 	bool isStart = false;
 	bool isControl = false;
+	float rot;
 };

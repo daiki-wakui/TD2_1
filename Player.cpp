@@ -199,13 +199,13 @@ void Player::titleSceneRotation()
 		{
 			frontVec = front - player;
 			normFrontVec = frontVec.normalization();
-			speed = 0.1f * bombCharge;
+			speed = 0.1f * 10.0f;
 			attackFlag = true;
 			timer++;
 		}
 	}
 
-	if (input->TriggerKey(DIK_SPACE))
+	if (input->TriggerKey(DIK_SPACE) && isStart_ == false)
 	{
 		isStart_ = true;
 		front.x = player.x + sinf(angle) * 2;
@@ -337,6 +337,8 @@ void Player::Reset()
 	bombCharge = 2.0f;
 	attackTimer = 3;
 	attackFlag = false;
+	timer = 0;
+	isStart_ = false;
 }
 
 WorldTransform Player::GetPlayerWorldTransform()

@@ -111,7 +111,6 @@ void GameScene::Update()
 
 #pragma region 演出処理
 
-		float rot;
 		rot = spriteTielelogo_->GetRotation();
 		pos = { spriteTielelogo_->GetPosition().x,spriteTielelogo_->GetPosition().y };
 
@@ -179,7 +178,7 @@ void GameScene::Update()
 			for (int i = 0; i < 20; i++) {
 				std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
 				newobj->Initialize(player, explosionTransform, boxModel, orangeTexture_, 2);
-				objs_.push_back(std::move(newobj));
+				effects_.push_back(std::move(newobj));
 			}
 			isAnimation = false;
 		}
@@ -198,11 +197,11 @@ void GameScene::Update()
 		MathUtility::MatrixCalculation(effectWorldTransform);//行列の更新
 		effectWorldTransform.TransferMatrix();
 
-		objs_.remove_if([](std::unique_ptr<Effect>& obj_) {
+		effects_.remove_if([](std::unique_ptr<Effect>& obj_) {
 			return obj_->IsDead();
 			});
 
-		for (std::unique_ptr<Effect>& object : objs_) {
+		for (std::unique_ptr<Effect>& object : effects_) {
 			object->Update();
 		}
 
@@ -274,7 +273,7 @@ void GameScene::Update()
 				for (int i = 0; i < 5; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
 					newobj->Initialize(player, explosionTransform, boxModel, orangeTexture_, 2);
-					objs_.push_back(std::move(newobj));
+					effects_.push_back(std::move(newobj));
 				}
 			}
 			//大爆発の場合ブロックを増やす
@@ -282,7 +281,7 @@ void GameScene::Update()
 				for (int i = 0; i < 20; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
 					newobj->Initialize(player, explosionTransform, boxModel, orangeTexture_, 2);
-					objs_.push_back(std::move(newobj));
+					effects_.push_back(std::move(newobj));
 				}
 			}
 		}
@@ -308,7 +307,7 @@ void GameScene::Update()
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
 					newobj->Initialize(player,effectWorldTransform, boxModel, redTexture_, 0);
-					objs_.push_back(std::move(newobj));
+					effects_.push_back(std::move(newobj));
 				}
 				isAnimation = false;
 			}
@@ -323,7 +322,7 @@ void GameScene::Update()
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
 					newobj->Initialize(player,effectWorldTransform, boxModel, redTexture_, 0);
-					objs_.push_back(std::move(newobj));
+					effects_.push_back(std::move(newobj));
 				}
 				isAnimation = false;
 			}
@@ -332,11 +331,11 @@ void GameScene::Update()
 		MathUtility::MatrixCalculation(effectWorldTransform);//行列の更新
 		effectWorldTransform.TransferMatrix();
 
-		objs_.remove_if([](std::unique_ptr<Effect>& obj_) {
+		effects_.remove_if([](std::unique_ptr<Effect>& obj_) {
 			return obj_->IsDead();
 		});
 
-		for (std::unique_ptr<Effect>& object : objs_) {
+		for (std::unique_ptr<Effect>& object : effects_) {
 			object->Update();
 		}
 
@@ -531,7 +530,7 @@ void GameScene::Draw() {
 		}
 #pragma endregion
 
-		for (std::unique_ptr<Effect>& object : objs_) {
+		for (std::unique_ptr<Effect>& object : effects_) {
 			object->Draw(viewProjection);
 		}
 
@@ -592,7 +591,7 @@ void GameScene::Draw() {
 #pragma endregion
 
 
-		for (std::unique_ptr<Effect>& object : objs_) {
+		for (std::unique_ptr<Effect>& object : effects_) {
 			object->Draw(viewProjection);
 		}
 
@@ -761,6 +760,13 @@ void GameScene::Reset()
 	enemyStraightAngle = 0;
 	enemyCirclesGen = 0;
 	enemyCircleAngle = 0;
+	effects_.clear();
+	isStart = false;
+	pos.x = 1280/2;
+	pos.y = 170;
+	rot = 0;
+	spriteTielelogo_->SetRotation(rot);
+	spriteTielelogo_->SetPosition({ pos.x,pos.y });
 }
 
 void GameScene::SpawnCollider()
