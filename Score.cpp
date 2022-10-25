@@ -26,10 +26,10 @@ void Score::Update()
 	BonusTime--;
 	TimerUpdate();
 	scoreDigits[0] = score % 10;
-	scoreDigits[1] = score / 10;
-	scoreDigits[2] = score / 100;
-	scoreDigits[3] = score / 1000;
-	scoreDigits[4] = score / 10000;
+	scoreDigits[1] = score / 10 % 10;
+	scoreDigits[2] = score / 100 % 10;
+	scoreDigits[3] = score / 1000 % 10;
+	scoreDigits[4] = score / 10000 % 10;
 	scoreDigits[5] = score / 100000;
 }
 
@@ -46,7 +46,7 @@ void Score::ScoreAdd()
 	score += 100 * scoreBonus;//ÉXÉRÉAëùâ¡
 	BonusTime = 60;//î{ó¶Ç™è„Ç™ÇÈéûä‘
 
-	
+
 }
 
 void Score::Draw()
@@ -541,7 +541,7 @@ void Score::TimerUpdate()
 	if (timerFlame <= 0)
 	{
 		timeLimit--;
-		timerFlame= 60;
+		timerFlame = 60;
 	}
 	timerDigits[0] = timeLimit % 10;
 	timerDigits[1] = timeLimit / 10;
