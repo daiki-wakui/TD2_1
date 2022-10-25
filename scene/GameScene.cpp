@@ -31,6 +31,8 @@ void GameScene::Initialize() {
 	whiteTexture_ = TextureManager::Load("wit.png");
 	orangeTexture_ = TextureManager::Load("orange2.png");
 	
+	titleTextrue_ = TextureManager::Load("bombTale_logo.png");
+	spriteTielelogo_ = Sprite::Create(titleTextrue_, { 1280 / 2,170 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 	
 	map = std::make_unique<Map>();
 	map->Initialize(viewProjection);
@@ -106,6 +108,22 @@ void GameScene::Update()
 	{
 		//タイトル画面
 	case Title:
+
+		float rot;
+		rot = spriteTielelogo_->GetRotation();
+		pos = { spriteTielelogo_->GetPosition().x,spriteTielelogo_->GetPosition().y };
+
+		if (input_->PushKey(DIK_8)) {
+			rot += 0.5f;
+			pos.x += 15.0f;
+		}
+		else {
+			pos.x = 1280 / 2;
+			rot = 0;
+		}
+
+		spriteTielelogo_->SetRotation(rot);
+		spriteTielelogo_->SetPosition({ pos.x,pos.y });
 
 		if (input_->TriggerKey(DIK_SPACE)) {
 			AudioManager::GetInstance()->StopWave(titleScene);//タイトルシーンのBGMを止める
@@ -698,8 +716,13 @@ void GameScene::Draw() {
 	
 	switch (scene)
 	{
+	case Title:
+		spriteTielelogo_->Draw();
+
+		break;
 	case Game:
 		score->Draw();
+
 #pragma region マップ関連
 
 		map->Draw();
@@ -709,6 +732,9 @@ void GameScene::Draw() {
 
 #pragma endregion
 
+		break;
+
+	case Result:
 		break;
 	}
 

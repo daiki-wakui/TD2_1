@@ -27,6 +27,7 @@
 
 #include "Score.h"
 #include "Effect.h"
+#include <DirectXMath.h>
 
 enum SceneName
 {
@@ -190,4 +191,8 @@ class GameScene {
 	Model* exModel_ = nullptr;
 	WorldTransform explosionTransform;
 	bool isExplosion = false;
+
+	uint32_t titleTextrue_ = 0;
+	Sprite* spriteTielelogo_ = nullptr;
+	myMath::Vector2 pos = { 0,0 };
 };
