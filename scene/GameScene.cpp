@@ -155,113 +155,176 @@ void GameScene::Update()
 #pragma region スポーン地点の確定
 
 		spawnTimer--;
-		if (spawnTimer <= 0)
+		srand(time(nullptr));
+		for (int i = 13; i <= 13; i++)
 		{
-			spawnNum = rand() % 13 + 1;//スポーン地点の出現をランダムで決定
-			spawnTimer = 300;
-		}
-		if (spawnNum == 1)
-		{
-			if (isSpawnLeftTop == false)
+			if (spawnTimer <= 0)
 			{
-				isSpawnLeftTop = true;
+				
+				spawnNum = rand() % 13 + 1;//スポーン地点の出現をランダムで決定
+				
 			}
-		}
-		else if (spawnNum == 2)
-		{
-			if (isSpawnMiddleTop == false)
+			if (spawnNum == 1)
 			{
-				isSpawnMiddleTop = true;
+				if (isSpawnLeftTop == false)
+				{
+					isSpawnLeftTop = true;
+					spawnTimer = 300;
+				}
 			}
-		}
-		else if (spawnNum == 3)
-		{
-			if (isSpawnRightTop == false)
+			else
 			{
-				isSpawnRightTop = true;
+				continue;
 			}
+			if (spawnNum == 2)
+			{
+				if (isSpawnMiddleTop == false)
+				{
+					isSpawnMiddleTop = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			if (spawnNum == 3)
+			{
+				if (isSpawnRightTop == false)
+				{
+					isSpawnRightTop = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			if (spawnNum == 4)
+			{
+				if (isSpawnLeftCenter == false)
+				{
+					isSpawnLeftCenter = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			if (spawnNum == 5)
+			{
+				if (isSpawnMiddleCenter == false)
+				{
+					isSpawnMiddleCenter = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			if (spawnNum == 6)
+			{
+				if (isSpawnRightCenter == false)
+				{
+					isSpawnRightCenter = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			if (spawnNum == 7)
+			{
+				if (isSpawnLeftBottom == false)
+				{
+					isSpawnLeftBottom = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			if (spawnNum == 8)
+			{
+				if (isSpawnMiddleBottom == false)
+				{
+					isSpawnMiddleBottom = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
+			}
+			if (spawnNum == 9)
+			{
 
-		}
-		else if (spawnNum == 4)
-		{
-			if (isSpawnLeftCenter == false)
-			{
-				isSpawnLeftCenter = true;
+				if (isSpawnRightBottom == false)
+				{
+					isSpawnRightBottom = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
 			}
-
-		}
-		else if (spawnNum == 5)
-		{
-			if (isSpawnMiddleCenter == false)
+			if (spawnNum == 10)
 			{
-				isSpawnMiddleCenter = true;
+				if (isSpawnLMTop == false)
+				{
+					isSpawnLMTop = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
 			}
-
-		}
-		else if (spawnNum == 6)
-		{
-			if (isSpawnRightCenter == false)
+			if (spawnNum == 11)
 			{
-				isSpawnRightCenter = true;
+				if (isSpawnLMBottom == false)
+				{
+					isSpawnLMBottom = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
 			}
-		}
-		else if (spawnNum == 7)
-		{
-			if (isSpawnLeftBottom == false)
+			if (spawnNum == 12)
 			{
-				isSpawnLeftBottom = true;
-			}
+				if (isSpawnRMTop == false)
+				{
+					isSpawnRMTop = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
 
-		}
-		else if (spawnNum == 8)
-		{
-			if (isSpawnMiddleBottom == false)
+			}
+			if (spawnNum == 13)
 			{
-				isSpawnMiddleBottom = true;
+				if (isSpawnRMBottom == false)
+				{
+					isSpawnRMBottom = true;
+					spawnTimer = 300;
+				}
+				else
+				{
+					continue;
+				}
 			}
-
 		}
-		else if (spawnNum == 9)
-		{
-
-			if (isSpawnRightBottom == false)
-			{
-				isSpawnRightBottom = true;
-			}
-
-		}
-		else if (spawnNum == 10)
-		{
-			if (isSpawnLMTop == false)
-			{
-				isSpawnLMTop = true;
-			}
-
-		}
-		else if (spawnNum == 11)
-		{
-			if (isSpawnLMBottom == false)
-			{
-				isSpawnLMBottom = true;
-			}
-
-		}
-		else if (spawnNum == 12)
-		{
-			if (isSpawnRMTop == false)
-			{
-				isSpawnRMTop = true;
-			}
-
-		}
-		else if (spawnNum == 13)
-		{
-			if (isSpawnRMBottom == false)
-			{
-				isSpawnRMBottom = true;
-			}
-
-		}
+		
+		
 #pragma endregion
 
 #pragma region 各スポーン地点の復活
