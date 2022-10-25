@@ -117,19 +117,19 @@ void Enemy::MoveLimit()
 {
 	if (enemy.x <= -143)
 	{
-		isDead = true;
+		wallHitIsDead = true;
 	}
 	else if (enemy.x >= 143)
 	{
-		isDead = true;
+		wallHitIsDead = true;
 	}
 	if (enemy.z <= -93)
 	{
-		isDead = true;
+		wallHitIsDead = true;
 	}
 	else if (enemy.z >= 93)
 	{
-		isDead = true;
+		wallHitIsDead = true;
 	}
 }
 

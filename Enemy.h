@@ -24,6 +24,7 @@ private:
 	myMath::Vector3 enemyRay = { 0,0,0 };
 	myMath::Vector3 normEnemyRay = {0,0,0};
 	bool isDead = false;
+	bool wallHitIsDead = false;
 	float radius = 2.0f;
 
 	float distance = 0.0f;
@@ -39,6 +40,7 @@ public:
 	void Update();
 	void Draw(const ViewProjection& viewProjection);
 	bool GetIsDead(){return isDead;}
+	bool GetWallHitIsDead() { return wallHitIsDead; }
 
 	void Move();
 	void Leave();

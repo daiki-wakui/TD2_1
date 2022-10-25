@@ -268,9 +268,17 @@ void GameScene::Update()
 #pragma region 敵の削除処理
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
+		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetWallHitIsDead(); });
+
 		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetIsDead(); });
+		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetWallHitIsDead(); });
+
 		enemyCircles.remove_if([](std::unique_ptr<EnemyCircle>& enemy_) { return enemy_->GetIsDead(); });
+		enemyCircles.remove_if([](std::unique_ptr<EnemyCircle>& enemy_) { return enemy_->GetWallHitIsDead(); });
+
 		enemyBombs.remove_if([](std::unique_ptr<EnemyBomb>& enemy_) { return enemy_->GetIsDead(); });
+		//enemyBombs.remove_if([](std::unique_ptr<EnemyBomb>& enemy_) { return enemy_->GetWallHitIsDead(); });
+
 #pragma endregion
 
 		score->Update();

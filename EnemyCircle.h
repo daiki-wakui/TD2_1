@@ -20,6 +20,7 @@ private:
 	float radius = 2.0f;
 	float radian = 0.0f;
 	bool isDead = false;
+	bool wallHitIsDead = false;
 
 
 	uint32_t textureHundle = 0;
@@ -35,6 +36,7 @@ public:
 	void Move();
 	void Draw(ViewProjection viewProjection);
 	bool GetIsDead();
+	bool GetWallHitIsDead();
 	void Limit();
 	void Collider();
 

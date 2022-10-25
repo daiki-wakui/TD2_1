@@ -142,7 +142,7 @@ void Player::MoveLimit()
 
 void Player::Rotation()
 {
-	const float rotSpeed = 0.05f;
+	const float rotSpeed = 0.075f;
 
 	if (input->TriggerKey(DIK_SPACE))
 	{

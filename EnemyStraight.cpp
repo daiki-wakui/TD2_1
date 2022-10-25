@@ -55,11 +55,16 @@ bool EnemyStraight::GetIsDead()
 	return isDead;
 }
 
+bool EnemyStraight::GetWallHitIsDead()
+{
+	return wallHitIsDead;
+}
+
 void EnemyStraight::Limit()
 {
 	if (pos.x <= -142 || pos.x >= 142 || pos.z <= -92 || pos.z >= 92)
 	{
-		isDead = true;
+		wallHitIsDead = true;
 	}
 }
 

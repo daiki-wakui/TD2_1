@@ -70,11 +70,16 @@ bool EnemyCircle::GetIsDead()
 	return isDead;
 }
 
+bool EnemyCircle::GetWallHitIsDead()
+{
+	return wallHitIsDead;
+}
+
 void EnemyCircle::Limit()
 {
 	if (pos.x <= -142 || pos.x >= 142 || pos.z <= -92 || pos.z >= 92)
 	{
-		isDead = true;
+		wallHitIsDead = true;
 	}
 }
 
