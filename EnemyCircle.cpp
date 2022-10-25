@@ -1,5 +1,5 @@
 #include "EnemyCircle.h"
-void EnemyCircle::Initialize(Model* model,ViewProjection viewProjection, myMath::Vector3 position, float enemyAngle)
+void EnemyCircle::Initialize(Model* model, ViewProjection viewProjection, myMath::Vector3 position, float enemyAngle)
 {
 	assert(model);
 	player = Player::GetInstance();
@@ -88,15 +88,15 @@ void EnemyCircle::Collider()
 			isDead = true;
 		}
 	}
-	
+
 	if ((1.0f + radius) * (1.0f + radius) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x) +
 		(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 	{
-		score->SetTime(score->GetTimer() - 1);
+		score->SetTimer(score->GetTimer() - 1);
 		isDead = true;
 	}
-	
-	
+
+
 }
 
 WorldTransform EnemyCircle::GetWorldTransform()

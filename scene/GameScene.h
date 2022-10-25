@@ -81,6 +81,8 @@ class GameScene {
 
 	void Reset();
 
+	void SpawnCollider();
+
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -105,8 +107,45 @@ class GameScene {
 	WorldTransform worldtransform_;
 	WorldTransform spawnEnemyCircle;
 
-	myMath::Vector3 spawnRightTopPos;
-	myMath::Vector3 spawnCenterPos;
+	//スポーン地点関連
+	//各スポーン地点の座標
+	myMath::Vector3 spawnMiddleTop = { 0.0f,0.0f,50.0f };		//中心上
+	myMath::Vector3 spawnMiddleCenter = { 0,0,0 };				//中心
+	myMath::Vector3 spawnMiddleBottom = { 0.0f,0.0f,50.0f };	//中心下
+
+	myMath::Vector3 spawnLeftTop = { -100.0f,0.0f,50.0f };		//左上
+	myMath::Vector3 spawnLeftCenter = { -100.0f,0.0f,0.0f };	//左中心
+	myMath::Vector3 spawnLeftBottom = { -100.0f,0.0f,-50.0f };	//左下	
+
+	myMath::Vector3 spawnRightTop = { -100.0f,0.0f,50.0f };		//右上
+	myMath::Vector3 spawnRightCenter = { -100.0f,0.0f,0.0f };		//右中心
+	myMath::Vector3 spawnRightBottom = { -100.0f,0.0f,-50.0f };	//右下
+
+	myMath::Vector3 spawnLMTop = { -50.0f,0.0f,25.0f };			//左と真ん中の間の上
+	myMath::Vector3 spawnLMBottom = { -50.0f,0.0f,-25.0f };		//左と真ん中の間の下
+	myMath::Vector3 spawnRMTop = { 50.0f,0.0f,25.0f };			//右と真ん中の間の上
+	myMath::Vector3 spawnRMBottom = { 50.0f,0.0f,-25.0f };		//右と真ん中の間の下
+
+	//各スポーン地点のフラグ
+	bool isSpawnMiddleTop = false;
+	bool isSpawnMiddleCenter = false;
+	bool isSpawnMiddleBottom = false;
+	bool isSpawnLeftTop = false;
+	bool isSpawnLeftCenter = false;
+	bool isSpawnLeftBottom = false;
+	bool isSpawnRightTop = false;
+	bool isSpawnRightCenter = false;
+	bool isSpawnRightBottom = false;
+
+	bool isSpawnLMTop = false;
+	bool isSpawnLMBottom = false;
+	bool isSpawnRMTop = false;
+	bool isSpawnRMBottom = false;
+
+	int spawnNum;
+
+	int spawnTimer = 300;
+
 
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;

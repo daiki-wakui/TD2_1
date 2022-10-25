@@ -10,7 +10,7 @@ void EnemyStraight::Initialize(Model* model, ViewProjection viewProjection, myMa
 	worldTransform.scale_ = { 3,3,3 };
 	worldTransform.Initialize();
 	score = Score::GetInstance();
-	
+
 
 	pos = position;
 	speed = 0.5f;
@@ -67,18 +67,18 @@ void EnemyStraight::Collider()
 {
 	if (player->GetAttackFlag())
 	{
-		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (pos.x - player->GetAttackWorldTransform().translation_.x) * (pos.x - player->GetAttackWorldTransform().translation_.x) +(pos.z - player->GetAttackWorldTransform().translation_.z) * (pos.z - player->GetAttackWorldTransform().translation_.z))
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (pos.x - player->GetAttackWorldTransform().translation_.x) * (pos.x - player->GetAttackWorldTransform().translation_.x) + (pos.z - player->GetAttackWorldTransform().translation_.z) * (pos.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
 			isDead = true;
 		}
 	}
-	
-	
-	if ((1.0f + 1.0f) * (1.0f + 1.0f) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x)+
+
+
+	if ((1.0f + 1.0f) * (1.0f + 1.0f) >= (pos.x - player->GetPlayerWorldTransform().translation_.x) * (pos.x - player->GetPlayerWorldTransform().translation_.x) +
 		(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 	{
-		score->SetTime(score->GetTimer()-1);
+		score->SetTimer(score->GetTimer() - 1);
 		isDead = true;
 	}
 

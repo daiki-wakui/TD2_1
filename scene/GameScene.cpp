@@ -145,16 +145,152 @@ void GameScene::Update()
 
 #pragma region worldTransformにスポーン地点の座標代入
 
-		spawnRightTopPos = { 125.0f,0.0f,75.0f };
 
-		worldtransform_.translation_.x = spawnRightTopPos.x;
-		worldtransform_.translation_.z = spawnRightTopPos.z;
+		worldtransform_.translation_.x = spawnRightTop.x;
+		worldtransform_.translation_.z = spawnRightTop.z;
 
-		spawnCenterPos = { 0,0,0 };
-		spawnEnemyCircle.translation_.x = spawnCenterPos.x;
-		spawnEnemyCircle.translation_.z = spawnCenterPos.z;
+		
 
 #pragma endregion
+#pragma region スポーン地点の確定
+
+		spawnTimer--;
+		if (spawnTimer <= 0)
+		{
+			spawnNum = rand() % 13 + 1;//スポーン地点の出現をランダムで決定
+			spawnTimer = 300;
+		}
+		if (spawnNum == 1)
+		{
+			if (isSpawnLeftTop == false)
+			{
+				isSpawnLeftTop = true;
+			}
+		}
+		else if (spawnNum == 2)
+		{
+			if (isSpawnMiddleTop == false)
+			{
+				isSpawnMiddleTop = true;
+			}
+		}
+		else if (spawnNum == 3)
+		{
+			if (isSpawnRightTop == false)
+			{
+				isSpawnRightTop = true;
+			}
+
+		}
+		else if (spawnNum == 4)
+		{
+			if (isSpawnLeftCenter == false)
+			{
+				isSpawnLeftCenter = true;
+			}
+
+		}
+		else if (spawnNum == 5)
+		{
+			if (isSpawnMiddleCenter == false)
+			{
+				isSpawnMiddleCenter = true;
+			}
+
+		}
+		else if (spawnNum == 6)
+		{
+			if (isSpawnRightCenter == false)
+			{
+				isSpawnRightCenter = true;
+			}
+		}
+		else if (spawnNum == 7)
+		{
+			if (isSpawnLeftBottom == false)
+			{
+				isSpawnLeftBottom = true;
+			}
+
+		}
+		else if (spawnNum == 8)
+		{
+			if (isSpawnMiddleBottom == false)
+			{
+				isSpawnMiddleBottom = true;
+			}
+
+		}
+		else if (spawnNum == 9)
+		{
+
+			if (isSpawnRightBottom == false)
+			{
+				isSpawnRightBottom = true;
+			}
+
+		}
+		else if (spawnNum == 10)
+		{
+			if (isSpawnLMTop == false)
+			{
+				isSpawnLMTop = true;
+			}
+
+		}
+		else if (spawnNum == 11)
+		{
+			if (isSpawnLMBottom == false)
+			{
+				isSpawnLMBottom = true;
+			}
+
+		}
+		else if (spawnNum == 12)
+		{
+			if (isSpawnRMTop == false)
+			{
+				isSpawnRMTop = true;
+			}
+
+		}
+		else if (spawnNum == 13)
+		{
+			if (isSpawnRMBottom == false)
+			{
+				isSpawnRMBottom = true;
+			}
+
+		}
+#pragma endregion
+
+#pragma region 各スポーン地点の復活
+		if (isSpawnLeftTop == true)
+		{
+			EnemyStraightsSpawn(spawnLeftTop, enemyStraightAngle);
+		}
+
+		if (isSpawnMiddleTop == true)
+		{
+			EnemyStraightsSpawn(spawnMiddleTop, enemyStraightAngle);
+		}
+
+		if (isSpawnRightTop == true)
+		{
+			EnemyStraightsSpawn(spawnRightTop, enemyStraightAngle);
+		}
+
+		if (isSpawnLeftCenter == true)
+		{
+			EnemyStraightsSpawn(spawnLeftCenter, enemyStraightAngle);
+		}
+		if (isSpawnMiddleCenter == true)
+		{
+			EnemyStraightsSpawn(spawnMiddleCenter, enemyStraightAngle);
+		}
+#pragma endregion 
+
+		SpawnCollider();
 
 
 #pragma region  エフェクト関連の更新処理
@@ -257,7 +393,7 @@ void GameScene::Update()
 
 #pragma region 敵の生成処理
 
-		EnemySpawn(spawnRightTopPos);	//右
+		EnemySpawn(spawnRightTop);	//右
 
 		enemyStraightAngle += 0.02f;
 		if (enemyStraightAngle > 2 * MathUtility::PI)
@@ -483,7 +619,8 @@ void GameScene::Draw() {
 
 	debugText_->SetPos(20, 20);
 	debugText_->Printf("Scene %d", scene);
-
+	debugText_->SetPos(20, 200);
+	debugText_->Printf("num %d", spawnNum);
 	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -620,4 +757,83 @@ void GameScene::Reset()
 	enemyStraightAngle = 0;
 	enemyCirclesGen = 0;
 	enemyCircleAngle = 0;
+}
+
+void GameScene::SpawnCollider()
+{
+	if (player->GetAttackFlag())
+	{
+		//真ん中との当たり判定
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnMiddleTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnMiddleTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnMiddleTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnMiddleTop.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnMiddleTop = false;
+		}
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnMiddleCenter.x - player->GetAttackWorldTransform().translation_.x) * (spawnMiddleCenter.x - player->GetAttackWorldTransform().translation_.x) + (spawnMiddleCenter.z - player->GetAttackWorldTransform().translation_.z) * (spawnMiddleCenter.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnMiddleCenter = false;
+		}
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnMiddleBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnMiddleBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnMiddleBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnMiddleBottom.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnMiddleBottom = false;
+		}
+
+		//左との当たり判定
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnLeftTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnLeftTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnLeftTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnLeftTop.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnLeftTop = false;
+		}
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnLeftCenter.x - player->GetAttackWorldTransform().translation_.x) * (spawnLeftCenter.x - player->GetAttackWorldTransform().translation_.x) + (spawnLeftCenter.z - player->GetAttackWorldTransform().translation_.z) * (spawnLeftCenter.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnLeftCenter = false;
+		}
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnLeftBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnLeftBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnLeftBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnLeftBottom.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnLeftBottom = false;
+		}
+
+		//右との当たり判定
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnRightTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnRightTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnRightTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnRightTop.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnRightTop = false;
+		}
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnRightCenter.x - player->GetAttackWorldTransform().translation_.x) * (spawnRightCenter.x - player->GetAttackWorldTransform().translation_.x) + (spawnRightCenter.z - player->GetAttackWorldTransform().translation_.z) * (spawnRightCenter.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnRightCenter = false;
+		}
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnRightBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnRightBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnRightBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnRightBottom.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnRightBottom = false;
+		}
+
+		//各間の当たり判定
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnLMTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnLMTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnLMTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnLMTop.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnLMTop = false;
+		}
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnLMBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnLMBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnLMBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnLMBottom.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnLMBottom = false;
+		}
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnRMTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnRMTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnRMTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnRMTop.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnRMTop = false;
+		}
+		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnRMBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnRMBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnRMBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnRMBottom.z - player->GetAttackWorldTransform().translation_.z))
+		{
+			score->SetTimer(score->GetTimer() + 5);
+			isSpawnRMBottom = false;
+		}
+	}
 }

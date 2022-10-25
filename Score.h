@@ -72,8 +72,8 @@ public:
 
 	void TimerUpdate();
 
-	
-	void SetTime(int time){timeLimit = time;}
+
+	void SetTimer(int time) { timeLimit = time; }
 	int GetTimer() { return timeLimit; }
 
 	static Score* GetInstance();
