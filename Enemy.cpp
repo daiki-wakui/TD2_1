@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include<cmath>
 
 using namespace MathUtility;
 
@@ -72,12 +73,16 @@ void Enemy::Move()
 				 player->GetPlayerWorldTransform().translation_.z - enemy.z };
 	normEnemyVec = enemyVec.normalization();
 
+	angle = atan2(enemyVec.z, enemyVec.x);
+
 	enemy.x += normEnemyVec.x * speed;
 	enemy.y += normEnemyVec.y * speed;
 	enemy.z += normEnemyVec.z * speed;
 	worldTransform.translation_.x = enemy.x;
 	worldTransform.translation_.y = enemy.y;
 	worldTransform.translation_.z = enemy.z;
+
+	worldTransform.rotation_.y = angle + myMath::AX_PI / 2;//“G‚Ìis•ûŒü‚ÉŒü‚«‚ğ‡‚í‚¹‚é
 
 	MathUtility::Matrix4Translation(worldTransform.translation_.x, worldTransform.translation_.y, worldTransform.translation_.z);
 }

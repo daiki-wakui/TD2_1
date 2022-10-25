@@ -32,6 +32,8 @@ private:
 	bool left = false;
 	bool right = false;
 
+	float angle = 0.0f;
+
 	uint32_t texture_;
 
 public:
