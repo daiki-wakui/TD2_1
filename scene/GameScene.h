@@ -149,6 +149,7 @@ class GameScene {
 
 	int spawnTimer = 300;
 
+	int spawnCount = 0;
 
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;

@@ -29,7 +29,7 @@ private:
 
 	Model* model_ = nullptr;
 
-	float radius = 2.0f;
+	float radius = 3.0f;
 public:
 	void Initialize(Model* model,ViewProjection viewProjection,myMath::Vector3 position, float enemyAngle);
 	void Update();

@@ -277,7 +277,7 @@ void GameScene::Update()
 
 #pragma region 敵の生成処理
 
-		EnemySpawn(spawnRightTop);	//右
+		//EnemySpawn(spawnRightTop);	//右
 
 		enemyStraightAngle += 0.02f;
 		if (enemyStraightAngle > 2 * MathUtility::PI)
@@ -288,21 +288,21 @@ void GameScene::Update()
 		{
 			enemyStraightAngle = 2 * MathUtility::PI;//オーバーフロー回避処理
 		}
-		EnemyStraightsSpawn({ 0,0,0 }, enemyStraightAngle);
+		//EnemyStraightsSpawn({ 0,0,0 }, enemyStraightAngle);
 
 
-		enemyCircleAngle -= 0.2f;
-		if (enemyCircleAngle > 2 * MathUtility::PI)
-		{
-			enemyCircleAngle = 0;//オーバーフロー回避処理
-		}
-		else if (enemyCircleAngle < 0)
-		{
-			enemyCircleAngle = 2 * MathUtility::PI;//オーバーフロー回避処理
-		}
-		EnemyCirclesSpawn({ 20,0,20 }, enemyCircleAngle);
+		//enemyCircleAngle -= 0.2f;
+		//if (enemyCircleAngle > 2 * MathUtility::PI)
+		//{
+		//	enemyCircleAngle = 0;//オーバーフロー回避処理
+		//}
+		//else if (enemyCircleAngle < 0)
+		//{
+		//	enemyCircleAngle = 2 * MathUtility::PI;//オーバーフロー回避処理
+		//}
+		//EnemyCirclesSpawn({ 20,0,20 }, enemyCircleAngle);
 
-		EnemyBombsSpawn({10,0,10});
+		//EnemyBombsSpawn({10,0,10});
 
 #pragma endregion
 
@@ -587,10 +587,14 @@ void GameScene::EnemyStraightsGen(const myMath::Vector3& p,float angle)
 
 void GameScene::EnemyStraightsSpawn(const myMath::Vector3& p, float angle)
 {
-	if (enemyStraightsGen ==0)
+	
+	
+	if (enemyStraightsGen == 0)
 	{
 		EnemyStraightsGen(p, angle);
 	}
+	
+	
 }
 
 void GameScene::EnemyCirclesGen(const myMath::Vector3& p, float angle)
@@ -660,16 +664,19 @@ void GameScene::SpawnCollider()
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnMiddleTop = false;
+			spawnCount--;
 		}
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnMiddleCenter.x - player->GetAttackWorldTransform().translation_.x) * (spawnMiddleCenter.x - player->GetAttackWorldTransform().translation_.x) + (spawnMiddleCenter.z - player->GetAttackWorldTransform().translation_.z) * (spawnMiddleCenter.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnMiddleCenter = false;
+			spawnCount--;
 		}
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnMiddleBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnMiddleBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnMiddleBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnMiddleBottom.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnMiddleBottom = false;
+			spawnCount--;
 		}
 
 		//左との当たり判定
@@ -677,16 +684,19 @@ void GameScene::SpawnCollider()
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnLeftTop = false;
+			spawnCount--;
 		}
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnLeftCenter.x - player->GetAttackWorldTransform().translation_.x) * (spawnLeftCenter.x - player->GetAttackWorldTransform().translation_.x) + (spawnLeftCenter.z - player->GetAttackWorldTransform().translation_.z) * (spawnLeftCenter.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnLeftCenter = false;
+			spawnCount--;
 		}
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnLeftBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnLeftBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnLeftBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnLeftBottom.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnLeftBottom = false;
+			spawnCount--;
 		}
 
 		//右との当たり判定
@@ -694,16 +704,19 @@ void GameScene::SpawnCollider()
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnRightTop = false;
+			spawnCount--;
 		}
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnRightCenter.x - player->GetAttackWorldTransform().translation_.x) * (spawnRightCenter.x - player->GetAttackWorldTransform().translation_.x) + (spawnRightCenter.z - player->GetAttackWorldTransform().translation_.z) * (spawnRightCenter.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnRightCenter = false;
+			spawnCount--;
 		}
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnRightBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnRightBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnRightBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnRightBottom.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnRightBottom = false;
+			spawnCount--;
 		}
 
 		//各間の当たり判定
@@ -711,21 +724,25 @@ void GameScene::SpawnCollider()
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnLMTop = false;
+			spawnCount--;
 		}
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnLMBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnLMBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnLMBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnLMBottom.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnLMBottom = false;
+			spawnCount--;
 		}
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnRMTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnRMTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnRMTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnRMTop.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnRMTop = false;
+			spawnCount--;
 		}
 		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (spawnRMBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnRMBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnRMBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnRMBottom.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->SetTimer(score->GetTimer() + 5);
 			isSpawnRMBottom = false;
+			spawnCount--;
 		}
 	}
 }
@@ -742,7 +759,11 @@ void GameScene::SpawnEmerge()
 		if (spawnTimer <= 0)
 		{
 
-			spawnNum = rand() % 13 + 1;//スポーン地点の出現をランダムで決定
+			if (spawnCount < 13)
+			{
+				spawnNum = rand() % 13 + 1;//スポーン地点の出現をランダムで決定
+			}
+		
 
 		}
 		if (spawnNum == 1)
@@ -751,6 +772,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnLeftTop = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -764,6 +786,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnMiddleTop = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -776,6 +799,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnRightTop = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -788,6 +812,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnLeftCenter = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -800,6 +825,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnMiddleCenter = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -812,6 +838,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnRightCenter = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -824,6 +851,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnLeftBottom = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -836,6 +864,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnMiddleBottom = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -849,6 +878,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnRightBottom = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -861,6 +891,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnLMTop = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -873,6 +904,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnLMBottom = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -885,6 +917,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnRMTop = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
@@ -898,6 +931,7 @@ void GameScene::SpawnEmerge()
 			{
 				isSpawnRMBottom = true;
 				spawnTimer = 300;
+				spawnCount++;
 			}
 			else
 			{
