@@ -83,6 +83,8 @@ class GameScene {
 	void Reset();
 
 	void SpawnCollider();
+	
+	void SpawnEmerge();
 
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;

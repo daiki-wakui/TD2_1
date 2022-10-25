@@ -170,206 +170,9 @@ void GameScene::Update()
 		
 
 #pragma endregion
-#pragma region スポーン地点の確定
 
-		spawnTimer--;
-		srand(time(nullptr));
-		for (int i = 13; i <= 13; i++)
-		{
-			if (spawnTimer <= 0)
-			{
-				
-				spawnNum = rand() % 13 + 1;//スポーン地点の出現をランダムで決定
-				
-			}
-			if (spawnNum == 1)
-			{
-				if (isSpawnLeftTop == false)
-				{
-					isSpawnLeftTop = true;
-					spawnTimer = 300;
-				}
-			}
-			else
-			{
-				continue;
-			}
-			if (spawnNum == 2)
-			{
-				if (isSpawnMiddleTop == false)
-				{
-					isSpawnMiddleTop = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 3)
-			{
-				if (isSpawnRightTop == false)
-				{
-					isSpawnRightTop = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 4)
-			{
-				if (isSpawnLeftCenter == false)
-				{
-					isSpawnLeftCenter = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 5)
-			{
-				if (isSpawnMiddleCenter == false)
-				{
-					isSpawnMiddleCenter = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 6)
-			{
-				if (isSpawnRightCenter == false)
-				{
-					isSpawnRightCenter = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 7)
-			{
-				if (isSpawnLeftBottom == false)
-				{
-					isSpawnLeftBottom = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 8)
-			{
-				if (isSpawnMiddleBottom == false)
-				{
-					isSpawnMiddleBottom = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 9)
-			{
 
-				if (isSpawnRightBottom == false)
-				{
-					isSpawnRightBottom = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 10)
-			{
-				if (isSpawnLMTop == false)
-				{
-					isSpawnLMTop = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 11)
-			{
-				if (isSpawnLMBottom == false)
-				{
-					isSpawnLMBottom = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-			if (spawnNum == 12)
-			{
-				if (isSpawnRMTop == false)
-				{
-					isSpawnRMTop = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-
-			}
-			if (spawnNum == 13)
-			{
-				if (isSpawnRMBottom == false)
-				{
-					isSpawnRMBottom = true;
-					spawnTimer = 300;
-				}
-				else
-				{
-					continue;
-				}
-			}
-		}
-		
-		
-#pragma endregion
-
-#pragma region 各スポーン地点の復活
-		if (isSpawnLeftTop == true)
-		{
-			EnemyStraightsSpawn(spawnLeftTop, enemyStraightAngle);
-		}
-
-		if (isSpawnMiddleTop == true)
-		{
-			EnemyStraightsSpawn(spawnMiddleTop, enemyStraightAngle);
-		}
-
-		if (isSpawnRightTop == true)
-		{
-			EnemyStraightsSpawn(spawnRightTop, enemyStraightAngle);
-		}
-
-		if (isSpawnLeftCenter == true)
-		{
-			EnemyStraightsSpawn(spawnLeftCenter, enemyStraightAngle);
-		}
-		if (isSpawnMiddleCenter == true)
-		{
-			EnemyStraightsSpawn(spawnMiddleCenter, enemyStraightAngle);
-		}
-#pragma endregion 
+		SpawnEmerge();
 
 		SpawnCollider();
 
@@ -925,4 +728,248 @@ void GameScene::SpawnCollider()
 			isSpawnRMBottom = false;
 		}
 	}
+}
+
+void GameScene::SpawnEmerge()
+{
+#pragma region スポーン地点の確定
+
+
+	spawnTimer--;
+	srand(time(nullptr));
+	for (int i = 13; i <= 13; i++)
+	{
+		if (spawnTimer <= 0)
+		{
+
+			spawnNum = rand() % 13 + 1;//スポーン地点の出現をランダムで決定
+
+		}
+		if (spawnNum == 1)
+		{
+			if (isSpawnLeftTop == false)
+			{
+				isSpawnLeftTop = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		
+		if (spawnNum == 2)
+		{
+			if (isSpawnMiddleTop == false)
+			{
+				isSpawnMiddleTop = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 3)
+		{
+			if (isSpawnRightTop == false)
+			{
+				isSpawnRightTop = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 4)
+		{
+			if (isSpawnLeftCenter == false)
+			{
+				isSpawnLeftCenter = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 5)
+		{
+			if (isSpawnMiddleCenter == false)
+			{
+				isSpawnMiddleCenter = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 6)
+		{
+			if (isSpawnRightCenter == false)
+			{
+				isSpawnRightCenter = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 7)
+		{
+			if (isSpawnLeftBottom == false)
+			{
+				isSpawnLeftBottom = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 8)
+		{
+			if (isSpawnMiddleBottom == false)
+			{
+				isSpawnMiddleBottom = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 9)
+		{
+
+			if (isSpawnRightBottom == false)
+			{
+				isSpawnRightBottom = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 10)
+		{
+			if (isSpawnLMTop == false)
+			{
+				isSpawnLMTop = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 11)
+		{
+			if (isSpawnLMBottom == false)
+			{
+				isSpawnLMBottom = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+		if (spawnNum == 12)
+		{
+			if (isSpawnRMTop == false)
+			{
+				isSpawnRMTop = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+
+		}
+		if (spawnNum == 13)
+		{
+			if (isSpawnRMBottom == false)
+			{
+				isSpawnRMBottom = true;
+				spawnTimer = 300;
+			}
+			else
+			{
+				continue;
+			}
+		}
+	}
+
+#pragma endregion
+
+#pragma region 各スポーン地点の復活
+	if (isSpawnLeftTop == true)
+	{
+		EnemyStraightsSpawn(spawnLeftTop, enemyStraightAngle);
+	}
+
+	if (isSpawnMiddleTop == true)
+	{
+		EnemyStraightsSpawn(spawnMiddleTop, enemyStraightAngle);
+	}
+
+	if (isSpawnRightTop == true)
+	{
+		EnemyStraightsSpawn(spawnRightTop, enemyStraightAngle);
+	}
+
+	if (isSpawnLeftCenter == true)
+	{
+		EnemyStraightsSpawn(spawnLeftCenter, enemyStraightAngle);
+	}
+
+	if (isSpawnMiddleCenter == true)
+	{
+		EnemyStraightsSpawn(spawnMiddleCenter, enemyStraightAngle);
+	}
+
+	if (isSpawnRightCenter == true)
+	{
+		EnemyStraightsSpawn(spawnRightCenter, enemyStraightAngle);
+	}
+
+	if (isSpawnLeftBottom == true)
+	{
+		EnemyStraightsSpawn(spawnLeftBottom, enemyStraightAngle);
+	}
+
+	if (isSpawnMiddleBottom == true)
+	{
+		EnemyStraightsSpawn(spawnMiddleBottom, enemyStraightAngle);
+	}
+
+	if (isSpawnRightBottom == true)
+	{
+		EnemyStraightsSpawn(spawnRightBottom, enemyStraightAngle);
+	}
+
+	if (isSpawnLMTop == true)
+	{
+		EnemyStraightsSpawn(spawnLMTop, enemyStraightAngle);
+	}
+	if (isSpawnLMBottom == true)
+	{
+		EnemyStraightsSpawn(spawnLMBottom, enemyStraightAngle);
+	}
+	if (isSpawnRMTop == true)
+	{
+		EnemyStraightsSpawn(spawnRMTop, enemyStraightAngle);
+	}
+	if (isSpawnRMBottom == true)
+	{
+		EnemyStraightsSpawn(spawnRMBottom, enemyStraightAngle);
+	}
+
+#pragma endregion 
 }
