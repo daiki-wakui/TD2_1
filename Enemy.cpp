@@ -25,7 +25,7 @@ void Enemy::Update()
 	MoveLimit();
 	if (player->GetAttackFlag())
 	{
-		if ((radius + player->GetBombCharge()) * (radius + player->GetBombCharge()) >= (enemy.x - player->GetAttackWorldTransform().translation_.x) * (enemy.x - player->GetAttackWorldTransform().translation_.x) +
+		if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (enemy.x - player->GetAttackWorldTransform().translation_.x) * (enemy.x - player->GetAttackWorldTransform().translation_.x) +
 
 			(enemy.z - player->GetAttackWorldTransform().translation_.z) * (enemy.z - player->GetAttackWorldTransform().translation_.z))
 		{
@@ -35,7 +35,7 @@ void Enemy::Update()
 	}
 
 	
-	if ((radius + 5.0f) * (radius + 5.0f) >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x)
+	if ((radius + 3.0f) * (radius + 3.0f) >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x)
 			
 		+ (enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 	{
