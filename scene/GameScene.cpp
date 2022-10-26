@@ -281,7 +281,7 @@ void GameScene::Update()
 			if (tutorialCount == 4) {
 				tutorialFinishTime++;
 
-				if (tutorialFinishTime >= 400 && isTutorialFinish == false) {
+				if (tutorialFinishTime >= 500 && isTutorialFinish == false) {
 					isTutorialFinish = true;
 					spriteSceneChange->SetPosition({ 0,720 });
 				}
@@ -303,7 +303,7 @@ void GameScene::Update()
 			if (input_->TriggerKey(DIK_SPACE)) {
 				tutorialMoveChack++;
 
-				if (tutorialMoveChack == 4) {
+				if (tutorialMoveChack == 3) {
 					tutorialUIpower = 0;
 					isTutorial = true;
 					tutorialCount++;
@@ -1066,19 +1066,19 @@ void GameScene::Draw() {
 			spriteTutorialUI_->Draw();
 		}
 		
-		if (tutorialFinishTime >= 220 && tutorialFinishTime < 280) {
+		if (tutorialFinishTime >= 320 && tutorialFinishTime < 380) {
 			spritetutorialFin3->Draw();
 		}
 
-		if (tutorialFinishTime >= 280 && tutorialFinishTime < 340) {
+		if (tutorialFinishTime >= 380 && tutorialFinishTime < 440) {
 			spritetutorialFin2->Draw();
 		}
 
-		if (tutorialFinishTime >= 340 && tutorialFinishTime < 400) {
+		if (tutorialFinishTime >= 440 && tutorialFinishTime < 500) {
 			spritetutorialFin1->Draw();
 		}
 		
-		if (tutorialFinishTime >= 170 && tutorialFinishTime < 400) {
+		if (tutorialFinishTime >= 270 && tutorialFinishTime < 500) {
 			spriteTutorialFinish_->Draw();
 		}
 		
