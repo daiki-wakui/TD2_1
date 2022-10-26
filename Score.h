@@ -44,18 +44,18 @@ private:
 	//êßå¿éûä‘ópÇÃåÖêî
 	int timerDigits[10] = {};
 
-	float timerPosX1 = 1100;
-	float timerPosX2 = 1160;
+	float timerPosX1 = 610;
+	float timerPosX2 = 670;
 	float timerPosY = 70;
 	Vector4 timerColor = { 1.0f,1.0f,1.0f,1.0f };
 
-	float scorePosX1 = 100;
-	float scorePosX2 = 160;
-	float scorePosX3 = 220;
-	float scorePosX4 = 280;
-	float scorePosX5 = 340;
-	float scorePosX6 = 400;
-	float scorePosY = 140;
+	float scorePosX1 = 880;
+	float scorePosX2 = 940;
+	float scorePosX3 = 1000;
+	float scorePosX4 = 1060;
+	float scorePosX5 = 1120;
+	float scorePosX6 = 1180;
+	float scorePosY = 70;
 	Vector4 scoreColor = { 1.0f,1.0f,1.0f,1.0f };
 
 public:
