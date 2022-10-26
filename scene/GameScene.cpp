@@ -140,13 +140,13 @@ void GameScene::Initialize() {
 
 	titleSceneBGM = audioManager->LoadAudio("Resources/Sound/title.mp3");//タイトルシーンBGM読み込み
 	audioManager->PlayWave(titleSceneBGM, true);//タイトルシーンのBGMを再生
-	audioManager->ChangeVolume(titleSceneBGM, 0.2f);
+	audioManager->ChangeVolume(titleSceneBGM, 0.4f);
 	gameSceneBGM = audioManager->LoadAudio("Resources/Sound/game.mp3");//ゲームシーンBGM読み込み
-	audioManager->ChangeVolume(gameSceneBGM, 0.2f);
+	audioManager->ChangeVolume(gameSceneBGM, 0.4f);
 	tutorialSceneBGM= audioManager->LoadAudio("Resources/Sound/チュートリアル.mp3");//チュートリアルシーンBGM読み込み
-	audioManager->ChangeVolume(tutorialSceneBGM, 0.2f);
+	audioManager->ChangeVolume(tutorialSceneBGM, 0.4f);
 	resultSceneBGM = audioManager->LoadAudio("Resources/Sound/Blinded.mp3");//リザルトシーンBGM読み込み
-	audioManager->ChangeVolume(resultSceneBGM, 0.2f);
+	audioManager->ChangeVolume(resultSceneBGM, 0.4f);
 
 	damageSE = audioManager->LoadAudio("Resources/Sound/打撃6.mp3");//ダメージSE読み込み
 	spawnerBreakSE = audioManager->LoadAudio("Resources/Sound/パンチで壁を破壊.mp3");//スポナー破壊SE読み込み
