@@ -351,12 +351,15 @@ void GameScene::Update()
 		//デスフラグが立った敵を削除
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetIsDead(); });
 		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetWallHitIsDead(); });
+		enemys.remove_if([](std::unique_ptr<Enemy>& enemy_) { return enemy_->GetPlayerHit(); });
 
 		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetIsDead(); });
 		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetWallHitIsDead(); });
+		enemyStraights.remove_if([](std::unique_ptr<EnemyStraight>& enemy_) { return enemy_->GetPlayerHit(); });
 
 		enemyCircles.remove_if([](std::unique_ptr<EnemyCircle>& enemy_) { return enemy_->GetIsDead(); });
 		enemyCircles.remove_if([](std::unique_ptr<EnemyCircle>& enemy_) { return enemy_->GetWallHitIsDead(); });
+		enemyCircles.remove_if([](std::unique_ptr<EnemyCircle>& enemy_) { return enemy_->GetPlayerHit(); });
 
 		enemyBombs.remove_if([](std::unique_ptr<EnemyBomb>& enemy_) { return enemy_->GetIsDead(); });
 		//enemyBombs.remove_if([](std::unique_ptr<EnemyBomb>& enemy_) { return enemy_->GetWallHitIsDead(); });

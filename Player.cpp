@@ -304,16 +304,8 @@ void Player::Tale()
 
 void Player::Draw(ViewProjection viewProjection)
 {
-	//playerModel->Draw(playerWorldTransform, viewProjection, textureHundle);
-	//taleModel->Draw(taleWorldTransform, viewProjection, textureHundle);
-
 	playerModel_->Draw(playerModelWorldTransform, viewProjection);
 	taleModel_->Draw(taleModelWorldTransform, viewProjection);
-
-	if (attackFlag == true)
-	{
-		//attackModel->Draw(attackWorldTransform, viewProjection, textureHundle);
-	}
 
 	debugText_->SetPos(20, 60);
 	debugText_->Printf("player.x %f,player.z %f", player.x, player.z);
