@@ -147,7 +147,7 @@ class GameScene {
 
 	int spawnNum;
 
-	int spawnTimer = 300;
+	int spawnTimer = 0;
 
 	int spawnCount = 0;
 

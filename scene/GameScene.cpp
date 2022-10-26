@@ -814,7 +814,7 @@ void GameScene::Reset()
 	isSpawnRMTop = false;
 	isSpawnRMBottom = false;
 
-	spawnTimer = 300;
+	spawnTimer = 0;
 	spawnNum = 0;
 
 #pragma endregion
@@ -980,6 +980,7 @@ void GameScene::SpawnEmerge()
 				isSpawnLeftTop = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -994,6 +995,7 @@ void GameScene::SpawnEmerge()
 				isSpawnMiddleTop = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1007,6 +1009,7 @@ void GameScene::SpawnEmerge()
 				isSpawnRightTop = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1020,6 +1023,7 @@ void GameScene::SpawnEmerge()
 				isSpawnLeftCenter = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1033,6 +1037,7 @@ void GameScene::SpawnEmerge()
 				isSpawnMiddleCenter = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1046,6 +1051,7 @@ void GameScene::SpawnEmerge()
 				isSpawnRightCenter = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1059,6 +1065,7 @@ void GameScene::SpawnEmerge()
 				isSpawnLeftBottom = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1072,6 +1079,7 @@ void GameScene::SpawnEmerge()
 				isSpawnMiddleBottom = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1086,6 +1094,7 @@ void GameScene::SpawnEmerge()
 				isSpawnRightBottom = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1099,6 +1108,7 @@ void GameScene::SpawnEmerge()
 				isSpawnLMTop = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1125,6 +1135,7 @@ void GameScene::SpawnEmerge()
 				isSpawnRMTop = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
@@ -1139,6 +1150,7 @@ void GameScene::SpawnEmerge()
 				isSpawnRMBottom = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
