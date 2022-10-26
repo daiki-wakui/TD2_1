@@ -56,6 +56,9 @@ void GameScene::Initialize() {
 	scsneChangeTexture_ = TextureManager::Load("colorTex/sceneChange.png");
 	spriteSceneChange = Sprite::Create(scsneChangeTexture_, { 0,720 });
 	
+	tutorialSkipTex_ = TextureManager::Load("tutorial/EnterSkip.png");
+	spriteTutorialSkip = Sprite::Create(tutorialSkipTex_, {750,5});
+
 	map = std::make_unique<Map>();
 	map->Initialize(viewProjection);
 
@@ -265,7 +268,19 @@ void GameScene::Update()
 
 		//チュートリアル
 	case Tutorial:
-
+		//Enter
+		if (input_->TriggerKey(DIK_RETURN))
+		{
+			tutorialFinishTime = 500;
+			if (tutorialFinishTime >= 500 && isTutorialFinish == false) {
+				isTutorialFinish = true;
+				spriteSceneChange->SetPosition({ 0,720 });
+			}
+			audioManager->StopWave(tutorialSceneBGM);//チュートリアルシーンのBGMを止める
+			audioManager->PlayWave(gameSceneBGM, true);//ゲームシーンのBGMを再生
+			
+			scene = Game;
+		}
 		//シーン遷移処理
 		sceneChangePos = { spriteSceneChange->GetPosition().x,spriteSceneChange->GetPosition().y };
 		sceneChangePos.y -= 50.0f;
@@ -382,6 +397,7 @@ void GameScene::Update()
 					isTutorial = false;
 				}
 			}
+			
 		}
 
 		if (tutorialCount == 1) {
@@ -454,12 +470,7 @@ void GameScene::Update()
 			scene = Result;//リザルトシーン
 		}
 
-		if (input_->TriggerKey(DIK_RETURN))
-		{
-			audioManager->StopWave(gameSceneBGM);
-			Reset();
-			scene = Result;
-		}
+		
 #pragma region リセット処理
 
 		if (input_->TriggerKey(DIK_R))
@@ -842,10 +853,29 @@ void GameScene::Update()
 			}
 		}
 		enemyCirclesGen++;
-		if (enemyCirclesGen > 180)
+
+		if (nowTime < 20)
 		{
-			enemyCirclesGen = 0;
+			if (enemyCirclesGen > 75)
+			{
+				enemyCirclesGen = 0;
+			}
 		}
+		else if (nowTime > 20 && nowTime < 40)
+		{
+			if (enemyCirclesGen > 50)
+			{
+				enemyCirclesGen = 0;
+			}
+		}
+		else if (nowTime > 40)
+		{
+			if (enemyCirclesGen > 25)
+			{
+				enemyCirclesGen = 0;
+			}
+		}
+
 		enemyBombsGen++;
 		if (enemyBombsGen > 180)
 		{
@@ -1053,6 +1083,9 @@ void GameScene::Draw() {
 
 	case Tutorial:
 		
+		//スキップ画像
+		spriteTutorialSkip->Draw();
+
 		if (tutorialCount == 0 || tutorialCount == 1) {
 			spriteTutorial1->Draw();
 		}
@@ -2004,7 +2037,7 @@ void GameScene::SpawnEmerge()
 	}
 	if (isSpawn[LMBottom] == true)
 	{
-		EnemyStraightsSpawn(spawnLMBottom, enemyStraightAngle);
+		EnemyCirclesSpawn(spawnLMBottom, enemyCircleAngle);
 	}
 	if (isSpawn[RMTop] == true)
 	{
@@ -2012,7 +2045,7 @@ void GameScene::SpawnEmerge()
 	}
 	if (isSpawn[RMBottom] == true)
 	{
-		EnemyStraightsSpawn(spawnRMBottom, enemyStraightAngle);
+		EnemyCirclesSpawn(spawnRMBottom, enemyCircleAngle);
 	}
 
 #pragma endregion 

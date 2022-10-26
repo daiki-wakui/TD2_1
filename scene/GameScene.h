@@ -214,6 +214,10 @@ class GameScene {
 	Sprite* spriteTutorialUI_ = nullptr;
 	uint32_t tutorialFinishTex_;
 	Sprite* spriteTutorialFinish_ = nullptr;
+	uint32_t tutorialSkipTex_;
+	Sprite* spriteTutorialSkip = nullptr;
+
+
 
 	int scene = 0;
 	uint32_t titleSceneBGM = 0;
