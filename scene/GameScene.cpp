@@ -36,6 +36,11 @@ void GameScene::Initialize() {
 	titleTextrue_ = TextureManager::Load("bombTale_logo.png");
 	spriteTielelogo_ = Sprite::Create(titleTextrue_, { 1280 / 2,170 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 
+	tutorialTexture[0] = TextureManager::Load("tutorial/bombTale_explanation_01.png");
+	tutorialTexture[1] = TextureManager::Load("tutorial/bombTale_explanation_02.png");
+	spriteTutorial1 = Sprite::Create(tutorialTexture[0], { 1280 / 2,720/2 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	spriteTutorial2 = Sprite::Create(tutorialTexture[1], { 1280 / 2,720/2 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+
 	scsneChangeTexture_ = TextureManager::Load("colorTex/sceneChange.png");
 	spriteSceneChange = Sprite::Create(scsneChangeTexture_, { 0,720 });
 	
@@ -174,9 +179,8 @@ void GameScene::Update()
 				AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
 
 				Reset();
-
+				scene = Tutorial;	//チュートリアルシーンへ
 				player->SetChargeSEFlag(true);
-				scene = Game;	//ゲームシーンへ
 			}
 		}
 
@@ -229,7 +233,7 @@ void GameScene::Update()
 
 		effects_.remove_if([](std::unique_ptr<Effect>& obj_) {
 			return obj_->IsDead();
-			});
+		});
 
 		for (std::unique_ptr<Effect>& object : effects_) {
 			object->Update();
@@ -242,6 +246,152 @@ void GameScene::Update()
 		viewProjection.UpdateMatrix();
 		break;
 
+		//チュートリアル
+	case Tutorial:
+
+		//シーン遷移処理
+		sceneChangePos = { spriteSceneChange->GetPosition().x,spriteSceneChange->GetPosition().y };
+		sceneChangePos.y -= 50.0f;
+		spriteSceneChange->SetPosition({ sceneChangePos.x,sceneChangePos.y });
+
+#pragma region チュートリアルでのplayer処理
+
+		if (isTutorial == false) {
+			player->Update();
+			viewProjection.eye = { player->GetPlayerWorldTransform().translation_.x,75,player->GetPlayerWorldTransform().translation_.z - 20 };
+			viewProjection.target = { player->GetPlayerWorldTransform().translation_.x,0,player->GetPlayerWorldTransform().translation_.z };
+			
+			if (tutorialCount == 4) {
+				tutorialFinishTime++;
+
+				if (tutorialFinishTime >= 600 && isTutorialFinish == false) {
+					isTutorialFinish = true;
+					spriteSceneChange->SetPosition({ 0,720 });
+				}
+
+				if (isTutorialFinish == true) {
+
+					if (spriteSceneChange->GetPosition().y <= 0) {
+						AudioManager::GetInstance()->StopWave(titleScene);//タイトルシーンのBGMを止める
+						AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
+
+						Reset();
+						scene = Game;	//チュートリアルシーンへ
+					}
+				}
+			}
+			
+
+			//playerの爆発エフェクト
+			if (input_->TriggerKey(DIK_SPACE)) {
+				tutorialMoveChack++;
+
+				if (tutorialMoveChack == 4) {
+					tutorialUIpower = 0;
+					isTutorial = true;
+					tutorialCount++;
+				}
+				else {
+					explosionTransform = player->GetTaleWorldTransform();
+					explosionTransform.scale_ = player->GetAttackWorldTransform().scale_;
+					explosionTransform.scale_.x *= 2;
+					explosionTransform.scale_.y *= 2;
+					explosionTransform.scale_.z *= 2;
+
+					isExplosion = true;
+
+					//小爆発の場合散らばるブロックを減らす
+					if (player->GetAttackWorldTransform().scale_.x < 4.0f) {
+						for (int i = 0; i < 2; i++) {
+							std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+							newobj->Initialize(player, explosionTransform, boxModel, orangeTexture_, 2);
+							effects_.push_back(std::move(newobj));
+						}
+					}
+					//大爆発の場合ブロックを増やす
+					else {
+						for (int i = 0; i < 20; i++) {
+							std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+							newobj->Initialize(player, explosionTransform, boxModel, orangeTexture_, 2);
+							effects_.push_back(std::move(newobj));
+						}
+					}
+				}
+			}
+			//爆発したら
+			if (isExplosion == true) {
+				explosionTransform.scale_.x -= 3.0f;
+				explosionTransform.scale_.y -= 3.0f;
+				explosionTransform.scale_.z -= 3.0f;
+
+				if (explosionTransform.scale_.x < 0) {
+					isExplosion = false;
+				}
+			}
+		}
+
+		effects_.remove_if([](std::unique_ptr<Effect>& obj_) {
+			return obj_->IsDead();
+			});
+
+		for (std::unique_ptr<Effect>& object : effects_) {
+			object->Update();
+		}
+
+		//床の行列更新
+		MathUtility::MatrixCalculation(floorWorldTransform);//行列の更新
+		floorWorldTransform.TransferMatrix();
+
+		//壁の行列更新
+		for (int i = 0; i < 4; i++)
+		{
+			MathUtility::MatrixCalculation(wallWorldTransform[i]);//行列の更新
+			wallWorldTransform[i].TransferMatrix();
+		}
+
+		MathUtility::MatrixCalculation(explosionTransform);//行列の更新
+		explosionTransform.TransferMatrix();
+
+		viewProjection.TransferMatrix();
+		viewProjection.UpdateMatrix();
+
+#pragma endregion
+
+		if (isTutorial == true) {
+			if (input_->TriggerKey(DIK_SPACE)) {
+				tutorialCount++;
+
+				if (tutorialCount == 1|| tutorialCount == 4) {
+					isTutorial = false;
+				}
+			}
+		}
+
+		if (tutorialCount == 1) {
+			Vector2 UIpos = spriteTutorial1->GetPosition();
+			tutorialUIpower++;
+			UIpos.x += tutorialUIpower;
+
+			if (UIpos.x >= 1000) {
+				UIpos.x = 1000;
+			}
+			
+			spriteTutorial1->SetPosition(UIpos);
+		}
+
+		if (tutorialCount == 4) {
+			Vector2 UIpos = spriteTutorial2->GetPosition();
+			tutorialUIpower++;
+			UIpos.x += tutorialUIpower;
+
+			if (UIpos.x >= 1000) {
+				UIpos.x = 1000;
+			}
+
+			spriteTutorial2->SetPosition(UIpos);
+		}
+
+		break;
 		//ゲームシーン
 	case Game:
 		isControl = false;
@@ -749,7 +899,29 @@ void GameScene::Draw() {
 
 		break;
 
+		//チュートリアル
+	case Tutorial:
+#pragma region  フィールドマップの描画
 
+		floorModel->Draw(floorWorldTransform, viewProjection);
+
+		for (int i = 0; i < 4; i++)
+		{
+			wallModel->Draw(wallWorldTransform[i], viewProjection);
+		}
+#pragma endregion
+
+		for (std::unique_ptr<Effect>& object : effects_) {
+			object->Draw(viewProjection);
+		}
+
+		if (isExplosion == true) {
+			exModel_->Draw(explosionTransform, viewProjection, orangeTexture_);
+		}
+
+		player->Draw(viewProjection);
+
+		break;
 		//ゲームシーン
 	case Game:
 
@@ -836,6 +1008,28 @@ void GameScene::Draw() {
 		spriteSceneChange->Draw();
 
 		break;
+
+	case Tutorial:
+		
+		if (tutorialCount == 0 || tutorialCount == 1) {
+			spriteTutorial1->Draw();
+		}
+
+		if (tutorialCount != 0 && tutorialCount != 1) {
+			spriteTutorial2->Draw();
+		}
+		spriteSceneChange->Draw();
+		
+		debugText_->SetPos(20, 300);
+		debugText_->Printf("tutorialCount %d", tutorialCount);
+
+		debugText_->SetPos(20, 320);
+		debugText_->Printf("movechack %d", tutorialMoveChack);
+
+		debugText_->SetPos(20, 340);
+		debugText_->Printf("time %d", tutorialFinishTime);
+		break;
+
 	case Game:
 		score->Draw();
 
@@ -843,6 +1037,8 @@ void GameScene::Draw() {
 
 		debugText_->SetPos(20, 40);
 		debugText_->Printf("%d", spawnTimer);
+
+		
 
 #pragma region マップ関連
 
@@ -1051,6 +1247,15 @@ void GameScene::Reset()
 	spriteTielelogo_->SetPosition({ logoPos.x,logoPos.y });
 	nowFlame = 0;
 	nowTime = 0;
+	isTutorial = true;
+	isTutorialFinish = false;
+	tutorialCount = 0;
+	tutorialFinishTime = 0;
+	tutorialMoveChack = 0;
+	tutorialUIpower = 0;
+	spriteTutorial1->SetPosition({ 1280 / 2,250 });
+	spriteTutorial2->SetPosition({ 1280 / 2,250 });
+
 	startSpawn = true;
 #pragma region スポーン関連のリセット
 	for (int i = 0; i < 13; i++) {

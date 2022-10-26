@@ -32,6 +32,7 @@
 enum SceneName
 {
 	Title,
+	Tutorial,
 	Game,
 	Result,
 };
@@ -192,6 +193,16 @@ class GameScene {
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
+
+	float tutorialUIpower;
+	int tutorialCount;
+	int tutorialMoveChack;
+	int isTutorial = true;
+	int tutorialFinishTime;
+	bool isTutorialFinish = false;
+	uint32_t tutorialTexture[2];
+	Sprite* spriteTutorial1 = nullptr;
+	Sprite* spriteTutorial2 = nullptr;
 
 	int scene = 0;
 	uint32_t titleScene = 0;

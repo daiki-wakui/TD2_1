@@ -57,7 +57,7 @@ void Effect::Initialize(Player* player,WorldTransform worldTransform,Model* mode
 		worldTransform_.scale_ = { 3.0f,3.0f,3.0f };*/
 	}
 	else if (Case == 2) {
-		if (player_->GetAttackWorldTransform().scale_.x < 5.0f) {
+		if (player_->GetAttackWorldTransform().scale_.x < 10.0f) {
 			worldTransformbig_.scale_ = { 0.35f,0.35f,0.35f };
 			worldTransform_.scale_ = { 0.15f,0.15f,0.15f };
 		}
