@@ -4,6 +4,7 @@ void EnemyStraight::Initialize(Model* model, ViewProjection viewProjection, myMa
 {
 	assert(model);
 	player = Player::GetInstance();
+	audioManager = AudioManager::GetInstance();
 
 	textureHundle = TextureManager::Load("mario.jpg");
 	model_ = model;
@@ -23,14 +24,14 @@ void EnemyStraight::Initialize(Model* model, ViewProjection viewProjection, myMa
 	viewProjection.Initialize();
 }
 
-void EnemyStraight::Update()
+void EnemyStraight::Update(uint32_t& damageSE)
 {
 	moveVec = front - pos;
 	normMoveVec = moveVec.normalization();
 
 	Move();
 	Limit();
-	Collider();
+	Collider(damageSE);
 
 	MathUtility::MatrixCalculation(worldTransform);//行列の更新
 	worldTransform.TransferMatrix();//行列の転送
@@ -73,13 +74,14 @@ void EnemyStraight::Limit()
 	}
 }
 
-void EnemyStraight::Collider()
+void EnemyStraight::Collider(uint32_t damageSE)
 {
 	if (player->GetAttackFlag())
 	{
 		if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (pos.x - player->GetAttackWorldTransform().translation_.x) * (pos.x - player->GetAttackWorldTransform().translation_.x) + (pos.z - player->GetAttackWorldTransform().translation_.z) * (pos.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
+			audioManager->PlayWave(damageSE);
 			isDead = true;
 		}
 	}
@@ -89,6 +91,7 @@ void EnemyStraight::Collider()
 		(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 	{
 		score->SetTimer(score->GetTimer() - 1);
+		audioManager->PlayWave(damageSE);
 		playerHit = true;
 	}
 

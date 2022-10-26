@@ -3,6 +3,7 @@ void EnemyCircle::Initialize(Model* model, ViewProjection viewProjection, myMath
 {
 	assert(model);
 	player = Player::GetInstance();
+	audioManager = AudioManager::GetInstance();
 
 	textureHundle = TextureManager::Load("mario.jpg");
 	model_ = model;
@@ -21,7 +22,7 @@ void EnemyCircle::Initialize(Model* model, ViewProjection viewProjection, myMath
 	viewProjection.Initialize();
 }
 
-void EnemyCircle::Update()
+void EnemyCircle::Update(uint32_t& damageSE)
 {
 	if (angle > 2 * MathUtility::PI)
 	{
@@ -39,7 +40,7 @@ void EnemyCircle::Update()
 
 	Move();
 	Limit();
-	Collider();
+	Collider(damageSE);
 
 	MathUtility::MatrixCalculation(worldTransform);//行列の更新
 	worldTransform.TransferMatrix();//行列の転送
@@ -88,13 +89,14 @@ void EnemyCircle::Limit()
 	}
 }
 
-void EnemyCircle::Collider()
+void EnemyCircle::Collider(uint32_t damageSE)
 {
 	if (player->GetAttackFlag())
 	{
 		if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (pos.x - player->GetAttackWorldTransform().translation_.x) * (pos.x - player->GetAttackWorldTransform().translation_.x) + (pos.z - player->GetAttackWorldTransform().translation_.z) * (pos.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
+			audioManager->PlayWave(damageSE);
 			isDead = true;
 		}
 	}
@@ -103,6 +105,7 @@ void EnemyCircle::Collider()
 		(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 	{
 		score->SetTimer(score->GetTimer() - 1);
+		audioManager->PlayWave(damageSE);
 		playerHit = true;
 	}
 }

@@ -10,6 +10,7 @@ void Enemy::Initialize(Model* model, const myMath::Vector3 position)
 	player = Player::GetInstance();
 	model_ = model;
 	score = Score::GetInstance();
+	audioManager = AudioManager::GetInstance();
 	enemy = position;
 	worldTransform.Initialize();
 	worldTransform.scale_ = { 3,3,3 };
@@ -18,7 +19,7 @@ void Enemy::Initialize(Model* model, const myMath::Vector3 position)
 	//scoreBonus = 1.0;
 }
 
-void Enemy::Update()
+void Enemy::Update(uint32_t& damageSE)
 {
 	Move();
 	/*Leave();*/
@@ -30,6 +31,7 @@ void Enemy::Update()
 			(enemy.z - player->GetAttackWorldTransform().translation_.z) * (enemy.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
+			audioManager->PlayWave(damageSE);
 			isDead = true;
 		}
 	}
@@ -40,6 +42,7 @@ void Enemy::Update()
 		+ (enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 	{
 		score->SetTimer(score->GetTimer() - 1);
+		audioManager->PlayWave(damageSE);
 		playerHit = true;
 	}
 	

@@ -6,6 +6,7 @@
 #include"Player.h"
 #include"Score.h"
 #include "WorldTransform.h"
+#include"AudioManager.h"
 
 class Enemy
 {
@@ -17,6 +18,7 @@ private:
 	Model* model_ = nullptr;
 	Player* player = nullptr;
 	Score* score = nullptr;
+	AudioManager* audioManager = nullptr;
 
 	myMath::Vector3 enemyVec = { 0,0,0 };
 	myMath::Vector3 normEnemyVec = { 0,0,0 };
@@ -38,7 +40,7 @@ private:
 public:
 
 	void Initialize(Model* model, const myMath::Vector3 position);
-	void Update();
+	void Update(uint32_t& damageSE);
 	void Draw(const ViewProjection& viewProjection);
 	bool GetIsDead(){return isDead;}
 	bool GetWallHitIsDead() { return wallHitIsDead; }

@@ -223,4 +223,6 @@ class GameScene {
 	uint32_t scsneChangeTexture_;
 	Sprite* spriteSceneChange = nullptr;
 	myMath::Vector2 sceneChangePos = { 0,0 };
+
+	uint32_t damageSE;
 };
