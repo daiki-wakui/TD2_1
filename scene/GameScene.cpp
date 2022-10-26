@@ -126,13 +126,14 @@ void GameScene::Initialize() {
 
 #pragma region BGM初期化
 
-	titleScene = AudioManager::GetInstance()->LoadAudio("Resources/title.mp3");//タイトルシーンBGM読み込み
-	AudioManager::GetInstance()->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
-	AudioManager::GetInstance()->ChangeVolume(titleScene, 0.2f);
-	gameScene = AudioManager::GetInstance()->LoadAudio("Resources/game.mp3");//ゲームシーンBGM読み込み
-	AudioManager::GetInstance()->ChangeVolume(gameScene, 0.2f);
+	titleScene = audioManager->LoadAudio("Resources/title.mp3");//タイトルシーンBGM読み込み
+	audioManager->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
+	audioManager->ChangeVolume(titleScene, 0.2f);
+	gameScene = audioManager->LoadAudio("Resources/game.mp3");//ゲームシーンBGM読み込み
+	audioManager->ChangeVolume(gameScene, 0.2f);
 
-	damageSE = AudioManager::GetInstance()->LoadAudio("Resources/打撃6.mp3");//ダメージSE読み込み
+	damageSE = audioManager->LoadAudio("Resources/打撃6.mp3");//ダメージSE読み込み
+	spawnerBreakSE = audioManager->LoadAudio("Resources/パンチで壁を破壊.mp3");//スポナー破壊SE読み込み
 
 #pragma endregion
 }
@@ -175,8 +176,8 @@ void GameScene::Update()
 
 			if(sceneChangePos.y<=0)
 			{
-				AudioManager::GetInstance()->StopWave(titleScene);//タイトルシーンのBGMを止める
-				AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
+				audioManager->StopWave(titleScene);//タイトルシーンのBGMを止める
+				audioManager->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
 
 				Reset();
 				scene = Tutorial;	//チュートリアルシーンへ
@@ -411,14 +412,14 @@ void GameScene::Update()
 
 		if (score->IsFinish())
 		{
-			AudioManager::GetInstance()->StopWave(gameScene);//タイトルシーンのBGMを止める
+			audioManager->StopWave(gameScene);//タイトルシーンのBGMを止める
 			Reset();
 			scene = Result;//リザルトシーン
 		}
 
 		if (input_->TriggerKey(DIK_RETURN))
 		{
-			AudioManager::GetInstance()->StopWave(gameScene);
+			audioManager->StopWave(gameScene);
 			Reset();
 			scene = Result;
 		}
@@ -836,7 +837,7 @@ void GameScene::Update()
 			sceneChangePos.y = 720;
 			spriteSceneChange->SetPosition({ sceneChangePos.x,sceneChangePos.y });
 			Reset();
-			AudioManager::GetInstance()->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
+			audioManager->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
 			scene = Title;
 		}
 
@@ -1287,6 +1288,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[MiddleTop] = false;
 				spawnCount--;
 			}
@@ -1303,6 +1305,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[MiddleCenter] = false;
 				spawnCount--;
 			}
@@ -1319,6 +1322,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[MiddleBottom] = false;
 				spawnCount--;
 			}
@@ -1337,6 +1341,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LeftTop] = false;
 				spawnCount--;
 			}
@@ -1353,6 +1358,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LeftCenter] = false;
 				spawnCount--;
 			}
@@ -1369,6 +1375,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LeftBottom] = false;
 				spawnCount--;
 			}
@@ -1387,6 +1394,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RightTop] = false;
 				spawnCount--;
 			}
@@ -1403,6 +1411,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RightCenter] = false;
 				spawnCount--;
 			}
@@ -1420,6 +1429,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RightBottom] = false;
 				spawnCount--;
 			}
@@ -1438,6 +1448,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LMTop] = false;
 				spawnCount--;
 			}
@@ -1454,6 +1465,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LMBottom] = false;
 				spawnCount--;
 			}
@@ -1470,6 +1482,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RMTop] = false;
 				spawnCount--;
 			}
@@ -1486,6 +1499,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RMBottom] = false;
 				spawnCount--;
 			}

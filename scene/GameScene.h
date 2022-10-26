@@ -236,4 +236,5 @@ class GameScene {
 	myMath::Vector2 sceneChangePos = { 0,0 };
 
 	uint32_t damageSE;
+	uint32_t spawnerBreakSE;
 };
