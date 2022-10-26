@@ -42,9 +42,9 @@ void Player::Initialize(ViewProjection viewProjection)
 	attackTimer = 3;
 	viewProjection.Initialize();
 
-	bombSE = AudioManager::GetInstance()->LoadAudio("Resources/sound_SFX_explosion.mp3");//爆発SE読み込み
-	bombChargeSE= AudioManager::GetInstance()->LoadAudio("Resources/235742_copyc4t_tf-sci-fi-sweep-2.mp3");//爆発チャージSE読み込み
-	limitHitSE= AudioManager::GetInstance()->LoadAudio("Resources/sound_SFX_bounce.mp3");//壁に当たった時のSE読み込み
+	bombSE = AudioManager::GetInstance()->LoadAudio("Resources/Sound/sound_SFX_explosion.mp3");//爆発SE読み込み
+	bombChargeSE= AudioManager::GetInstance()->LoadAudio("Resources/Sound/235742_copyc4t_tf-sci-fi-sweep-2.mp3");//爆発チャージSE読み込み
+	limitHitSE= AudioManager::GetInstance()->LoadAudio("Resources/Sound/sound_SFX_bounce.mp3");//壁に当たった時のSE読み込み
 }
 
 void Player::titleSceneUpdate(int& scene) {
@@ -138,6 +138,7 @@ void Player::Move()
 		speed = 0.1f * (bombCharge/2);
 		attackFlag = true;
 
+		audioManager->ChangeVolume(bombSE, bombCharge / 20.0f);
 		audioManager->PlayWave(bombSE, false);//爆発SEを再生
 	}
 	if (speed <= 0.0f)
@@ -307,13 +308,13 @@ void Player::Tale(int scene)
 		}
 	}
 
+	audioManager->ChangeVolume(bombChargeSE, bombCharge / 20.0f);
 	if (chargeSEFlag == true)
 	{
 		audioManager->StopWave(bombChargeSE);
 		audioManager->PlayWave(bombChargeSE, true);//爆発チャージの音を再生
 		chargeSEFlag = false;
 	}
-	audioManager->ChangeVolume(bombChargeSE, bombCharge / 20.0f);
 
 	if (!input->PushKey(DIK_SPACE))
 	{

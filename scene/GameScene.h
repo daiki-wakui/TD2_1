@@ -203,11 +203,16 @@ class GameScene {
 	uint32_t tutorialTexture[2];
 	Sprite* spriteTutorial1 = nullptr;
 	Sprite* spriteTutorial2 = nullptr;
+	uint32_t tutorialUITex_;
+	Sprite* spriteTutorialUI_ = nullptr;
+	uint32_t tutorialFinishTex_;
+	Sprite* spriteTutorialFinish_ = nullptr;
 
 	int scene = 0;
 	uint32_t titleSceneBGM = 0;
 	uint32_t gameSceneBGM = 0;
 	uint32_t tutorialSceneBGM = 0;
+	uint32_t resultSceneBGM = 0;
 
 	std::list<std::unique_ptr<Effect>> effects_;
 	uint32_t redTexture_;
@@ -224,6 +229,9 @@ class GameScene {
 	WorldTransform explosionTransform;
 	bool isExplosion = false;
 
+
+	uint32_t titleUITex_ = 0;
+	Sprite* spriteTitleUI_ = nullptr;
 	uint32_t titleTextrue_ = 0;
 	Sprite* spriteTielelogo_ = nullptr;
 	myMath::Vector2 logoPos = { 0,0 };
