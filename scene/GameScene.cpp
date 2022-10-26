@@ -484,6 +484,16 @@ void GameScene::Update()
 			//scene = Result;//リザルトシーン
 		}
 
+		if (GameFinish == true) {
+			audioManager->StopWave(gameSceneBGM);//ゲームシーンのBGMを止める
+			audioManager->PlayWave(resultSceneBGM, true);//リザルトシーンのBGMを再生する
+			Reset();
+			scene = Result;//リザルトシーン
+		}
+
+		
+
+
 		player->Update(scene);
 		viewProjection.eye = { player->GetPlayerWorldTransform().translation_.x,75,player->GetPlayerWorldTransform().translation_.z - 20 };
 		viewProjection.target = { player->GetPlayerWorldTransform().translation_.x,0,player->GetPlayerWorldTransform().translation_.z };
