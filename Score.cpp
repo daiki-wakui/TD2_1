@@ -617,6 +617,11 @@ void Score::TimerUpdate()
 	}
 }
 
+int Score::GetScore()
+{
+	return score;
+}
+
 void Score::SetSpawnerBreakFlag(bool flag)
 {
 	spawnerBreakFlag = flag;
