@@ -163,6 +163,8 @@ class GameScene {
 
 	int spawnCount = 0;
 
+	bool startSpawn = true;
+
 	//敵リスト
 	std::list<std::unique_ptr<Enemy>> enemys;
 	std::list<std::unique_ptr<EnemyStraight>> enemyStraights;

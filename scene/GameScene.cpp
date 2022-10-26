@@ -111,6 +111,9 @@ void GameScene::Initialize() {
 	worldtransform_.scale_ = { 2.0f,2.0f,2.0f };
 	worldtransform_.Initialize();
 
+	
+
+
 	/*spawnEnemyCircle.scale_ = { 2.0f,2.0f,2.0f };
 	spawnEnemyCircle.Initialize();*/
 
@@ -289,6 +292,7 @@ void GameScene::Update()
 
 #pragma endregion
 
+		//
 
 		SpawnEmerge();
 
@@ -1041,7 +1045,7 @@ void GameScene::Reset()
 	spriteTielelogo_->SetPosition({ logoPos.x,logoPos.y });
 	nowFlame = 0;
 	nowTime = 0;
-
+	startSpawn = true;
 #pragma region スポーン関連のリセット
 	for (int i = 0; i < 13; i++) {
 		isSpawn[i] = false;
@@ -1316,6 +1320,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1342,6 +1347,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1367,6 +1373,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1392,6 +1399,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1417,6 +1425,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1442,6 +1451,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1467,6 +1477,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1477,21 +1488,28 @@ void GameScene::SpawnEmerge()
 		{
 			if (isSpawn[MiddleBottom] == false)
 			{
-				isSpawn[MiddleBottom] = true;
-				if (nowTime <= 30)
+				if (startSpawn == false)
 				{
-					spawnTimer = 600;
+					isSpawn[MiddleBottom] = true;
+					if (nowTime <= 30)
+					{
+						spawnTimer = 600;
+					}
+					else if (nowTime >= 31 && nowTime <= 60)
+					{
+						spawnTimer = 300;
+					}
+					else if (nowTime >= 61)
+					{
+						spawnTimer = 180;
+					}
+					spawnCount++;
+					spawnNum = 0;
 				}
-				else if (nowTime >= 31 && nowTime <= 60)
+				else
 				{
-					spawnTimer = 300;
+					continue;
 				}
-				else if (nowTime >= 61)
-				{
-					spawnTimer = 180;
-				}
-				spawnCount++;
-				spawnNum = 0;
 			}
 			else
 			{
@@ -1518,6 +1536,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1543,6 +1562,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1568,6 +1588,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1593,6 +1614,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
@@ -1619,6 +1641,7 @@ void GameScene::SpawnEmerge()
 				}
 				spawnCount++;
 				spawnNum = 0;
+				startSpawn = false;
 			}
 			else
 			{
