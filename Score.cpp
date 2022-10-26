@@ -550,6 +550,11 @@ void Score::TimerUpdate()
 	{
 		isFinish = true;
 	}
+	//
+	if (timeLimit > 99)
+	{
+		timeLimit = 99;
+	}
 }
 
 Score* Score::GetInstance()
