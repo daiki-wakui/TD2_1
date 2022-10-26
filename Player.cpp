@@ -299,7 +299,7 @@ void Player::Attack()
 
 void Player::Tale(int scene)
 {
-	if (scene == 1)
+	if (scene == 2)
 	{
 		if (input->TriggerReleseKey(DIK_SPACE))
 		{
