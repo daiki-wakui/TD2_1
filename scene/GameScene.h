@@ -120,9 +120,9 @@ class GameScene {
 	myMath::Vector3 spawnLeftCenter = { -100.0f,0.0f,0.0f };	//左中心
 	myMath::Vector3 spawnLeftBottom = { -100.0f,0.0f,-50.0f };	//左下	
 
-	myMath::Vector3 spawnRightTop = { -100.0f,0.0f,50.0f };		//右上
-	myMath::Vector3 spawnRightCenter = { -100.0f,0.0f,0.0f };		//右中心
-	myMath::Vector3 spawnRightBottom = { -100.0f,0.0f,-50.0f };	//右下
+	myMath::Vector3 spawnRightTop = { 100.0f,0.0f,50.0f };		//右上
+	myMath::Vector3 spawnRightCenter = { 100.0f,0.0f,0.0f };		//右中心
+	myMath::Vector3 spawnRightBottom = { 100.0f,0.0f,-50.0f };	//右下
 
 	myMath::Vector3 spawnLMTop = { -50.0f,0.0f,25.0f };			//左と真ん中の間の上
 	myMath::Vector3 spawnLMBottom = { -50.0f,0.0f,-25.0f };		//左と真ん中の間の下
