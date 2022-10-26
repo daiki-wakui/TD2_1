@@ -208,6 +208,7 @@ class GameScene {
 	uint32_t titleSceneBGM = 0;
 	uint32_t gameSceneBGM = 0;
 	uint32_t tutorialSceneBGM = 0;
+	uint32_t resultSceneBGM = 0;
 
 	std::list<std::unique_ptr<Effect>> effects_;
 	uint32_t redTexture_;

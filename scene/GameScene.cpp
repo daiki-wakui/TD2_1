@@ -126,16 +126,18 @@ void GameScene::Initialize() {
 
 #pragma region BGM初期化
 
-	titleSceneBGM = audioManager->LoadAudio("Resources/title.mp3");//タイトルシーンBGM読み込み
+	titleSceneBGM = audioManager->LoadAudio("Resources/Sound/title.mp3");//タイトルシーンBGM読み込み
 	audioManager->PlayWave(titleSceneBGM, true);//タイトルシーンのBGMを再生
 	audioManager->ChangeVolume(titleSceneBGM, 0.2f);
-	gameSceneBGM = audioManager->LoadAudio("Resources/game.mp3");//ゲームシーンBGM読み込み
+	gameSceneBGM = audioManager->LoadAudio("Resources/Sound/game.mp3");//ゲームシーンBGM読み込み
 	audioManager->ChangeVolume(gameSceneBGM, 0.2f);
-	tutorialSceneBGM= audioManager->LoadAudio("Resources/チュートリアル.mp3");//チュートリアルBGM読み込み
+	tutorialSceneBGM= audioManager->LoadAudio("Resources/Sound/チュートリアル.mp3");//チュートリアルシーンBGM読み込み
 	audioManager->ChangeVolume(tutorialSceneBGM, 0.2f);
+	resultSceneBGM = audioManager->LoadAudio("Resources/Sound/Blinded.mp3");//リザルトシーンBGM読み込み
+	audioManager->ChangeVolume(resultSceneBGM, 0.2f);
 
-	damageSE = audioManager->LoadAudio("Resources/打撃6.mp3");//ダメージSE読み込み
-	spawnerBreakSE = audioManager->LoadAudio("Resources/パンチで壁を破壊.mp3");//スポナー破壊SE読み込み
+	damageSE = audioManager->LoadAudio("Resources/Sound/打撃6.mp3");//ダメージSE読み込み
+	spawnerBreakSE = audioManager->LoadAudio("Resources/Sound/パンチで壁を破壊.mp3");//スポナー破壊SE読み込み
 
 #pragma endregion
 }
@@ -414,7 +416,8 @@ void GameScene::Update()
 
 		if (score->IsFinish())
 		{
-			audioManager->StopWave(gameSceneBGM);//タイトルシーンのBGMを止める
+			audioManager->StopWave(gameSceneBGM);//ゲームシーンのBGMを止める
+			audioManager->PlayWave(resultSceneBGM, true);//リザルトシーンのBGMを再生する
 			Reset();
 			scene = Result;//リザルトシーン
 		}
@@ -839,6 +842,7 @@ void GameScene::Update()
 			sceneChangePos.y = 720;
 			spriteSceneChange->SetPosition({ sceneChangePos.x,sceneChangePos.y });
 			Reset();
+			audioManager->StopWave(resultSceneBGM);//リザルトシーンのBGMを止める
 			audioManager->PlayWave(titleSceneBGM, true);//タイトルシーンのBGMを再生
 			scene = Title;
 		}

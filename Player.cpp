@@ -42,9 +42,9 @@ void Player::Initialize(ViewProjection viewProjection)
 	attackTimer = 3;
 	viewProjection.Initialize();
 
-	bombSE = AudioManager::GetInstance()->LoadAudio("Resources/sound_SFX_explosion.mp3");//爆発SE読み込み
-	bombChargeSE= AudioManager::GetInstance()->LoadAudio("Resources/235742_copyc4t_tf-sci-fi-sweep-2.mp3");//爆発チャージSE読み込み
-	limitHitSE= AudioManager::GetInstance()->LoadAudio("Resources/sound_SFX_bounce.mp3");//壁に当たった時のSE読み込み
+	bombSE = AudioManager::GetInstance()->LoadAudio("Resources/Sound/sound_SFX_explosion.mp3");//爆発SE読み込み
+	bombChargeSE= AudioManager::GetInstance()->LoadAudio("Resources/Sound/235742_copyc4t_tf-sci-fi-sweep-2.mp3");//爆発チャージSE読み込み
+	limitHitSE= AudioManager::GetInstance()->LoadAudio("Resources/Sound/sound_SFX_bounce.mp3");//壁に当たった時のSE読み込み
 }
 
 void Player::titleSceneUpdate(int& scene) {
