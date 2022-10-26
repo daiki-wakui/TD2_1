@@ -306,18 +306,6 @@ void Player::Draw(ViewProjection viewProjection)
 {
 	playerModel_->Draw(playerModelWorldTransform, viewProjection);
 	taleModel_->Draw(taleModelWorldTransform, viewProjection);
-
-	debugText_->SetPos(20, 60);
-	debugText_->Printf("player.x %f,player.z %f", player.x, player.z);
-
-	debugText_->SetPos(20, 100);
-	debugText_->Printf("speed %f", speed);
-
-	debugText_->SetPos(20, 220);
-	debugText_->Printf("timer %d", timer);
-
-	debugText_->SetPos(20, 240);
-	debugText_->Printf("angle %f", angle);
 }
 
 void Player::Reset()

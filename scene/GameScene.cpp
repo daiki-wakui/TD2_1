@@ -16,7 +16,7 @@ void GameScene::Initialize() {
 	audioManager = audioManager->GetInstance();
 	debugText_ = DebugText::GetInstance();
 	model = Model::CreateFromOBJ("enemy", true);
-	bombModel = Model::CreateFromOBJ("enemy_bomb",true);
+	bombModel = Model::CreateFromOBJ("enemy_bomb", true);
 	viewProjection.eye = { 0,75,-10 };
 	viewProjection.Initialize();
 	oldViewProjection.eye = { 0,75,-10 };
@@ -30,7 +30,7 @@ void GameScene::Initialize() {
 	redTexture_ = TextureManager::Load("red.png");
 	whiteTexture_ = TextureManager::Load("wit.png");
 	orangeTexture_ = TextureManager::Load("orange2.png");
-	
+
 	titleTextrue_ = TextureManager::Load("bombTale_logo.png");
 	spriteTielelogo_ = Sprite::Create(titleTextrue_, { 1280 / 2,170 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 
@@ -50,9 +50,9 @@ void GameScene::Initialize() {
 	//壁
 	wallModel = Model::CreateFromOBJ("wall", true);
 	//上壁
-	wallWorldTransform[0].scale_ = {5.0f,5.0f,30.0f};
-	wallWorldTransform[0].rotation_ = {0.0f,1.57f,0.0f};
-	wallWorldTransform[0].translation_ = {0.0f,0.0f,97.0f};
+	wallWorldTransform[0].scale_ = { 5.0f,5.0f,30.0f };
+	wallWorldTransform[0].rotation_ = { 0.0f,1.57f,0.0f };
+	wallWorldTransform[0].translation_ = { 0.0f,0.0f,97.0f };
 	//下壁
 	wallWorldTransform[1].scale_ = { 5.0f,5.0f,30.0f };
 	wallWorldTransform[1].rotation_ = { 0.0f,1.57f,0.0f };
@@ -97,7 +97,7 @@ void GameScene::Initialize() {
 
 	titleScene = AudioManager::GetInstance()->LoadAudio("Resources/title.mp3");//タイトルシーンBGM読み込み
 	AudioManager::GetInstance()->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
-	AudioManager::GetInstance()->ChangeVolume(titleScene,0.2f);
+	AudioManager::GetInstance()->ChangeVolume(titleScene, 0.2f);
 	gameScene = AudioManager::GetInstance()->LoadAudio("Resources/game.mp3");//ゲームシーンBGM読み込み
 	AudioManager::GetInstance()->ChangeVolume(gameScene, 0.2f);
 
@@ -216,6 +216,13 @@ void GameScene::Update()
 	case Game:
 		isControl = false;
 
+		nowFlame++;
+		if (nowFlame >= 60)
+		{
+			nowTime++;//経過時間
+			nowFlame = 0;
+		}
+
 		sceneChangePos = { spriteSceneChange->GetPosition().x,spriteSceneChange->GetPosition().y };
 
 		sceneChangePos.y -= 50.0f;
@@ -252,7 +259,7 @@ void GameScene::Update()
 		worldtransform_.translation_.x = spawnRightTop.x;
 		worldtransform_.translation_.z = spawnRightTop.z;
 
-		
+
 
 #pragma endregion
 
@@ -312,7 +319,7 @@ void GameScene::Update()
 			if (isAnimation == true) {
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
-					newobj->Initialize(player,effectWorldTransform, boxModel, redTexture_, 0);
+					newobj->Initialize(player, effectWorldTransform, boxModel, redTexture_, 0);
 					effects_.push_back(std::move(newobj));
 				}
 				isAnimation = false;
@@ -327,7 +334,7 @@ void GameScene::Update()
 			if (isAnimation == true) {
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
-					newobj->Initialize(player,effectWorldTransform, boxModel, redTexture_, 0);
+					newobj->Initialize(player, effectWorldTransform, boxModel, redTexture_, 0);
 					effects_.push_back(std::move(newobj));
 				}
 				isAnimation = false;
@@ -354,7 +361,7 @@ void GameScene::Update()
 
 		effects_.remove_if([](std::unique_ptr<Effect>& obj_) {
 			return obj_->IsDead();
-		});
+			});
 
 		for (std::unique_ptr<Effect>& object : effects_) {
 			object->Update();
@@ -424,7 +431,7 @@ void GameScene::Update()
 		floorWorldTransform.TransferMatrix();
 
 		//壁の行列更新
-		for (int i = 0; i < 4; i++) 
+		for (int i = 0; i < 4; i++)
 		{
 			MathUtility::MatrixCalculation(wallWorldTransform[i]);//行列の更新
 			wallWorldTransform[i].TransferMatrix();
@@ -432,8 +439,8 @@ void GameScene::Update()
 
 		map->Update();
 		map->EnemyUpdate(enemys, enemyGeneration);
-		map->EnemyStraightUpdate(enemyStraights,enemyStraightsGen);
-		map->EnemyCircleUpdate(enemyCircles,enemyCirclesGen);
+		map->EnemyStraightUpdate(enemyStraights, enemyStraightsGen);
+		map->EnemyCircleUpdate(enemyCircles, enemyCirclesGen);
 
 #pragma endregion
 
@@ -492,14 +499,12 @@ void GameScene::Update()
 
 		viewProjection.TransferMatrix();
 		viewProjection.UpdateMatrix();
-		debugText_->SetPos(20, 40);
-		debugText_->Printf("%d", enemys.size());
 		break;
 
 
 		//リザルト画面
 	case Result:
-		
+
 		if (input_->TriggerKey(DIK_SPACE))
 		{
 			sceneChangePos.x = 0;
@@ -567,9 +572,6 @@ void GameScene::Draw() {
 
 		player->Draw(viewProjection);
 
-		debugText_->SetPos(550, 300);
-		debugText_->Printf("Title Scene Space Start");
-
 		break;
 
 
@@ -609,7 +611,7 @@ void GameScene::Draw() {
 		}
 #pragma endregion
 
-		
+
 
 #pragma region スポーン地点の描画
 
@@ -635,11 +637,6 @@ void GameScene::Draw() {
 		break;
 	}
 
-	debugText_->SetPos(20, 20);
-	debugText_->Printf("Scene %d", scene);
-	debugText_->SetPos(20, 200);
-	debugText_->Printf("num %d", spawnNum);
-	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -650,7 +647,7 @@ void GameScene::Draw() {
 
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
-	
+
 	switch (scene)
 	{
 	case Title:
@@ -682,8 +679,12 @@ void GameScene::Draw() {
 	/// </summary>
 
 	// デバッグテキストの描画
+	debugText_->SetPos(20, 60);
+	debugText_->Printf("nowTime %d", nowTime);
+
+
 	debugText_->DrawAll(commandList);
-	//
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
@@ -713,26 +714,26 @@ void GameScene::EnemySpawn(const myMath::Vector3& p)
 	}
 }
 
-void GameScene::EnemyStraightsGen(const myMath::Vector3& p,float angle)
+void GameScene::EnemyStraightsGen(const myMath::Vector3& p, float angle)
 {
 	myMath::Vector3 position = { p.x,p.y,p.z };
 	//Enemyを生成し、初期化
 	std::unique_ptr<EnemyStraight> newEnemy = std::make_unique<EnemyStraight>();
-	newEnemy->Initialize(model,viewProjection, position, angle);
+	newEnemy->Initialize(model, viewProjection, position, angle);
 	//Enemyを登録する
 	enemyStraights.push_back(std::move(newEnemy));
 }
 
 void GameScene::EnemyStraightsSpawn(const myMath::Vector3& p, float angle)
 {
-	
-	
+
+
 	if (enemyStraightsGen == 0)
 	{
 		EnemyStraightsGen(p, angle);
 	}
-	
-	
+
+
 }
 
 void GameScene::EnemyCirclesGen(const myMath::Vector3& p, float angle)
@@ -740,7 +741,7 @@ void GameScene::EnemyCirclesGen(const myMath::Vector3& p, float angle)
 	myMath::Vector3 position = { p.x,p.y,p.z };
 	//Enemyを生成し、初期化
 	std::unique_ptr<EnemyCircle> newEnemy = std::make_unique<EnemyCircle>();
-	newEnemy->Initialize(model,viewProjection, position, angle);
+	newEnemy->Initialize(model, viewProjection, position, angle);
 	//Enemyを登録する
 	enemyCircles.push_back(std::move(newEnemy));
 }
@@ -754,7 +755,7 @@ void GameScene::EnemyCirclesSpawn(const myMath::Vector3& p, float angle)
 			EnemyCirclesGen(p, angle);
 		}
 	}
-	
+
 }
 
 void GameScene::EnemyBombsGen(const myMath::Vector3& p)
@@ -798,6 +799,8 @@ void GameScene::Reset()
 	logoRot = 0;
 	spriteTielelogo_->SetRotation(logoRot);
 	spriteTielelogo_->SetPosition({ logoPos.x,logoPos.y });
+	nowFlame = 0;
+	nowTime = 0;
 
 #pragma region スポーン関連のリセット
 	isSpawnLeftTop = false;
@@ -828,7 +831,7 @@ void GameScene::SpawnCollider()
 	{
 		//真ん中との当たり判定
 		if (isSpawnMiddleTop == true)
-		{			
+		{
 			if ((2.0f + player->GetBombCharge()) * (2.0f + player->GetBombCharge()) >= (spawnMiddleTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnMiddleTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnMiddleTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnMiddleTop.z - player->GetAttackWorldTransform().translation_.z))
 			{
 				score->SetTimer(score->GetTimer() + 5);
@@ -853,7 +856,7 @@ void GameScene::SpawnCollider()
 				isSpawnMiddleBottom = false;
 				spawnCount--;
 			}
-		}	
+		}
 
 		//左との当たり判定
 		if (isSpawnLeftTop == true)
@@ -883,7 +886,7 @@ void GameScene::SpawnCollider()
 				spawnCount--;
 			}
 		}
-		
+
 		//右との当たり判定
 		if (isSpawnRightTop == true)
 		{
@@ -903,7 +906,7 @@ void GameScene::SpawnCollider()
 				spawnCount--;
 			}
 		}
-		
+
 		if (isSpawnRightBottom == true)
 		{
 			if ((2.0f + player->GetBombCharge()) * (2.0f + player->GetBombCharge()) >= (spawnRightBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnRightBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnRightBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnRightBottom.z - player->GetAttackWorldTransform().translation_.z))
@@ -913,7 +916,7 @@ void GameScene::SpawnCollider()
 				spawnCount--;
 			}
 		}
-		
+
 		//各間の当たり判定
 		if (isSpawnLMTop == true)
 		{
@@ -970,7 +973,7 @@ void GameScene::SpawnEmerge()
 			{
 				spawnNum = rand() % 13 + 1;//スポーン地点の出現をランダムで決定
 			}
-		
+
 
 		}
 		if (spawnNum == 1)
@@ -987,7 +990,7 @@ void GameScene::SpawnEmerge()
 				continue;
 			}
 		}
-		
+
 		if (spawnNum == 2)
 		{
 			if (isSpawnMiddleTop == false)
