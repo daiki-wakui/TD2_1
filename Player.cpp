@@ -138,6 +138,7 @@ void Player::Move()
 		speed = 0.1f * (bombCharge/2);
 		attackFlag = true;
 
+		audioManager->ChangeVolume(bombSE, bombCharge / 20.0f);
 		audioManager->PlayWave(bombSE, false);//”š”­SE‚ğÄ¶
 	}
 	if (speed <= 0.0f)
@@ -307,13 +308,13 @@ void Player::Tale(int scene)
 		}
 	}
 
+	audioManager->ChangeVolume(bombChargeSE, bombCharge / 20.0f);
 	if (chargeSEFlag == true)
 	{
 		audioManager->StopWave(bombChargeSE);
 		audioManager->PlayWave(bombChargeSE, true);//”š”­ƒ`ƒƒ[ƒW‚Ì‰¹‚ğÄ¶
 		chargeSEFlag = false;
 	}
-	audioManager->ChangeVolume(bombChargeSE, bombCharge / 20.0f);
 
 	if (!input->PushKey(DIK_SPACE))
 	{
