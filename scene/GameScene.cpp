@@ -593,15 +593,55 @@ void GameScene::Update()
 #pragma region クールタイム処理
 		//スポーンクールタイム
 		enemyGeneration++;
-		if (enemyGeneration > 300)
+		
+		
+		//追従敵
+		if (nowTime < 30)
 		{
-			enemyGeneration = 0;
+			if (enemyGeneration > 420)
+			{
+				enemyGeneration = 0;
+			}
 		}
-
-		enemyStraightsGen++;
-		if (enemyStraightsGen > 25)
+		else if (nowTime >= 30 && nowTime < 60)
 		{
-			enemyStraightsGen = 0;
+			if (enemyGeneration > 300)
+			{
+				enemyGeneration = 0;
+			}
+		}
+		else if (nowTime >= 60)
+		{
+			if (enemyGeneration > 180)
+			{
+				enemyGeneration = 0;
+			}
+		}
+		
+		
+		enemyStraightsGen++;
+		
+
+		if (nowTime < 30)
+		{
+			if (enemyStraightsGen > 75)
+			{
+				enemyStraightsGen = 0;
+			}
+		}
+		else if (nowTime >= 30 && nowTime < 60)
+		{
+			if (enemyStraightsGen > 50)
+			{
+				enemyStraightsGen = 0;
+			}
+		}
+		else if(nowTime >= 60)
+		{
+			if (enemyStraightsGen > 25)
+			{
+				enemyStraightsGen = 0;
+			}
 		}
 		enemyCirclesGen++;
 		if (enemyCirclesGen > 180)
@@ -790,6 +830,9 @@ void GameScene::Draw() {
 		score->Draw();
 
 		spriteSceneChange->Draw();
+
+		debugText_->SetPos(20, 40);
+		debugText_->Printf("%d", spawnTimer);
 
 #pragma region マップ関連
 
@@ -1259,7 +1302,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[LeftTop] == false)
 			{
 				isSpawn[LeftTop] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if(nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1274,7 +1328,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[MiddleTop] == false)
 			{
 				isSpawn[MiddleTop] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1288,7 +1353,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[RightTop] == false)
 			{
 				isSpawn[RightTop] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1302,7 +1378,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[LeftCenter]== false)
 			{
 				isSpawn[LeftCenter] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1316,7 +1403,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[MiddleCenter] == false)
 			{
 				isSpawn[MiddleCenter] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1330,7 +1428,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[RightCenter] == false)
 			{
 				isSpawn[RightCenter] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1344,7 +1453,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[LeftBottom] == false)
 			{
 				isSpawn[LeftBottom] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1358,7 +1478,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[MiddleBottom] == false)
 			{
 				isSpawn[MiddleBottom] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1373,7 +1504,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[RightBottom] == false)
 			{
 				isSpawn[RightBottom] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1387,7 +1529,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[LMTop]== false)
 			{
 				isSpawn[LMTop] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1401,7 +1554,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[LMBottom]== false)
 			{
 				isSpawn[LMBottom] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1415,7 +1579,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[RMTop] == false)
 			{
 				isSpawn[RMTop] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
@@ -1430,7 +1605,18 @@ void GameScene::SpawnEmerge()
 			if (isSpawn[RMBottom] == false)
 			{
 				isSpawn[RMBottom] = true;
-				spawnTimer = 300;
+				if (nowTime < 30)
+				{
+					spawnTimer = 600;
+				}
+				else if (nowTime >= 30 && nowTime < 60)
+				{
+					spawnTimer = 300;
+				}
+				else if (nowTime >= 60)
+				{
+					spawnTimer = 180;
+				}
 				spawnCount++;
 				spawnNum = 0;
 			}
