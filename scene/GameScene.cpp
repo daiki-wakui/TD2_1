@@ -327,6 +327,21 @@ void GameScene::Update()
 				isAnimation = false;
 			}
 		}
+		for (const std::unique_ptr<Enemy>& enemy : enemys) {
+			if (enemy->GetIsDead() == true) {
+				effectWorldTransform = enemy->GetWorldTransform();
+				isAnimation = true;
+			}
+
+			if (isAnimation == true) {
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, redTexture_, 0);
+					effects_.push_back(std::move(newobj));
+				}
+				isAnimation = false;
+			}
+		}
 
 		MathUtility::MatrixCalculation(effectWorldTransform);//行列の更新
 		effectWorldTransform.TransferMatrix();
