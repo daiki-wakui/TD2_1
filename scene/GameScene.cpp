@@ -668,7 +668,7 @@ void GameScene::EnemyOcurrence(const myMath::Vector3& p) {
 	myMath::Vector3 position = { p.x,p.y,p.z };
 	//Enemyを生成し、初期化
 	std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
-	newEnemy->Initialize(model, position, texture);
+	newEnemy->Initialize(model, position);
 	//Enemyを登録する
 	enemys.push_back(std::move(newEnemy));
 }

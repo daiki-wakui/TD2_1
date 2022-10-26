@@ -3,11 +3,10 @@
 
 using namespace MathUtility;
 
-void Enemy::Initialize(Model* model, const myMath::Vector3 position, uint32_t texture)
+void Enemy::Initialize(Model* model, const myMath::Vector3 position)
 {
 	assert(model);
 
-	texture_ = texture;
 	player = Player::GetInstance();
 	model_ = model;
 	score = Score::GetInstance();
@@ -51,7 +50,7 @@ void Enemy::Update()
 
 void Enemy::Draw(const ViewProjection& viewProjection)
 {
-	model_->Draw(worldTransform, viewProjection, texture_);
+	model_->Draw(worldTransform, viewProjection);
 }
 
 void Enemy::Move()
@@ -63,7 +62,7 @@ void Enemy::Move()
 				 player->GetPlayerWorldTransform().translation_.z - enemy.z };
 	normEnemyVec = enemyVec.normalization();
 
-	angle = atan2(enemyVec.z, enemyVec.x);
+	angle = -(atan2(enemyVec.z, enemyVec.x) + myMath::AX_PI / 2);
 
 	enemy.x += normEnemyVec.x * speed;
 	enemy.y += normEnemyVec.y * speed;

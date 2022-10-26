@@ -34,11 +34,9 @@ private:
 
 	float angle = 0.0f;
 
-	uint32_t texture_;
-
 public:
 
-	void Initialize(Model* model, const myMath::Vector3 position, uint32_t texture);
+	void Initialize(Model* model, const myMath::Vector3 position);
 	void Update();
 	void Draw(const ViewProjection& viewProjection);
 	bool GetIsDead(){return isDead;}
