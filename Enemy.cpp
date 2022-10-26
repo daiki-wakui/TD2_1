@@ -13,6 +13,7 @@ void Enemy::Initialize(Model* model, const myMath::Vector3 position, uint32_t te
 	score = Score::GetInstance();
 	enemy = position;
 	worldTransform.Initialize();
+	worldTransform.scale_ = { 3,3,3 };
 	worldTransform.translation_ = { position.x,position.y,position.z };
 
 	//scoreBonus = 1.0;
@@ -20,40 +21,29 @@ void Enemy::Initialize(Model* model, const myMath::Vector3 position, uint32_t te
 
 void Enemy::Update()
 {
-	/*Move();*/
+	Move();
 	/*Leave();*/
 	MoveLimit();
 	if (player->GetAttackFlag())
 	{
-		if ((1.0f + player->GetBombCharge()) * (1.0f + player->GetBombCharge()) >= (enemy.x - player->GetAttackWorldTransform().translation_.x) * (enemy.x - player->GetAttackWorldTransform().translation_.x) +
+		if ((radius + player->GetBombCharge()) * (radius + player->GetBombCharge()) >= (enemy.x - player->GetAttackWorldTransform().translation_.x) * (enemy.x - player->GetAttackWorldTransform().translation_.x) +
 
 			(enemy.z - player->GetAttackWorldTransform().translation_.z) * (enemy.z - player->GetAttackWorldTransform().translation_.z))
-		{
-			isDead = true;
-		}
-	}
-
-	if (player->GetSpeed() > 0.0f)
-	{
-		if ((1.0f + radius) * (1.0f + radius) >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x)
-			
-			+ (enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
 			isDead = true;
 		}
 	}
-	else
-	{
-		if ((1.0f + radius)* (1.0f + radius) >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x) +
-			
-			(enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
-		{
-			//time-=3;
-			isDead = true;
-		}
+
 	
+	if ((radius + 5.0f) * (radius + 5.0f) >= (enemy.x - player->GetPlayerWorldTransform().translation_.x) * (enemy.x - player->GetPlayerWorldTransform().translation_.x)
+			
+		+ (enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
+	{
+		score->SetTimer(score->GetTimer() - 1);
+		isDead = true;
 	}
+	
 
 	MathUtility::MatrixCalculation(worldTransform);//行列の更新
 	worldTransform.TransferMatrix();//行列の転送
@@ -66,7 +56,7 @@ void Enemy::Draw(const ViewProjection& viewProjection)
 
 void Enemy::Move()
 {
-	const float speed = 0.1f;
+	const float speed = 0.5f;
 
 	enemyVec = { player->GetPlayerWorldTransform().translation_.x - enemy.x,
 				 player->GetPlayerWorldTransform().translation_.y - enemy.y,
