@@ -799,6 +799,8 @@ void GameScene::Reset()
 	logoRot = 0;
 	spriteTielelogo_->SetRotation(logoRot);
 	spriteTielelogo_->SetPosition({ logoPos.x,logoPos.y });
+	nowFlame = 0;
+	nowTime = 0;
 
 #pragma region スポーン関連のリセット
 	isSpawnLeftTop = false;
