@@ -78,6 +78,25 @@ void GameScene::Initialize() {
 	effectWorldTransform.Initialize();
 	World.Initialize();
 
+	spawnWorldTransform[MiddleTop].translation_ = { spawnMiddleTop.x,spawnMiddleTop.y,spawnMiddleTop.z };
+	spawnWorldTransform[MiddleCenter].translation_ = { spawnMiddleCenter.x,spawnMiddleCenter.y,spawnMiddleCenter.z };
+	spawnWorldTransform[MiddleBottom].translation_ = { spawnMiddleBottom.x,spawnMiddleBottom.y,spawnMiddleBottom.z };
+	spawnWorldTransform[LeftTop].translation_ = { spawnLeftTop.x,spawnLeftTop.y,spawnLeftTop.z };
+	spawnWorldTransform[LeftCenter].translation_ = { spawnLeftCenter.x,spawnLeftCenter.y,spawnLeftCenter.z };
+	spawnWorldTransform[LeftBottom].translation_ = { spawnLeftBottom.x,spawnLeftBottom.y,spawnLeftBottom.z };
+	spawnWorldTransform[RightTop].translation_ = { spawnRightTop.x,spawnRightTop.y,spawnRightTop.z };
+	spawnWorldTransform[RightCenter].translation_ = { spawnRightCenter.x,spawnRightCenter.y,spawnRightCenter.z };
+	spawnWorldTransform[RightBottom].translation_ = { spawnRightBottom.x,spawnRightBottom.y,spawnRightBottom.z };
+	spawnWorldTransform[LMTop].translation_ = { spawnLMTop.x,spawnLMTop.y,spawnLMTop.z };
+	spawnWorldTransform[LMBottom].translation_ = { spawnLMBottom.x,spawnLMBottom.y,spawnLMBottom.z};
+	spawnWorldTransform[RMTop].translation_ = { spawnRMTop.x,spawnRMTop.y,spawnRMTop.z};
+	spawnWorldTransform[RMBottom].translation_ = { spawnRMBottom.x,spawnRMBottom.y,spawnRMBottom.z };
+
+	for (int i = 0; i < 13; i++) {
+		spawnWorldTransform[i].scale_ = { 2.5f,2.5f,2.5f };
+		spawnWorldTransform[i].Initialize();
+	}
+
 #pragma endregion
 
 	score = Score::GetInstance();
@@ -85,7 +104,7 @@ void GameScene::Initialize() {
 
 #pragma region スポーン地点の生成
 
-	spawn_ = Model::Create();
+	spawn_ = Model::CreateFromOBJ("enemy_spawner", true);
 	worldtransform_.scale_ = { 2.0f,2.0f,2.0f };
 	worldtransform_.Initialize();
 
@@ -260,7 +279,10 @@ void GameScene::Update()
 		worldtransform_.translation_.x = spawnRightTop.x;
 		worldtransform_.translation_.z = spawnRightTop.z;
 
-
+		for (int i = 0; i < 13; i++) {
+			MathUtility::MatrixCalculation(spawnWorldTransform[i]);
+			spawnWorldTransform[i].TransferMatrix();
+		}
 
 #pragma endregion
 
@@ -649,8 +671,10 @@ void GameScene::Draw() {
 
 
 #pragma region スポーン地点の描画
-
-		spawn_->Draw(worldtransform_, viewProjection, texture);
+		for (int i = 0; i < 13; i++) {
+			spawn_->Draw(spawnWorldTransform[i], viewProjection);
+		}
+		
 		/*spawn_->Draw(spawnEnemyCircle, viewProjection, texture);*/
 #pragma endregion
 

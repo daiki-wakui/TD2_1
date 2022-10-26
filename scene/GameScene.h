@@ -36,6 +36,23 @@ enum SceneName
 	Result,
 };
 
+enum Spawner
+{
+	MiddleTop,
+	MiddleCenter,
+	MiddleBottom,
+	LeftTop,
+	LeftCenter,
+	LeftBottom,
+	RightTop,
+	RightCenter,
+	RightBottom,
+	LMTop,
+	LMBottom,
+	RMTop,
+	RMBottom,
+};
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -115,6 +132,8 @@ class GameScene {
 
 	//スポーン地点関連
 	//各スポーン地点の座標
+	WorldTransform spawnWorldTransform[13];
+
 	myMath::Vector3 spawnMiddleTop = { 0.0f,0.0f,50.0f };		//中心上
 	myMath::Vector3 spawnMiddleCenter = { 0,0,0 };				//中心
 	myMath::Vector3 spawnMiddleBottom = { 0.0f,0.0f,50.0f };	//中心下
