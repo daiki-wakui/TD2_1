@@ -64,7 +64,7 @@ private:
 	float resultScorePosX4 = 660;
 	float resultScorePosX5 = 700;
 	float resultScorePosX6 = 740;
-	float resultScorePosY = 300;
+	float resultScorePosY = 265;
 
 	bool damageFlag = false;
 	bool spawnerBreakFlag = false;

@@ -930,6 +930,7 @@ void GameScene::Update()
 			Reset();
 			audioManager->StopWave(resultSceneBGM);//リザルトシーンのBGMを止める
 			audioManager->PlayWave(titleSceneBGM, true);//タイトルシーンのBGMを再生
+			score->Reset();
 			scene = Title;
 		}
 
@@ -1364,7 +1365,7 @@ void GameScene::EnemyCirclesSpawn(const myMath::Vector3& p, float angle)
 void GameScene::Reset()
 {
 	player->Reset();
-	score->Reset();
+	
 	enemys.clear();
 	enemyCircles.clear();
 	enemyStraights.clear();
