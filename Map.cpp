@@ -44,7 +44,7 @@ void Map::EnemyUpdate(std::list<std::unique_ptr<Enemy>>& enemys, int& generate)
 		int count = 0;
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
-			enemySprite[count] = Sprite::Create(objectHandle, { 203 + enemy->GetWorldTransform().translation_.x,153 - enemy->GetWorldTransform().translation_.z }, { 1,0,0,1 }, { 0.5f,0.5f });
+			enemySprite[count] = Sprite::Create(objectHandle, { 203 + enemy->GetWorldTransform().translation_.x,153 - enemy->GetWorldTransform().translation_.z }, { 0,0,1,1 }, { 0.5f,0.5f });
 			count++;
 		}
 	}
