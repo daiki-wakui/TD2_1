@@ -432,7 +432,6 @@ void GameScene::Update()
 
 #pragma region 敵の生成処理
 
-		//EnemySpawn(spawnRightTop);	//右
 
 		enemyStraightAngle += 0.02f;
 		if (enemyStraightAngle > 2 * MathUtility::PI)
@@ -456,8 +455,6 @@ void GameScene::Update()
 		//	enemyCircleAngle = 2 * MathUtility::PI;//オーバーフロー回避処理
 		//}
 		//EnemyCirclesSpawn({ 20,0,20 }, enemyCircleAngle);
-
-		//EnemyBombsSpawn({10,0,10});
 
 #pragma endregion
 
