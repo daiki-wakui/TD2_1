@@ -126,11 +126,13 @@ void GameScene::Initialize() {
 
 #pragma region BGM初期化
 
-	titleScene = audioManager->LoadAudio("Resources/title.mp3");//タイトルシーンBGM読み込み
-	audioManager->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
-	audioManager->ChangeVolume(titleScene, 0.2f);
-	gameScene = audioManager->LoadAudio("Resources/game.mp3");//ゲームシーンBGM読み込み
-	audioManager->ChangeVolume(gameScene, 0.2f);
+	titleSceneBGM = audioManager->LoadAudio("Resources/title.mp3");//タイトルシーンBGM読み込み
+	audioManager->PlayWave(titleSceneBGM, true);//タイトルシーンのBGMを再生
+	audioManager->ChangeVolume(titleSceneBGM, 0.2f);
+	gameSceneBGM = audioManager->LoadAudio("Resources/game.mp3");//ゲームシーンBGM読み込み
+	audioManager->ChangeVolume(gameSceneBGM, 0.2f);
+	tutorialSceneBGM= audioManager->LoadAudio("Resources/チュートリアル.mp3");//チュートリアルBGM読み込み
+	audioManager->ChangeVolume(tutorialSceneBGM, 0.2f);
 
 	damageSE = audioManager->LoadAudio("Resources/打撃6.mp3");//ダメージSE読み込み
 	spawnerBreakSE = audioManager->LoadAudio("Resources/パンチで壁を破壊.mp3");//スポナー破壊SE読み込み
@@ -176,8 +178,8 @@ void GameScene::Update()
 
 			if(sceneChangePos.y<=0)
 			{
-				audioManager->StopWave(titleScene);//タイトルシーンのBGMを止める
-				audioManager->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
+				audioManager->StopWave(titleSceneBGM);//チュートリアルシーンのBGMを止める
+				audioManager->PlayWave(tutorialSceneBGM, true);//ゲームシーンのBGMを再生
 
 				Reset();
 				scene = Tutorial;	//チュートリアルシーンへ
@@ -273,8 +275,8 @@ void GameScene::Update()
 				if (isTutorialFinish == true) {
 
 					if (spriteSceneChange->GetPosition().y <= 0) {
-						AudioManager::GetInstance()->StopWave(titleScene);//タイトルシーンのBGMを止める
-						AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
+						audioManager->StopWave(tutorialSceneBGM);//チュートリアルシーンのBGMを止める
+						audioManager->PlayWave(gameSceneBGM, true);//ゲームシーンのBGMを再生
 
 						Reset();
 						scene = Game;	//チュートリアルシーンへ
@@ -412,14 +414,14 @@ void GameScene::Update()
 
 		if (score->IsFinish())
 		{
-			audioManager->StopWave(gameScene);//タイトルシーンのBGMを止める
+			audioManager->StopWave(gameSceneBGM);//タイトルシーンのBGMを止める
 			Reset();
 			scene = Result;//リザルトシーン
 		}
 
 		if (input_->TriggerKey(DIK_RETURN))
 		{
-			audioManager->StopWave(gameScene);
+			audioManager->StopWave(gameSceneBGM);
 			Reset();
 			scene = Result;
 		}
@@ -837,7 +839,7 @@ void GameScene::Update()
 			sceneChangePos.y = 720;
 			spriteSceneChange->SetPosition({ sceneChangePos.x,sceneChangePos.y });
 			Reset();
-			audioManager->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
+			audioManager->PlayWave(titleSceneBGM, true);//タイトルシーンのBGMを再生
 			scene = Title;
 		}
 
