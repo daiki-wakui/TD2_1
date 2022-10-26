@@ -286,7 +286,7 @@ void Player::Tale()
 {
 	if (!input->PushKey(DIK_SPACE))
 	{
-		bombCharge += 0.4f;//離している間爆弾をチャージ
+		bombCharge += 0.2f;//離している間爆弾をチャージ
 	}
 
 	if (bombCharge > 20.0f)
