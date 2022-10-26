@@ -33,6 +33,9 @@ void GameScene::Initialize() {
 	
 	titleTextrue_ = TextureManager::Load("bombTale_logo.png");
 	spriteTielelogo_ = Sprite::Create(titleTextrue_, { 1280 / 2,170 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+
+	scsneChangeTexture_ = TextureManager::Load("colorTex/sceneChange.png");
+	spriteSceneChange = Sprite::Create(scsneChangeTexture_, { 0,720 });
 	
 	map = std::make_unique<Map>();
 	map->Initialize(viewProjection);
@@ -111,18 +114,18 @@ void GameScene::Update()
 
 #pragma region 演出処理
 
-		rot = spriteTielelogo_->GetRotation();
-		pos = { spriteTielelogo_->GetPosition().x,spriteTielelogo_->GetPosition().y };
+		logoRot = spriteTielelogo_->GetRotation();
+		logoPos = { spriteTielelogo_->GetPosition().x,spriteTielelogo_->GetPosition().y };
 
 		if (isControl == true)
 		{
-			rot += 0.5f;
-			pos.x += 20.0f;
-			pos.y += 3.0f;
+			logoRot += 0.5f;
+			logoPos.x += 20.0f;
+			logoPos.y += 3.0f;
 		}
 
-		spriteTielelogo_->SetRotation(rot);
-		spriteTielelogo_->SetPosition({ pos.x,pos.y });
+		spriteTielelogo_->SetRotation(logoRot);
+		spriteTielelogo_->SetPosition({ logoPos.x,logoPos.y });
 
 		if (input_->TriggerKey(DIK_SPACE)) {
 			isStart = true;
@@ -131,11 +134,20 @@ void GameScene::Update()
 
 		if (player->GetPlayerWorldTransform().translation_.z <= -100)
 		{
-			AudioManager::GetInstance()->StopWave(titleScene);//タイトルシーンのBGMを止める
-			AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
+			sceneChangePos = { spriteSceneChange->GetPosition().x,spriteSceneChange->GetPosition().y };
 
-			Reset();
-			scene = Game;	//ゲームシーンへ
+			sceneChangePos.y -= 50.0f;
+
+			spriteSceneChange->SetPosition({ sceneChangePos.x,sceneChangePos.y });
+
+			if(sceneChangePos.y<=0)
+			{
+				AudioManager::GetInstance()->StopWave(titleScene);//タイトルシーンのBGMを止める
+				AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
+
+				Reset();
+				scene = Game;	//ゲームシーンへ
+			}
 		}
 
 #pragma region マップ関連
@@ -203,6 +215,12 @@ void GameScene::Update()
 		//ゲームシーン
 	case Game:
 		isControl = false;
+
+		sceneChangePos = { spriteSceneChange->GetPosition().x,spriteSceneChange->GetPosition().y };
+
+		sceneChangePos.y -= 50.0f;
+
+		spriteSceneChange->SetPosition({ sceneChangePos.x,sceneChangePos.y });
 
 		if (score->IsFinish())
 		{
@@ -484,6 +502,9 @@ void GameScene::Update()
 		
 		if (input_->TriggerKey(DIK_SPACE))
 		{
+			sceneChangePos.x = 0;
+			sceneChangePos.y = 720;
+			spriteSceneChange->SetPosition({ sceneChangePos.x,sceneChangePos.y });
 			Reset();
 			AudioManager::GetInstance()->PlayWave(titleScene, true);//タイトルシーンのBGMを再生
 			scene = Title;
@@ -635,9 +656,13 @@ void GameScene::Draw() {
 	case Title:
 		spriteTielelogo_->Draw();
 
+		spriteSceneChange->Draw();
+
 		break;
 	case Game:
 		score->Draw();
+
+		spriteSceneChange->Draw();
 
 #pragma region マップ関連
 
@@ -768,11 +793,12 @@ void GameScene::Reset()
 	enemyCircleAngle = 0;
 	effects_.clear();
 	isStart = false;
-	pos.x = 1280/2;
-	pos.y = 170;
-	rot = 0;
-	spriteTielelogo_->SetRotation(rot);
-	spriteTielelogo_->SetPosition({ pos.x,pos.y });
+	logoPos.x = 1280/2;
+	logoPos.y = 170;
+	logoRot = 0;
+	spriteTielelogo_->SetRotation(logoRot);
+	spriteTielelogo_->SetPosition({ logoPos.x,logoPos.y });
+
 #pragma region スポーン関連のリセット
 	isSpawnLeftTop = false;
 	isSpawnMiddleTop = false;

@@ -197,9 +197,13 @@ class GameScene {
 
 	uint32_t titleTextrue_ = 0;
 	Sprite* spriteTielelogo_ = nullptr;
-	myMath::Vector2 pos = { 0,0 };
+	myMath::Vector2 logoPos = { 0,0 };
+	float logoRot;
 
 	bool isStart = false;
 	bool isControl = false;
-	float rot;
+	
+	uint32_t scsneChangeTexture_;
+	Sprite* spriteSceneChange = nullptr;
+	myMath::Vector2 sceneChangePos = { 0,0 };
 };
