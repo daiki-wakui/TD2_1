@@ -33,6 +33,7 @@ private:
 	bool right = false;
 
 	float angle = 0.0f;
+	bool playerHit = false;
 
 public:
 
@@ -41,6 +42,7 @@ public:
 	void Draw(const ViewProjection& viewProjection);
 	bool GetIsDead(){return isDead;}
 	bool GetWallHitIsDead() { return wallHitIsDead; }
+	bool GetPlayerHit() { return playerHit; }
 
 	void Move();
 	void Leave();

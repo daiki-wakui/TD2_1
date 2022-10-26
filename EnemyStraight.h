@@ -22,6 +22,7 @@ private:
 	float speed = 5.0f;
 	bool isDead = false;
 	bool wallHitIsDead = false;
+	bool playerHit = false;
 
 	uint32_t textureHundle = 0;
 	WorldTransform worldTransform;
@@ -38,6 +39,7 @@ public:
 	void Draw(ViewProjection viewProjection);
 	bool GetIsDead();
 	bool GetWallHitIsDead();
+	bool GetPlayerHit();
 	void Limit();
 	void Collider();
 

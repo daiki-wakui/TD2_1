@@ -40,7 +40,7 @@ void Enemy::Update()
 		+ (enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 	{
 		score->SetTimer(score->GetTimer() - 1);
-		isDead = true;
+		playerHit = true;
 	}
 	
 

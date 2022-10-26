@@ -60,6 +60,11 @@ bool EnemyStraight::GetWallHitIsDead()
 	return wallHitIsDead;
 }
 
+bool EnemyStraight::GetPlayerHit()
+{
+	return playerHit;
+}
+
 void EnemyStraight::Limit()
 {
 	if (pos.x <= -142 || pos.x >= 142 || pos.z <= -92 || pos.z >= 92)
@@ -84,7 +89,7 @@ void EnemyStraight::Collider()
 		(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 	{
 		score->SetTimer(score->GetTimer() - 1);
-		isDead = true;
+		playerHit = true;
 	}
 
 }
