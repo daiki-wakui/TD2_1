@@ -130,7 +130,7 @@ void Player::Move()
 	{
 		frontVec = front - player;
 		normFrontVec = frontVec.normalization();
-		speed = 0.1f * bombCharge;
+		speed = 0.1f * (bombCharge/2);
 		attackFlag = true;
 	}
 	if (speed <= 0.0f)
@@ -286,12 +286,12 @@ void Player::Tale()
 {
 	if (!input->PushKey(DIK_SPACE))
 	{
-		bombCharge += 0.2f;//離している間爆弾をチャージ
+		bombCharge += 0.4f;//離している間爆弾をチャージ
 	}
 
-	if (bombCharge > 10.0f)
+	if (bombCharge > 20.0f)
 	{
-		bombCharge = 10.0f;//上限を設定
+		bombCharge = 20.0f;//上限を設定
 	}
 
 	taleWorldTransform.scale_.x = 1.0 + bombCharge / 1.5f;//尻尾の長さ
