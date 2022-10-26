@@ -769,23 +769,23 @@ void GameScene::Update()
 		
 		
 		//追従敵
-		if (nowTime < 30)
+		if (nowTime < 20)
 		{
-			if (enemyGeneration > 420)
+			if (enemyGeneration > 240)
 			{
 				enemyGeneration = 0;
 			}
 		}
-		else if (nowTime > 30 && nowTime < 60)
-		{
-			if (enemyGeneration > 300)
-			{
-				enemyGeneration = 0;
-			}
-		}
-		else if (nowTime > 60)
+		else if (nowTime > 20 && nowTime < 40)
 		{
 			if (enemyGeneration > 180)
+			{
+				enemyGeneration = 0;
+			}
+		}
+		else if (nowTime > 40)
+		{
+			if (enemyGeneration > 120)
 			{
 				enemyGeneration = 0;
 			}
@@ -795,21 +795,21 @@ void GameScene::Update()
 		enemyStraightsGen++;
 		
 
-		if (nowTime < 30)
+		if (nowTime < 20)
 		{
 			if (enemyStraightsGen > 75)
 			{
 				enemyStraightsGen = 0;
 			}
 		}
-		else if (nowTime > 30 && nowTime < 60)
+		else if (nowTime > 20 && nowTime < 40)
 		{
 			if (enemyStraightsGen > 50)
 			{
 				enemyStraightsGen = 0;
 			}
 		}
-		else if(nowTime > 60)
+		else if(nowTime > 40)
 		{
 			if (enemyStraightsGen > 25)
 			{
@@ -1571,11 +1571,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if(nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1598,11 +1598,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1624,11 +1624,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1650,11 +1650,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1676,11 +1676,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1702,11 +1702,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1728,11 +1728,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1756,11 +1756,11 @@ void GameScene::SpawnEmerge()
 					}
 					else if (nowTime >= 30 && nowTime < 60)
 					{
-						spawnTimer = 180;
+						spawnTimer = 240;
 					}
 					else if (nowTime >= 60)
 					{
-						spawnTimer = 60;
+						spawnTimer = 180;
 					}
 					spawnCount++;
 					spawnNum = 0;
@@ -1787,11 +1787,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1813,11 +1813,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1839,11 +1839,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1865,11 +1865,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1892,11 +1892,11 @@ void GameScene::SpawnEmerge()
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 240;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 60;
+					spawnTimer = 180;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1924,7 +1924,7 @@ void GameScene::SpawnEmerge()
 
 	if (isSpawn[RightTop] == true)
 	{
-		EnemyStraightsSpawn(spawnRightTop, enemyStraightAngle);
+		EnemySpawn(spawnRightTop);
 	}
 
 	if (isSpawn[LeftCenter] == true)
@@ -1939,7 +1939,7 @@ void GameScene::SpawnEmerge()
 
 	if (isSpawn[RightCenter] == true)
 	{
-		EnemyStraightsSpawn(spawnRightCenter, enemyStraightAngle);
+		EnemySpawn(spawnRightCenter);
 	}
 
 	if (isSpawn[LeftBottom] == true)
@@ -1954,7 +1954,7 @@ void GameScene::SpawnEmerge()
 
 	if (isSpawn[RightBottom] == true)
 	{
-		EnemyStraightsSpawn(spawnRightBottom, enemyStraightAngle);
+		EnemySpawn(spawnRightBottom);
 	}
 
 	if (isSpawn[LMTop] == true)
