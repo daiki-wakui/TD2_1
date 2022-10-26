@@ -461,6 +461,28 @@ void GameScene::Update()
 
 #pragma endregion
 
+#pragma region 敵の更新処理
+
+		for (const std::unique_ptr<Enemy>& enemy : enemys)
+		{
+			enemy->Update();
+		}
+
+		for (const std::unique_ptr<EnemyStraight>& enemy : enemyStraights)
+		{
+			enemy->Update();
+		}
+		for (const std::unique_ptr<EnemyCircle>& enemy : enemyCircles)
+		{
+			enemy->Update();
+		}
+		for (const std::unique_ptr<EnemyBomb>& enemy : enemyBombs)
+		{
+			enemy->Update();
+		}
+
+#pragma endregion
+
 #pragma region マップ関連
 
 		//床の行列更新
@@ -505,27 +527,6 @@ void GameScene::Update()
 			enemyBombsGen = 0;
 		}
 
-#pragma endregion
-
-#pragma region 敵の更新処理
-
-		for (const std::unique_ptr<Enemy>& enemy : enemys)
-		{
-			enemy->Update();
-		}
-
-		for (const std::unique_ptr<EnemyStraight>& enemy : enemyStraights)
-		{
-			enemy->Update();
-		}
-		for (const std::unique_ptr<EnemyCircle>& enemy : enemyCircles)
-		{
-			enemy->Update();
-		}
-		for (const std::unique_ptr<EnemyBomb>& enemy : enemyBombs)
-		{
-			enemy->Update();
-		}
 #pragma endregion
 
 		MathUtility::MatrixCalculation(worldtransform_);//行列の更新
