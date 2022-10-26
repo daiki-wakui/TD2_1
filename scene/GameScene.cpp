@@ -422,7 +422,7 @@ void GameScene::Update()
 #pragma region クールタイム処理
 		//スポーンクールタイム
 		enemyGeneration++;
-		if (enemyGeneration > 120)
+		if (enemyGeneration > 300)
 		{
 			enemyGeneration = 0;
 		}
