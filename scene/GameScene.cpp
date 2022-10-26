@@ -32,14 +32,21 @@ void GameScene::Initialize() {
 	whiteTexture_ = TextureManager::Load("colorTex/wit.png");
 	orangeTexture_ = TextureManager::Load("colorTex/orange2.png");
 	purpleTexture_ = TextureManager::Load("colorTex/purple.png");
-	
+
+	titleUITex_ = TextureManager::Load("titlteStart.png");
+	spriteTitleUI_ = Sprite::Create(titleUITex_, { 1280 / 2,550 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 	titleTextrue_ = TextureManager::Load("bombTale_logo.png");
 	spriteTielelogo_ = Sprite::Create(titleTextrue_, { 1280 / 2,170 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 
 	tutorialTexture[0] = TextureManager::Load("tutorial/bombTale_explanation_01.png");
 	tutorialTexture[1] = TextureManager::Load("tutorial/bombTale_explanation_02.png");
+	tutorialUITex_ = TextureManager::Load("tutorial/tutorialNext.png");
+	tutorialFinishTex_ = TextureManager::Load("tutorial/tutorialStart.png");
 	spriteTutorial1 = Sprite::Create(tutorialTexture[0], { 1280 / 2,720/2 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 	spriteTutorial2 = Sprite::Create(tutorialTexture[1], { 1280 / 2,720/2 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	spriteTutorialUI_ = Sprite::Create(tutorialUITex_, { 1075,620 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	spriteTutorialFinish_ = Sprite::Create(tutorialFinishTex_, { 1075,620 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+
 
 	scsneChangeTexture_ = TextureManager::Load("colorTex/sceneChange.png");
 	spriteSceneChange = Sprite::Create(scsneChangeTexture_, { 0,720 });
@@ -1011,8 +1018,11 @@ void GameScene::Draw() {
 	{
 	case Title:
 		spriteTielelogo_->Draw();
-
 		spriteSceneChange->Draw();
+		if (isStart == false) {
+			spriteTitleUI_->Draw();
+		}
+		
 
 		break;
 
@@ -1026,7 +1036,12 @@ void GameScene::Draw() {
 			spriteTutorial2->Draw();
 		}
 		spriteSceneChange->Draw();
+
+		if (tutorialCount == 0|| tutorialCount == 3) {
+			spriteTutorialUI_->Draw();
+		}
 		
+
 		debugText_->SetPos(20, 300);
 		debugText_->Printf("tutorialCount %d", tutorialCount);
 
