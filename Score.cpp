@@ -51,11 +51,6 @@ void Score::ScoreAdd()
 
 void Score::Draw()
 {
-	debugText_->SetPos(1000, 60);
-	debugText_->Printf("time %d", timeLimit);
-
-	debugText_->SetPos(1000, 80);
-	debugText_->Printf("score %d", score);
 	TimerDraw();
 	ScoreDraw();
 }

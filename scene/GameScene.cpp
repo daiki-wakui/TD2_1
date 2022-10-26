@@ -326,9 +326,9 @@ void GameScene::Update()
 		}
 		//爆発したら
 		if (isExplosion == true) {
-			explosionTransform.scale_.x -= 1.5f;
-			explosionTransform.scale_.y -= 1.5f;
-			explosionTransform.scale_.z -= 1.5f;
+			explosionTransform.scale_.x -= 3.0f;
+			explosionTransform.scale_.y -= 3.0f;
+			explosionTransform.scale_.z -= 3.0f;
 
 			if (explosionTransform.scale_.x < 0) {
 				isExplosion = false;
