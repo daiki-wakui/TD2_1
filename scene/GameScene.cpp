@@ -1184,6 +1184,7 @@ void GameScene::SpawnEmerge()
 				isSpawnLMBottom = true;
 				spawnTimer = 300;
 				spawnCount++;
+				spawnNum = 0;
 			}
 			else
 			{
