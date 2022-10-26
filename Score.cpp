@@ -49,6 +49,20 @@ void Score::ScoreAdd()
 
 }
 
+void Score::SpanerScoreAdd()
+{
+	if (BonusTime > 0)
+	{
+		scoreBonus += 0.1f;//スコア倍率上昇
+	}
+	else
+	{
+		scoreBonus = 1.0f;//スコアボーナスを1.0倍に
+	}
+	score += 500 * scoreBonus;//スコア増加
+	BonusTime = 60;//倍率が上がる時間
+}
+
 void Score::Draw()
 {
 	TimerDraw();

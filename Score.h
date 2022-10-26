@@ -62,6 +62,8 @@ public:
 	void Initialize();
 	void Update();
 	void ScoreAdd();
+	void SpanerScoreAdd();
+
 	void Draw();
 
 	void TimerDraw();

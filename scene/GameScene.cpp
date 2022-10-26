@@ -1290,6 +1290,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[MiddleTop] = false;
 				spawnCount--;
@@ -1307,6 +1308,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[MiddleCenter] = false;
 				spawnCount--;
@@ -1324,6 +1326,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[MiddleBottom] = false;
 				spawnCount--;
@@ -1343,6 +1346,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LeftTop] = false;
 				spawnCount--;
@@ -1360,6 +1364,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LeftCenter] = false;
 				spawnCount--;
@@ -1377,6 +1382,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LeftBottom] = false;
 				spawnCount--;
@@ -1396,6 +1402,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RightTop] = false;
 				spawnCount--;
@@ -1413,6 +1420,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RightCenter] = false;
 				spawnCount--;
@@ -1431,6 +1439,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RightBottom] = false;
 				spawnCount--;
@@ -1450,6 +1459,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LMTop] = false;
 				spawnCount--;
@@ -1467,6 +1477,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LMBottom] = false;
 				spawnCount--;
@@ -1484,6 +1495,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RMTop] = false;
 				spawnCount--;
@@ -1501,6 +1513,7 @@ void GameScene::SpawnCollider()
 				}
 
 				score->SetTimer(score->GetTimer() + 3);
+				score->SpanerScoreAdd();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RMBottom] = false;
 				spawnCount--;
@@ -1535,15 +1548,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[LeftTop] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if(nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1562,15 +1575,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[MiddleTop] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1588,15 +1601,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[RightTop] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1614,15 +1627,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[LeftCenter] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1640,15 +1653,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[MiddleCenter] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1666,15 +1679,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[RightCenter] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1692,15 +1705,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[LeftBottom] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1720,15 +1733,15 @@ void GameScene::SpawnEmerge()
 					isSpawn[MiddleBottom] = true;
 					if (nowTime < 30)
 					{
-						spawnTimer = 600;
+						spawnTimer = 300;
 					}
 					else if (nowTime >= 30 && nowTime < 60)
 					{
-						spawnTimer = 300;
+						spawnTimer = 180;
 					}
 					else if (nowTime >= 60)
 					{
-						spawnTimer = 180;
+						spawnTimer = 60;
 					}
 					spawnCount++;
 					spawnNum = 0;
@@ -1751,15 +1764,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[RightBottom] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1777,15 +1790,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[LMTop] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1803,15 +1816,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[LMBottom] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1829,15 +1842,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[RMTop] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
@@ -1856,15 +1869,15 @@ void GameScene::SpawnEmerge()
 				isSpawn[RMBottom] = true;
 				if (nowTime < 30)
 				{
-					spawnTimer = 600;
+					spawnTimer = 300;
 				}
 				else if (nowTime >= 30 && nowTime < 60)
 				{
-					spawnTimer = 300;
+					spawnTimer = 180;
 				}
 				else if (nowTime >= 60)
 				{
-					spawnTimer = 180;
+					spawnTimer = 60;
 				}
 				spawnCount++;
 				spawnNum = 0;
