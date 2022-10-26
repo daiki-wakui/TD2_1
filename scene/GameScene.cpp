@@ -185,7 +185,6 @@ void GameScene::Update()
 
 				Reset();
 				scene = Tutorial;	//チュートリアルシーンへ
-				player->SetChargeSEFlag(true);
 			}
 		}
 
@@ -281,6 +280,7 @@ void GameScene::Update()
 						audioManager->PlayWave(gameSceneBGM, true);//ゲームシーンのBGMを再生
 
 						Reset();
+						player->SetChargeSEFlag(true);
 						scene = Game;	//チュートリアルシーンへ
 					}
 				}
