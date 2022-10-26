@@ -5,10 +5,13 @@
 #include"ViewProjection.h"
 #include "Model.h"
 #include"Player.h"
+#include"AudioManager.h"
+
 class EnemyStraight
 {
 private:
 	Player* player = nullptr;
+	AudioManager* audioManager = nullptr;
 
 	myMath::Vector3 pos;//ìGÇÃç¿ïW
 
@@ -34,14 +37,14 @@ private:
 	float radius = 3.0f;
 public:
 	void Initialize(Model* model,ViewProjection viewProjection,myMath::Vector3 position, float enemyAngle);
-	void Update();
+	void Update(uint32_t& damageSE);
 	void Move();
 	void Draw(ViewProjection viewProjection);
 	bool GetIsDead();
 	bool GetWallHitIsDead();
 	bool GetPlayerHit();
 	void Limit();
-	void Collider();
+	void Collider(uint32_t damageSE);
 
 	WorldTransform GetWorldTransform();
 };

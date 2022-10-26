@@ -14,7 +14,7 @@ void Player::Initialize(ViewProjection viewProjection)
 	//ƒVƒ“ƒOƒ‹ƒgƒ“‘ã“ü
 	input = Input::GetInstance();
 	debugText_ = DebugText::GetInstance();
-	audioManager = audioManager->GetInstance();
+	audioManager = AudioManager::GetInstance();
 
 	textureHundle = TextureManager::Load("sample.png");
 	playerModel = Model::Create();
@@ -138,7 +138,7 @@ void Player::Move()
 		speed = 0.1f * (bombCharge/2);
 		attackFlag = true;
 
-		AudioManager::GetInstance()->PlayWave(bombSE, false);//”š”­SE‚ğÄ¶
+		audioManager->PlayWave(bombSE, false);//”š”­SE‚ğÄ¶
 	}
 	if (speed <= 0.0f)
 	{
@@ -157,44 +157,44 @@ void Player::MoveLimit()
 	{
 		if (speed < 0.2f) {
 			player.x = -143.9f;
-			//AudioManager::GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
+			//audioManager->GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
 		}
 		else {
 			normFrontVec.x = -normFrontVec.x;
-			AudioManager::GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
+			audioManager->GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
 		}
 	}
 	else if (player.x > 144)
 	{
 		if (speed < 0.2f) {
 			player.x = 143.9f;
-			//AudioManager::GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
+			//audioManager->GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
 		}
 		else {
 			normFrontVec.x = -normFrontVec.x;
-			AudioManager::GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
+			audioManager->GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
 		}
 	}
 	if (player.z < -94)
 	{
 		if (speed < 0.2f) {
 			player.z = -93.9f;
-			//AudioManager::GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
+			//audioManager->GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
 		}
 		else {
 			normFrontVec.z = -normFrontVec.z;
-			AudioManager::GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
+			audioManager->GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
 		}
 	}
 	else if (player.z > 94)
 	{
 		if (speed < 0.2f) {
 			player.z = 93.9f;
-			//AudioManager::GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
+			//audioManager->GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
 		}
 		else {
 			normFrontVec.z = -normFrontVec.z;
-			AudioManager::GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
+			audioManager->GetInstance()->PlayWave(limitHitSE, false);//•Ç‚ÉG‚ê‚½‚Ì‰¹‚ğÄ¶
 		}
 	}
 }
@@ -309,11 +309,11 @@ void Player::Tale(int scene)
 
 	if (chargeSEFlag == true)
 	{
-		AudioManager::GetInstance()->StopWave(bombChargeSE);
-		AudioManager::GetInstance()->PlayWave(bombChargeSE, true);//”š”­ƒ`ƒƒ[ƒW‚Ì‰¹‚ğÄ¶
+		audioManager->StopWave(bombChargeSE);
+		audioManager->PlayWave(bombChargeSE, true);//”š”­ƒ`ƒƒ[ƒW‚Ì‰¹‚ğÄ¶
 		chargeSEFlag = false;
 	}
-	AudioManager::GetInstance()->ChangeVolume(bombChargeSE, bombCharge / 20.0f);
+	audioManager->ChangeVolume(bombChargeSE, bombCharge / 20.0f);
 
 	if (!input->PushKey(DIK_SPACE))
 	{
@@ -350,10 +350,11 @@ void Player::Reset()
 	attackFlag = false;
 	timer = 0;
 	isStart_ = false;
+	chargeSEFlag = false;
 
-	AudioManager::GetInstance()->StopWave(bombSE);
-	AudioManager::GetInstance()->StopWave(bombChargeSE);
-	AudioManager::GetInstance()->StopWave(limitHitSE);
+	audioManager->StopWave(bombSE);
+	audioManager->StopWave(bombChargeSE);
+	audioManager->StopWave(limitHitSE);
 }
 
 WorldTransform Player::GetPlayerWorldTransform()

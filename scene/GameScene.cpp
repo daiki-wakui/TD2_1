@@ -127,6 +127,8 @@ void GameScene::Initialize() {
 	gameScene = AudioManager::GetInstance()->LoadAudio("Resources/game.mp3");//ゲームシーンBGM読み込み
 	AudioManager::GetInstance()->ChangeVolume(gameScene, 0.2f);
 
+	damageSE = AudioManager::GetInstance()->LoadAudio("Resources/打撃6.mp3");//ダメージSE読み込み
+
 #pragma endregion
 }
 
@@ -260,12 +262,14 @@ void GameScene::Update()
 		if (score->IsFinish())
 		{
 			AudioManager::GetInstance()->StopWave(gameScene);//タイトルシーンのBGMを止める
+			Reset();
 			scene = Result;//リザルトシーン
 		}
 
 		if (input_->TriggerKey(DIK_RETURN))
 		{
 			AudioManager::GetInstance()->StopWave(gameScene);
+			Reset();
 			scene = Result;
 		}
 #pragma region リセット処理
@@ -493,16 +497,16 @@ void GameScene::Update()
 
 		for (const std::unique_ptr<Enemy>& enemy : enemys)
 		{
-			enemy->Update();
+			enemy->Update(damageSE);
 		}
 
 		for (const std::unique_ptr<EnemyStraight>& enemy : enemyStraights)
 		{
-			enemy->Update();
+			enemy->Update(damageSE);
 		}
 		for (const std::unique_ptr<EnemyCircle>& enemy : enemyCircles)
 		{
-			enemy->Update();
+			enemy->Update(damageSE);
 		}
 		for (const std::unique_ptr<EnemyBomb>& enemy : enemyBombs)
 		{
