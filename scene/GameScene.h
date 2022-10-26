@@ -194,12 +194,19 @@ class GameScene {
 	/// ゲームシーン用
 	/// </summary>
 
+	uint32_t TutorialBombChargeSE;
+	bool TutorialChargeSEFlag = false;
+
 	float tutorialUIpower;
 	int tutorialCount;
 	int tutorialMoveChack;
 	int isTutorial = true;
 	int tutorialFinishTime;
 	bool isTutorialFinish = false;
+	uint32_t tutorialFinCountTex[3];
+	Sprite* spritetutorialFin1 = nullptr;
+	Sprite* spritetutorialFin2 = nullptr;
+	Sprite* spritetutorialFin3 = nullptr;
 	uint32_t tutorialTexture[2];
 	Sprite* spriteTutorial1 = nullptr;
 	Sprite* spriteTutorial2 = nullptr;

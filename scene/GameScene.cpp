@@ -42,11 +42,16 @@ void GameScene::Initialize() {
 	tutorialTexture[1] = TextureManager::Load("tutorial/bombTale_explanation_02.png");
 	tutorialUITex_ = TextureManager::Load("tutorial/tutorialNext.png");
 	tutorialFinishTex_ = TextureManager::Load("tutorial/tutorialStart.png");
+	tutorialFinCountTex[0] = TextureManager::Load("tutorial/num1Tex.png");
+	tutorialFinCountTex[1] = TextureManager::Load("tutorial/num2Tex.png");
+	tutorialFinCountTex[2] = TextureManager::Load("tutorial/num3Tex.png");
 	spriteTutorial1 = Sprite::Create(tutorialTexture[0], { 1280 / 2,720/2 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 	spriteTutorial2 = Sprite::Create(tutorialTexture[1], { 1280 / 2,720/2 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 	spriteTutorialUI_ = Sprite::Create(tutorialUITex_, { 1075,620 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
-	spriteTutorialFinish_ = Sprite::Create(tutorialFinishTex_, { 1075,620 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
-
+	spriteTutorialFinish_ = Sprite::Create(tutorialFinishTex_, { 950,650 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	spritetutorialFin1 = Sprite::Create(tutorialFinCountTex[0], { 1200,650 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	spritetutorialFin2 = Sprite::Create(tutorialFinCountTex[1], { 1200,650 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	spritetutorialFin3 = Sprite::Create(tutorialFinCountTex[2], { 1200,650 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 
 	scsneChangeTexture_ = TextureManager::Load("colorTex/sceneChange.png");
 	spriteSceneChange = Sprite::Create(scsneChangeTexture_, { 0,720 });
@@ -145,6 +150,7 @@ void GameScene::Initialize() {
 
 	damageSE = audioManager->LoadAudio("Resources/Sound/打撃6.mp3");//ダメージSE読み込み
 	spawnerBreakSE = audioManager->LoadAudio("Resources/Sound/パンチで壁を破壊.mp3");//スポナー破壊SE読み込み
+	TutorialBombChargeSE = AudioManager::GetInstance()->LoadAudio("Resources/Sound/235742_copyc4t_tf-sci-fi-sweep-2.mp3");//爆発チャージSE読み込み
 
 #pragma endregion
 }
@@ -275,7 +281,7 @@ void GameScene::Update()
 			if (tutorialCount == 4) {
 				tutorialFinishTime++;
 
-				if (tutorialFinishTime >= 600 && isTutorialFinish == false) {
+				if (tutorialFinishTime >= 400 && isTutorialFinish == false) {
 					isTutorialFinish = true;
 					spriteSceneChange->SetPosition({ 0,720 });
 				}
@@ -292,7 +298,6 @@ void GameScene::Update()
 					}
 				}
 			}
-			
 
 			//playerの爆発エフェクト
 			if (input_->TriggerKey(DIK_SPACE)) {
@@ -391,6 +396,24 @@ void GameScene::Update()
 			spriteTutorial1->SetPosition(UIpos);
 		}
 
+		if (tutorialCount != 3) {
+			if (input_->TriggerReleseKey(DIK_SPACE))
+			{
+				TutorialChargeSEFlag = true;
+			}
+
+			if (TutorialChargeSEFlag == true) {
+				audioManager->StopWave(TutorialBombChargeSE);
+				audioManager->PlayWave(TutorialBombChargeSE, true);//爆発チャージの音を再生
+				TutorialChargeSEFlag = false;
+			}
+		}
+
+		if (tutorialCount == 3) {
+			TutorialChargeSEFlag = false;
+			audioManager->StopWave(TutorialBombChargeSE);
+		}
+
 		if (tutorialCount == 4) {
 			Vector2 UIpos = spriteTutorial2->GetPosition();
 			tutorialUIpower++;
@@ -399,6 +422,8 @@ void GameScene::Update()
 			if (UIpos.x >= 1000) {
 				UIpos.x = 1000;
 			}
+
+			
 
 			spriteTutorial2->SetPosition(UIpos);
 		}
@@ -1039,6 +1064,22 @@ void GameScene::Draw() {
 
 		if (tutorialCount == 0|| tutorialCount == 3) {
 			spriteTutorialUI_->Draw();
+		}
+		
+		if (tutorialFinishTime >= 220 && tutorialFinishTime < 280) {
+			spritetutorialFin3->Draw();
+		}
+
+		if (tutorialFinishTime >= 280 && tutorialFinishTime < 340) {
+			spritetutorialFin2->Draw();
+		}
+
+		if (tutorialFinishTime >= 340 && tutorialFinishTime < 400) {
+			spritetutorialFin1->Draw();
+		}
+		
+		if (tutorialFinishTime >= 170 && tutorialFinishTime < 400) {
+			spriteTutorialFinish_->Draw();
 		}
 		
 
