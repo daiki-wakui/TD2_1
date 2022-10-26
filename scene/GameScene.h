@@ -139,7 +139,7 @@ class GameScene {
 
 	myMath::Vector3 spawnMiddleTop = { 0.0f,0.0f,50.0f };		//中心上
 	myMath::Vector3 spawnMiddleCenter = { 0,0,0 };				//中心
-	myMath::Vector3 spawnMiddleBottom = { 0.0f,0.0f,50.0f };	//中心下
+	myMath::Vector3 spawnMiddleBottom = { 0.0f,0.0f,-50.0f };	//中心下
 
 	myMath::Vector3 spawnLeftTop = { -100.0f,0.0f,50.0f };		//左上
 	myMath::Vector3 spawnLeftCenter = { -100.0f,0.0f,0.0f };	//左中心

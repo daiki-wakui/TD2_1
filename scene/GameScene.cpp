@@ -523,69 +523,69 @@ void GameScene::Update()
 		map->EnemyStraightUpdate(enemyStraights, enemyStraightsGen);
 		map->EnemyCircleUpdate(enemyCircles, enemyCirclesGen);
 
-		if (isSpawn[0] == true)
+		if (isSpawn[LeftTop] == true)
 		{
-			mapSpawnerSprite[0] = Sprite::Create(mapSpawnerHandle, { 203 - 100.0f,153 - 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[LeftTop] = Sprite::Create(mapSpawnerHandle, { 203 - 100.0f,153 - 50.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[1] == true)
+		if (isSpawn[MiddleTop] == true)
 		{
-			mapSpawnerSprite[1] = Sprite::Create(mapSpawnerHandle, { 203.0f,153 - 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[MiddleTop] = Sprite::Create(mapSpawnerHandle, { 203.0f,153 - 50.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[2] == true)
+		if (isSpawn[RightTop] == true)
 		{
-			mapSpawnerSprite[2] = Sprite::Create(mapSpawnerHandle, { 203 + 100.0f,153 - 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[RightTop] = Sprite::Create(mapSpawnerHandle, { 203 + 100.0f,153 - 50.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[3] == true)
+		if (isSpawn[LeftCenter] == true)
 		{
-			mapSpawnerSprite[3] = Sprite::Create(mapSpawnerHandle, { 203 - 50.0f,153 - 25 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[LeftCenter] = Sprite::Create(mapSpawnerHandle, { 203 - 100.0f,153 }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[4] == true)
+		if (isSpawn[MiddleCenter] == true)
 		{
-			mapSpawnerSprite[4] = Sprite::Create(mapSpawnerHandle, { 203 + 50.0f,153 - 25 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[MiddleCenter] = Sprite::Create(mapSpawnerHandle, { 203,153 }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[5] == true)
+		if (isSpawn[RightCenter] == true)
 		{
-			mapSpawnerSprite[5] = Sprite::Create(mapSpawnerHandle, { 203 - 100.0f,153 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[RightCenter] = Sprite::Create(mapSpawnerHandle, { 203 + 100.0f,153 }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[6] == true)
+		if (isSpawn[LeftBottom] == true)
 		{
-			mapSpawnerSprite[6] = Sprite::Create(mapSpawnerHandle, { 203,153 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[LeftBottom] = Sprite::Create(mapSpawnerHandle, { 203 - 100.0f,153+50.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[7] == true)
+		if (isSpawn[MiddleBottom] == true)
 		{
-			mapSpawnerSprite[7] = Sprite::Create(mapSpawnerHandle, { 203 + 100.0f,153 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[MiddleBottom] = Sprite::Create(mapSpawnerHandle, { 203 ,153 +50.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[8] == true)
+		if (isSpawn[RightBottom] == true)
 		{
-			mapSpawnerSprite[8] = Sprite::Create(mapSpawnerHandle, { 203 - 50.0f,153 + 25 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[RightBottom] = Sprite::Create(mapSpawnerHandle, { 203 + 100.0f,153 +50.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[9] == true)
+		if (isSpawn[LMTop] == true)
 		{
-			mapSpawnerSprite[9] = Sprite::Create(mapSpawnerHandle, { 203 + 50.0f,153 + 25 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[LMTop] = Sprite::Create(mapSpawnerHandle, { 203 - 50.0f,153 - 25.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[10] == true)
+		if (isSpawn[LMBottom] == true)
 		{
-			mapSpawnerSprite[10] = Sprite::Create(mapSpawnerHandle, { 203 - 100.0f,153 + 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[LMBottom] = Sprite::Create(mapSpawnerHandle, { 203 - 50.0f,153 +25.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[11] == true)
+		if (isSpawn[RMTop] == true)
 		{
-			mapSpawnerSprite[11] = Sprite::Create(mapSpawnerHandle, { 203 ,153 + 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[RMTop] = Sprite::Create(mapSpawnerHandle, { 203 + 50.0f ,153 - 25.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
-		if (isSpawn[12] == true)
+		if (isSpawn[RMBottom] == true)
 		{
-			mapSpawnerSprite[12] = Sprite::Create(mapSpawnerHandle, { 203 + 100.0f,153 + 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+			mapSpawnerSprite[RMBottom] = Sprite::Create(mapSpawnerHandle, { 203 + 50.0f,153 + 25.0f }, { 1,0,1,1 }, { 0.5f,0.5f });
 		}
 
 #pragma endregion
@@ -800,69 +800,69 @@ void GameScene::Draw() {
 
 #pragma region マップのスポナーの描画
 
-		if (isSpawn[0] == true)
+		if (isSpawn[LeftTop] == true)
 		{
-			mapSpawnerSprite[0]->Draw();
+			mapSpawnerSprite[LeftTop]->Draw();
 		}
 
-		if (isSpawn[1] == true)
+		if (isSpawn[MiddleTop] == true)
 		{
-			mapSpawnerSprite[1]->Draw();
+			mapSpawnerSprite[MiddleTop]->Draw();
 		}
 
-		if (isSpawn[2] == true)
+		if (isSpawn[RightTop] == true)
 		{
-			mapSpawnerSprite[2]->Draw();
+			mapSpawnerSprite[RightTop]->Draw();
 		}
 
-		if (isSpawn[3] == true)
+		if (isSpawn[LeftCenter] == true)
 		{
-			mapSpawnerSprite[3]->Draw();
+			mapSpawnerSprite[LeftCenter]->Draw();
 		}
 
-		if (isSpawn[4] == true)
+		if (isSpawn[MiddleCenter] == true)
 		{
-			mapSpawnerSprite[4]->Draw();
+			mapSpawnerSprite[MiddleCenter]->Draw();
 		}
 
-		if (isSpawn[5] == true)
+		if (isSpawn[RightCenter] == true)
 		{
-			mapSpawnerSprite[5]->Draw();
+			mapSpawnerSprite[RightCenter]->Draw();
 		}
 
-		if (isSpawn[6] == true)
+		if (isSpawn[LeftBottom] == true)
 		{
-			mapSpawnerSprite[6]->Draw();
+			mapSpawnerSprite[LeftBottom]->Draw();
 		}
 
-		if (isSpawn[7] == true)
+		if (isSpawn[MiddleBottom] == true)
 		{
-			mapSpawnerSprite[7]->Draw();
+			mapSpawnerSprite[MiddleBottom]->Draw();
 		}
 
-		if (isSpawn[8] == true)
+		if (isSpawn[RightBottom] == true)
 		{
-			mapSpawnerSprite[8]->Draw();
+			mapSpawnerSprite[RightBottom]->Draw();
 		}
 
-		if (isSpawn[9] == true)
+		if (isSpawn[LMTop] == true)
 		{
-			mapSpawnerSprite[9]->Draw();
+			mapSpawnerSprite[LMTop]->Draw();
 		}
 
-		if (isSpawn[10] == true)
+		if (isSpawn[LMBottom] == true)
 		{
-			mapSpawnerSprite[10]->Draw();
+			mapSpawnerSprite[LMBottom]->Draw();
 		}
 
-		if (isSpawn[11] == true)
+		if (isSpawn[RMTop] == true)
 		{
-			mapSpawnerSprite[11]->Draw();
+			mapSpawnerSprite[RMTop]->Draw();
 		}
 
-		if (isSpawn[12] == true)
+		if (isSpawn[RMBottom] == true)
 		{
-			mapSpawnerSprite[12]->Draw();
+			mapSpawnerSprite[RMBottom]->Draw();
 		}
 		
 #pragma endregion
