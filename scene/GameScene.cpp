@@ -31,6 +31,7 @@ void GameScene::Initialize() {
 	blueTexture_ = TextureManager::Load("colorTex/Blue.png");
 	whiteTexture_ = TextureManager::Load("colorTex/wit.png");
 	orangeTexture_ = TextureManager::Load("colorTex/orange2.png");
+	purpleTexture_ = TextureManager::Load("colorTex/purple.png");
 	
 	titleTextrue_ = TextureManager::Load("bombTale_logo.png");
 	spriteTielelogo_ = Sprite::Create(titleTextrue_, { 1280 / 2,170 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
@@ -306,7 +307,7 @@ void GameScene::Update()
 
 			//小爆発の場合散らばるブロックを減らす
 			if (player->GetAttackWorldTransform().scale_.x < 4.0f) {
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < 2; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
 					newobj->Initialize(player, explosionTransform, boxModel, orangeTexture_, 2);
 					effects_.push_back(std::move(newobj));
@@ -900,6 +901,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnMiddleTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnMiddleTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnMiddleTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnMiddleTop.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[MiddleTop];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[MiddleTop] = false;
 				spawnCount--;
@@ -909,6 +917,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnMiddleCenter.x - player->GetAttackWorldTransform().translation_.x) * (spawnMiddleCenter.x - player->GetAttackWorldTransform().translation_.x) + (spawnMiddleCenter.z - player->GetAttackWorldTransform().translation_.z) * (spawnMiddleCenter.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[MiddleCenter];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[MiddleCenter] = false;
 				spawnCount--;
@@ -918,6 +933,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnMiddleBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnMiddleBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnMiddleBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnMiddleBottom.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[MiddleBottom];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[MiddleBottom] = false;
 				spawnCount--;
@@ -929,6 +951,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnLeftTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnLeftTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnLeftTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnLeftTop.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[LeftTop];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[LeftTop] = false;
 				spawnCount--;
@@ -938,6 +967,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnLeftCenter.x - player->GetAttackWorldTransform().translation_.x) * (spawnLeftCenter.x - player->GetAttackWorldTransform().translation_.x) + (spawnLeftCenter.z - player->GetAttackWorldTransform().translation_.z) * (spawnLeftCenter.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[LeftCenter];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[LeftCenter] = false;
 				spawnCount--;
@@ -947,6 +983,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnLeftBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnLeftBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnLeftBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnLeftBottom.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[LeftBottom];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[LeftBottom] = false;
 				spawnCount--;
@@ -958,6 +1001,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnRightTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnRightTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnRightTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnRightTop.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[RightTop];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[RightTop] = false;
 				spawnCount--;
@@ -967,6 +1017,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnRightCenter.x - player->GetAttackWorldTransform().translation_.x) * (spawnRightCenter.x - player->GetAttackWorldTransform().translation_.x) + (spawnRightCenter.z - player->GetAttackWorldTransform().translation_.z) * (spawnRightCenter.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[RightCenter];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[RightCenter] = false;
 				spawnCount--;
@@ -977,6 +1034,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnRightBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnRightBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnRightBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnRightBottom.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[RightBottom];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[RightBottom] = false;
 				spawnCount--;
@@ -988,6 +1052,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnLMTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnLMTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnLMTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnLMTop.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[LMTop];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[LMTop] = false;
 				spawnCount--;
@@ -997,6 +1068,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnLMBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnLMBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnLMBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnLMBottom.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[LMBottom];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[LMBottom] = false;
 				spawnCount--;
@@ -1006,6 +1084,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnRMTop.x - player->GetAttackWorldTransform().translation_.x) * (spawnRMTop.x - player->GetAttackWorldTransform().translation_.x) + (spawnRMTop.z - player->GetAttackWorldTransform().translation_.z) * (spawnRMTop.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[RMTop];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[RMTop] = false;
 				spawnCount--;
@@ -1015,6 +1100,13 @@ void GameScene::SpawnCollider()
 		{
 			if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (spawnRMBottom.x - player->GetAttackWorldTransform().translation_.x) * (spawnRMBottom.x - player->GetAttackWorldTransform().translation_.x) + (spawnRMBottom.z - player->GetAttackWorldTransform().translation_.z) * (spawnRMBottom.z - player->GetAttackWorldTransform().translation_.z))
 			{
+				effectWorldTransform = spawnWorldTransform[RMBottom];
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, purpleTexture_, 1);
+					effects_.push_back(std::move(newobj));
+				}
+
 				score->SetTimer(score->GetTimer() + 5);
 				isSpawn[RMBottom] = false;
 				spawnCount--;

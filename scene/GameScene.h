@@ -212,6 +212,8 @@ class GameScene {
 	uint32_t blueTexture_;
 	uint32_t whiteTexture_;
 	uint32_t orangeTexture_;
+	uint32_t purpleTexture_;
+
 	int isAnimation = 0;
 	WorldTransform effectWorldTransform;
 	WorldTransform World;

@@ -39,21 +39,32 @@ void Effect::Initialize(Player* player,WorldTransform worldTransform,Model* mode
 
 	fallPowerY = 0.1f;
 	if (Case == 0) {
-		worldTransform_.scale_ = { 0.5,0.5,0.5 };
+		worldTransform_.scale_ = { 0.5f,0.5f,0.5f };
 		Power.y = posYDist(engine);
 		Power.x = posXDist(engine);
 		Power.z = posXDist(engine);
 	}
 	else if (Case == 1) {
-		Power.x = 0.25f;
+		worldTransform_.scale_ = { 2.0f,2.0f,2.0f };
+		Power.y = posYDist(engine);
+		Power.x = posXDist(engine);
+		Power.z = posXDist(engine);
+
+		/*Power.x = 0.25f;
 		Power.y = 0.25f;
 		Power.z = 0.25f;
 
-		worldTransform_.scale_ = { 3.0f,3.0f,3.0f };
+		worldTransform_.scale_ = { 3.0f,3.0f,3.0f };*/
 	}
 	else if (Case == 2) {
-		worldTransformbig_.scale_ = { 0.15,0.15,0.15 };
-		worldTransform_.scale_ = { 0.35,0.35,0.35 };
+		if (player_->GetAttackWorldTransform().scale_.x < 5.0f) {
+			worldTransformbig_.scale_ = { 0.35f,0.35f,0.35f };
+			worldTransform_.scale_ = { 0.15f,0.15f,0.15f };
+		}
+		else {
+			worldTransformbig_.scale_ = { 0.5f,0.5f,0.5f };
+			worldTransform_.scale_ = { 1.0f,1.0f,1.0f };
+		}
 		Power.y = posYDist(engine) * (player_->GetAttackWorldTransform().scale_.x / 8);
 		Power.x = posXDist(engine) * (player_->GetAttackWorldTransform().scale_.x / 4);
 		Power.z = posXDist(engine) * (player_->GetAttackWorldTransform().scale_.z / 4);
@@ -102,22 +113,42 @@ void Effect::Update() {
 		break;
 
 	case 1:	//”­¶
-		/*if (worldTransform_.scale_.y > 0) {
-			Power.y += 0.5f;
-			worldTransform_.scale_.y -= Power.y;
-		}*/
+		///*if (worldTransform_.scale_.y > 0) {
+		//	Power.y += 0.5f;
+		//	worldTransform_.scale_.y -= Power.y;
+		//}*/
 
-		if (worldTransform_.scale_.x > 0) {
-			worldTransform_.rotation_.z += 0.25f;
-			worldTransform_.rotation_.y += 0.25f;
-			worldTransform_.rotation_.x += 0.25f;
-			worldTransform_.scale_ -= Power;
+		//if (worldTransform_.scale_.x > 0) {
+		//	worldTransform_.rotation_.z += 0.25f;
+		//	worldTransform_.rotation_.y += 0.25f;
+		//	worldTransform_.rotation_.x += 0.25f;
+		//	worldTransform_.scale_ -= Power;
+		//}
+		//else {
+		//	isDead = true;
+		//}
+
+		timer++;
+
+		fallPowerY -= 0.01f;
+		Power.y += fallPowerY;
+		worldTransform_.rotation_.x += 0.15f;
+		worldTransform_.rotation_.y += 0.05f;
+		if (Power.x <= 0) {
+			Power.x -= 0.005f;
 		}
 		else {
-			isDead = true;
+			Power.x += 0.005f;
 		}
 
+		worldTransform_.translation_.x += Power.x;
+		worldTransform_.translation_.y += Power.y;
+		worldTransform_.translation_.z += Power.z;
 
+		if (timer > 50) {
+			isDead = true;
+			timer = 0;
+		}
 
 		break;
 
