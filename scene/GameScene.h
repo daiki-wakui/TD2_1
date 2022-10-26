@@ -152,6 +152,8 @@ class GameScene {
 	myMath::Vector3 spawnRMBottom = { 50.0f,0.0f,-25.0f };		//右と真ん中の間の下
 
 	//各スポーン地点のフラグ
+	bool isSpawn[13];
+
 	bool isSpawnMiddleTop = false;
 	bool isSpawnMiddleCenter = false;
 	bool isSpawnMiddleBottom = false;
