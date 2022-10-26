@@ -27,10 +27,11 @@ void GameScene::Initialize() {
 	player->Initialize(viewProjection);
 
 	texture = TextureManager::Load("mario.jpg");
-	redTexture_ = TextureManager::Load("red.png");
-	whiteTexture_ = TextureManager::Load("wit.png");
-	orangeTexture_ = TextureManager::Load("orange2.png");
-
+	redTexture_ = TextureManager::Load("colorTex/red.png");
+	blueTexture_ = TextureManager::Load("colorTex/Blue.png");
+	whiteTexture_ = TextureManager::Load("colorTex/wit.png");
+	orangeTexture_ = TextureManager::Load("colorTex/orange2.png");
+	
 	titleTextrue_ = TextureManager::Load("bombTale_logo.png");
 	spriteTielelogo_ = Sprite::Create(titleTextrue_, { 1280 / 2,170 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
 
@@ -315,8 +316,20 @@ void GameScene::Update()
 				effectWorldTransform = enemycir->GetWorldTransform();
 				isAnimation = true;
 			}
+			if (enemycir->GetPlayerHit() == true) {
+				effectWorldTransform = enemycir->GetWorldTransform();
+				isAnimation = 2;
+			}
 
-			if (isAnimation == true) {
+			if (isAnimation == 2) {
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, blueTexture_, 0);
+					effects_.push_back(std::move(newobj));
+				}
+				isAnimation = false;
+			}
+			else if (isAnimation == true) {
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
 					newobj->Initialize(player, effectWorldTransform, boxModel, redTexture_, 0);
@@ -330,8 +343,20 @@ void GameScene::Update()
 				effectWorldTransform = enemystr->GetWorldTransform();
 				isAnimation = true;
 			}
+			if (enemystr->GetPlayerHit() == true) {
+				effectWorldTransform = enemystr->GetWorldTransform();
+				isAnimation = 2;
+			}
 
-			if (isAnimation == true) {
+			if (isAnimation == 2) {
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, blueTexture_, 0);
+					effects_.push_back(std::move(newobj));
+				}
+				isAnimation = false;
+			}
+			else if (isAnimation == true) {
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
 					newobj->Initialize(player, effectWorldTransform, boxModel, redTexture_, 0);
@@ -345,8 +370,20 @@ void GameScene::Update()
 				effectWorldTransform = enemy->GetWorldTransform();
 				isAnimation = true;
 			}
+			if (enemy->GetPlayerHit() == true) {
+				effectWorldTransform = enemy->GetWorldTransform();
+				isAnimation = 2;
+			}
 
-			if (isAnimation == true) {
+			if (isAnimation == 2) {
+				for (int i = 0; i < 10; i++) {
+					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
+					newobj->Initialize(player, effectWorldTransform, boxModel, blueTexture_, 0);
+					effects_.push_back(std::move(newobj));
+				}
+				isAnimation = false;
+			}
+			else if (isAnimation == true) {
 				for (int i = 0; i < 10; i++) {
 					std::unique_ptr<Effect> newobj = std::make_unique<Effect>();
 					newobj->Initialize(player, effectWorldTransform, boxModel, redTexture_, 0);

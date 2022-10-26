@@ -188,9 +188,10 @@ class GameScene {
 
 	std::list<std::unique_ptr<Effect>> effects_;
 	uint32_t redTexture_;
+	uint32_t blueTexture_;
 	uint32_t whiteTexture_;
 	uint32_t orangeTexture_;
-	bool isAnimation = false;
+	int isAnimation = 0;
 	WorldTransform effectWorldTransform;
 	WorldTransform World;
 
