@@ -110,6 +110,9 @@ class GameScene {
 	WorldTransform worldtransform_;
 	WorldTransform spawnEnemyCircle;
 
+	UINT nowTime = 0;
+	UINT nowFlame = 0;
+
 	//スポーン地点関連
 	//各スポーン地点の座標
 	myMath::Vector3 spawnMiddleTop = { 0.0f,0.0f,50.0f };		//中心上
