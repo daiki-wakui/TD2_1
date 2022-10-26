@@ -55,6 +55,23 @@ void GameScene::Initialize() {
 
 	scsneChangeTexture_ = TextureManager::Load("colorTex/sceneChange.png");
 	spriteSceneChange = Sprite::Create(scsneChangeTexture_, { 0,720 });
+
+	resultframeTex_ = TextureManager::Load("HUD_futuristic.png");
+	spriteResultframeTex_ = Sprite::Create(resultframeTex_, { 1280 / 2,720/2 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	scoreTex_ = TextureManager::Load("score_text.png");
+	spriteScoreTex_ = Sprite::Create(scoreTex_, { 1280 / 2,150 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	rankTex_[0] = TextureManager::Load("c_rank_text.png");
+	spriteScoreRank_C = Sprite::Create(rankTex_[0], { 1280 / 2,450 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	rankTex_[1] = TextureManager::Load("b_rank_text.png");
+	spriteScoreRank_B = Sprite::Create(rankTex_[1], { 1280 / 2,450 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	rankTex_[2] = TextureManager::Load("a_rank_text.png");
+	spriteScoreRank_A = Sprite::Create(rankTex_[2], { 1280 / 2,450 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	rankTex_[3] = TextureManager::Load("s_rank_text.png");
+	spriteScoreRank_S = Sprite::Create(rankTex_[3], { 1280 / 2,450 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+	rankTex_[4] = TextureManager::Load("splus_rank_text.png");
+	spriteScoreRank_Splus = Sprite::Create(rankTex_[4], { 1280 / 2,450 }, { 1,1,1,1 }, { (0.5f),(0.5f) });
+
+	
 	
 	tutorialSkipTex_ = TextureManager::Load("tutorial/EnterSkip.png");
 	spriteTutorialSkip = Sprite::Create(tutorialSkipTex_, {750,5});
@@ -438,9 +455,6 @@ void GameScene::Update()
 			if (UIpos.x >= 1000) {
 				UIpos.x = 1000;
 			}
-
-			
-
 			spriteTutorial2->SetPosition(UIpos);
 		}
 
@@ -457,17 +471,17 @@ void GameScene::Update()
 		}
 
 		sceneChangePos = { spriteSceneChange->GetPosition().x,spriteSceneChange->GetPosition().y };
-
 		sceneChangePos.y -= 50.0f;
-
 		spriteSceneChange->SetPosition({ sceneChangePos.x,sceneChangePos.y });
 
-		if (score->IsFinish())
+		if (score->IsFinish() && GameFinish == false)
 		{
-			audioManager->StopWave(gameSceneBGM);//ゲームシーンのBGMを止める
-			audioManager->PlayWave(resultSceneBGM, true);//リザルトシーンのBGMを再生する
-			Reset();
-			scene = Result;//リザルトシーン
+			spriteSceneChange->SetPosition({ 0,720 });
+			GameFinish = true;
+			//audioManager->StopWave(gameSceneBGM);//ゲームシーンのBGMを止める
+			//audioManager->PlayWave(resultSceneBGM, true);//リザルトシーンのBGMを再生する
+			//Reset();
+			//scene = Result;//リザルトシーン
 		}
 
 		
@@ -898,7 +912,17 @@ void GameScene::Update()
 		//リザルト画面
 	case Result:
 
-		if (input_->TriggerKey(DIK_SPACE))
+		resultTimer++;
+
+		//床の行列更新
+		MathUtility::MatrixCalculation(floorWorldTransform);//行列の更新
+		floorWorldTransform.TransferMatrix();
+
+		sceneChangePos = { spriteSceneChange->GetPosition().x,spriteSceneChange->GetPosition().y };
+		sceneChangePos.y -= 50.0f;
+		spriteSceneChange->SetPosition({ sceneChangePos.x,sceneChangePos.y });
+
+		if (input_->TriggerKey(DIK_SPACE) && resultTimer >= 180)
 		{
 			sceneChangePos.x = 0;
 			sceneChangePos.y = 720;
@@ -1054,7 +1078,7 @@ void GameScene::Draw() {
 
 		//リザルト画面
 	case Result:
-
+		floorModel->Draw(floorWorldTransform, viewProjection);
 		break;
 	}
 
@@ -1114,25 +1138,12 @@ void GameScene::Draw() {
 		if (tutorialFinishTime >= 270 && tutorialFinishTime < 500) {
 			spriteTutorialFinish_->Draw();
 		}
-		
-
-		debugText_->SetPos(20, 300);
-		debugText_->Printf("tutorialCount %d", tutorialCount);
-
-		debugText_->SetPos(20, 320);
-		debugText_->Printf("movechack %d", tutorialMoveChack);
-
-		debugText_->SetPos(20, 340);
-		debugText_->Printf("time %d", tutorialFinishTime);
 		break;
 
 	case Game:
 		score->Draw();
 
 		spriteSceneChange->Draw();
-
-		debugText_->SetPos(20, 40);
-		debugText_->Printf("%d", spawnTimer);
 
 		
 
@@ -1215,14 +1226,22 @@ void GameScene::Draw() {
 		break;
 
 	case Result:
+
+
+		spriteResultframeTex_->Draw();
+		spriteScoreRank_C->Draw();
+		spriteScoreRank_B->Draw();
+		spriteScoreRank_A->Draw();
+		spriteScoreRank_S->Draw();
+		spriteScoreRank_Splus->Draw();
+		spriteScoreTex_->Draw();
+
 		break;
 	}
 
 	/// </summary>
 
 	// デバッグテキストの描画
-	debugText_->SetPos(20, 60);
-	debugText_->Printf("nowTime %d", nowTime);
 
 
 	debugText_->DrawAll(commandList);
@@ -1351,6 +1370,8 @@ void GameScene::Reset()
 	tutorialUIpower = 0;
 	spriteTutorial1->SetPosition({ 1280 / 2,250 });
 	spriteTutorial2->SetPosition({ 1280 / 2,250 });
+	GameFinish = false;
+	resultTimer = 0;
 
 	startSpawn = true;
 #pragma region スポーン関連のリセット

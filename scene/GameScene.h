@@ -257,4 +257,21 @@ class GameScene {
 
 	uint32_t damageSE;
 	uint32_t spawnerBreakSE;
+
+	bool GameFinish = false;
+	bool ChangeTitle = false;
+	bool changetutorial = false;
+
+	int resultTimer;
+
+	uint32_t resultframeTex_;
+	uint32_t scoreTex_;
+	uint32_t rankTex_[5];
+	Sprite* spriteResultframeTex_;
+	Sprite* spriteScoreTex_;
+	Sprite* spriteScoreRank_C;
+	Sprite* spriteScoreRank_B;
+	Sprite* spriteScoreRank_A;
+	Sprite* spriteScoreRank_S;
+	Sprite* spriteScoreRank_Splus;
 };
