@@ -580,6 +580,356 @@ void Score::ScoreDraw()
 	scoreDigSix_->Draw();
 }
 
+void Score::ResultScoreDraw()
+{
+#pragma region 1Œ…–Ú
+	if (scoreDigits[0] == 0)
+	{
+		scoreDigOne_.reset(Sprite::Create(numZero, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[0] == 1)
+	{
+		scoreDigOne_.reset(Sprite::Create(numOne, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 2)
+	{
+		scoreDigOne_.reset(Sprite::Create(numTwo, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 3)
+	{
+		scoreDigOne_.reset(Sprite::Create(numThree, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 4)
+	{
+		scoreDigOne_.reset(Sprite::Create(numFour, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 5)
+	{
+		scoreDigOne_.reset(Sprite::Create(numFive, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 6)
+	{
+		scoreDigOne_.reset(Sprite::Create(numSix, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 7)
+	{
+		scoreDigOne_.reset(Sprite::Create(numSeven, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[0] == 8)
+	{
+		scoreDigOne_.reset(Sprite::Create(numEight, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[0] == 9)
+	{
+		scoreDigOne_.reset(Sprite::Create(numNine, Vector2(resultScorePosX6, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion
+
+#pragma region 2Œ…–Ú
+	//2Œ…–Ú
+	if (scoreDigits[1] == 0)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numZero, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[1] == 1)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numOne, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 2)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numTwo, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 3)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numThree, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 4)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numFour, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 5)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numFive, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 6)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numSix, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 7)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numSeven, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[1] == 8)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numEight, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[1] == 9)
+	{
+		scoreDigTwo_.reset(Sprite::Create(numNine, Vector2(resultScorePosX5, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+
+#pragma region 3Œ…–Ú
+	//3Œ…–Ú
+	if (scoreDigits[2] == 0)
+	{
+		scoreDigThree_.reset(Sprite::Create(numZero, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[2] == 1)
+	{
+		scoreDigThree_.reset(Sprite::Create(numOne, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 2)
+	{
+		scoreDigThree_.reset(Sprite::Create(numTwo, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 3)
+	{
+		scoreDigThree_.reset(Sprite::Create(numThree, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 4)
+	{
+		scoreDigThree_.reset(Sprite::Create(numFour, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 5)
+	{
+		scoreDigThree_.reset(Sprite::Create(numFive, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 6)
+	{
+		scoreDigThree_.reset(Sprite::Create(numSix, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 7)
+	{
+		scoreDigThree_.reset(Sprite::Create(numSeven, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[2] == 8)
+	{
+		scoreDigThree_.reset(Sprite::Create(numEight, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[2] == 9)
+	{
+		scoreDigThree_.reset(Sprite::Create(numNine, Vector2(resultScorePosX4, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+
+#pragma region 4Œ…–Ú
+	//4Œ…–Ú
+	if (scoreDigits[3] == 0)
+	{
+		scoreDigFour_.reset(Sprite::Create(numZero, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[3] == 1)
+	{
+		scoreDigFour_.reset(Sprite::Create(numOne, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 2)
+	{
+		scoreDigFour_.reset(Sprite::Create(numTwo, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 3)
+	{
+		scoreDigFour_.reset(Sprite::Create(numThree, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 4)
+	{
+		scoreDigFour_.reset(Sprite::Create(numFour, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 5)
+	{
+		scoreDigFour_.reset(Sprite::Create(numFive, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 6)
+	{
+		scoreDigFour_.reset(Sprite::Create(numSix, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 7)
+	{
+		scoreDigFour_.reset(Sprite::Create(numSeven, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[3] == 8)
+	{
+		scoreDigFour_.reset(Sprite::Create(numEight, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[3] == 9)
+	{
+		scoreDigFour_.reset(Sprite::Create(numNine, Vector2(resultScorePosX3, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+
+#pragma region 5Œ…–Ú
+	//5Œ…–Ú
+	if (scoreDigits[4] == 0)
+	{
+		scoreDigFive_.reset(Sprite::Create(numZero, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[4] == 1)
+	{
+		scoreDigFive_.reset(Sprite::Create(numOne, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 2)
+	{
+		scoreDigFive_.reset(Sprite::Create(numTwo, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 3)
+	{
+		scoreDigFive_.reset(Sprite::Create(numThree, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 4)
+	{
+		scoreDigFive_.reset(Sprite::Create(numFour, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 5)
+	{
+		scoreDigFive_.reset(Sprite::Create(numFive, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 6)
+	{
+		scoreDigFive_.reset(Sprite::Create(numSix, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 7)
+	{
+		scoreDigFive_.reset(Sprite::Create(numSeven, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[4] == 8)
+	{
+		scoreDigFive_.reset(Sprite::Create(numEight, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[4] == 9)
+	{
+		scoreDigFive_.reset(Sprite::Create(numNine, Vector2(resultScorePosX2, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+
+#pragma region 6Œ…–Ú
+	//6Œ…–Ú
+	if (scoreDigits[5] == 0)
+	{
+		scoreDigSix_.reset(Sprite::Create(numZero, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[5] == 1)
+	{
+		scoreDigSix_.reset(Sprite::Create(numOne, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 2)
+	{
+		scoreDigSix_.reset(Sprite::Create(numTwo, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 3)
+	{
+		scoreDigSix_.reset(Sprite::Create(numThree, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 4)
+	{
+		scoreDigSix_.reset(Sprite::Create(numFour, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 5)
+	{
+		scoreDigSix_.reset(Sprite::Create(numFive, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 6)
+	{
+		scoreDigSix_.reset(Sprite::Create(numSix, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 7)
+	{
+		scoreDigSix_.reset(Sprite::Create(numSeven, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (scoreDigits[5] == 8)
+	{
+		scoreDigSix_.reset(Sprite::Create(numEight, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (scoreDigits[5] == 9)
+	{
+		scoreDigSix_.reset(Sprite::Create(numNine, Vector2(resultScorePosX1, resultScorePosY), scoreColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+#pragma endregion 
+	scoreDigOne_->Draw();
+	scoreDigTwo_->Draw();
+	scoreDigThree_->Draw();
+	scoreDigFour_->Draw();
+	scoreDigFive_->Draw();
+	scoreDigSix_->Draw();
+}
+
 void Score::Reset()
 {
 	score = 0;

@@ -1219,11 +1219,31 @@ void GameScene::Draw() {
 
 
 		spriteResultframeTex_->Draw();
-		spriteScoreRank_C->Draw();
-		spriteScoreRank_B->Draw();
-		spriteScoreRank_A->Draw();
-		spriteScoreRank_S->Draw();
-		spriteScoreRank_Splus->Draw();
+		if (score->GetScore() >= 30000)
+		{
+			spriteScoreRank_Splus->Draw();
+		}
+		else if (score->GetScore() < 30000 && score->GetScore() >= 20000)
+		{
+			spriteScoreRank_S->Draw();
+		}
+		else if (score->GetScore() < 20000 && score->GetScore() >= 15000)
+		{
+			spriteScoreRank_A->Draw();
+		}
+		else if (score->GetScore() < 15000 && score->GetScore() >= 10000)
+		{
+			spriteScoreRank_B->Draw();
+		}
+		else
+		{
+			spriteScoreRank_C->Draw();
+		}
+		
+		score->ResultScoreDraw();
+	
+		
+		
 		spriteScoreTex_->Draw();
 
 		break;

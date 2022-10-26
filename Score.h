@@ -58,6 +58,14 @@ private:
 	float scorePosY = 70;
 	Vector4 scoreColor = { 1.0f,1.0f,1.0f,1.0f };
 
+	float resultScorePosX1 = 540;
+	float resultScorePosX2 = 580;
+	float resultScorePosX3 = 620;
+	float resultScorePosX4 = 660;
+	float resultScorePosX5 = 700;
+	float resultScorePosX6 = 740;
+	float resultScorePosY = 300;
+
 	bool damageFlag = false;
 	bool spawnerBreakFlag = false;
 	bool killFlag = false;
@@ -76,6 +84,8 @@ public:
 
 	void TimerDraw();
 	void ScoreDraw();
+
+	void ResultScoreDraw();
 
 	void Reset();
 	bool IsFinish();
