@@ -588,6 +588,14 @@ void Score::Reset()
 	timeLimit = 60;
 	timerFlame = 60;
 	isFinish = false;
+
+	damageFlag = false;
+	spawnerBreakFlag = false;
+	killFlag = false;
+
+	timeAddTimer = 0;
+	timeSubTimer = 0;
+	scoreAddTimer = 0;
 }
 
 bool Score::IsFinish()
