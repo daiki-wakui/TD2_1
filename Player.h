@@ -6,6 +6,7 @@
 #include"Model.h"
 #include"MathUtility.h"
 #include "DebugText.h"
+#include"AudioManager.h"
 
 class Player
 {
@@ -14,6 +15,7 @@ private:
 	//クラス読み込み
 	Input* input = nullptr;
 	DebugText* debugText_ = nullptr;
+	AudioManager* audioManager = nullptr;
 
 	Model* playerModel = nullptr;
 	Model* taleModel = nullptr;
@@ -50,20 +52,26 @@ private:
 	bool isStart_ = false;
 	int timer = 0;
 
+	uint32_t bombSE;
+	uint32_t bombChargeSE;
+	uint32_t limitHitSE;
+
+	bool chargeSEFlag = false;
+
 public:
 
 	Player();
 	~Player();
 	void Initialize(ViewProjection viewProjection);
-	void Update();
+	void Update(int& scene);
 	void Move();
 	void MoveLimit();
 	void Rotation();
 	void Attack();
-	void Tale();
+	void Tale(int scene);
 	void Draw(ViewProjection viewProjection);
 	void Reset();
-	void titleSceneUpdate();
+	void titleSceneUpdate(int& scene);
 	void titleSceneRotation();
 
 	//ゲッター
@@ -75,4 +83,6 @@ public:
 	bool GetAttackFlag();
 	static Player* GetInstance();
 	int GetTimer() { return timer; };
+
+	void SetChargeSEFlag(bool flag);
 };

@@ -172,6 +172,8 @@ void GameScene::Update()
 				AudioManager::GetInstance()->PlayWave(gameScene, true);//ゲームシーンのBGMを再生
 
 				Reset();
+
+				player->SetChargeSEFlag(true);
 				scene = Game;	//ゲームシーンへ
 			}
 		}
@@ -184,7 +186,7 @@ void GameScene::Update()
 
 #pragma endregion
 
-		player->titleSceneUpdate();
+		player->titleSceneUpdate(scene);
 		viewProjection.eye = { 0,75,-70 };
 		viewProjection.target = { 0,0,-50 };
 
@@ -275,7 +277,7 @@ void GameScene::Update()
 
 #pragma endregion
 
-		player->Update();
+		player->Update(scene);
 		viewProjection.eye = { player->GetPlayerWorldTransform().translation_.x,75,player->GetPlayerWorldTransform().translation_.z - 20 };
 		viewProjection.target = { player->GetPlayerWorldTransform().translation_.x,0,player->GetPlayerWorldTransform().translation_.z };
 
