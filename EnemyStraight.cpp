@@ -81,6 +81,8 @@ void EnemyStraight::Collider(uint32_t damageSE)
 		if ((3.0f + player->GetBombCharge()) * (3.0f + player->GetBombCharge()) >= (pos.x - player->GetAttackWorldTransform().translation_.x) * (pos.x - player->GetAttackWorldTransform().translation_.x) + (pos.z - player->GetAttackWorldTransform().translation_.z) * (pos.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
+			score->SetScoreAddTimer();
+			score->SetKillFlag(true);
 			audioManager->PlayWave(damageSE);
 			isDead = true;
 		}
@@ -91,6 +93,8 @@ void EnemyStraight::Collider(uint32_t damageSE)
 		(pos.z - player->GetPlayerWorldTransform().translation_.z) * (pos.z - player->GetPlayerWorldTransform().translation_.z))
 	{
 		score->SetTimer(score->GetTimer() - 1);
+		score->SetTimeSubTimer();
+		score->SetDamageFlag(true);
 		audioManager->PlayWave(damageSE);
 		playerHit = true;
 	}

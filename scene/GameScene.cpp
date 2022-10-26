@@ -1384,6 +1384,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[MiddleTop] = false;
 				spawnCount--;
@@ -1402,6 +1405,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[MiddleCenter] = false;
 				spawnCount--;
@@ -1420,6 +1426,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[MiddleBottom] = false;
 				spawnCount--;
@@ -1440,6 +1449,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LeftTop] = false;
 				spawnCount--;
@@ -1458,6 +1470,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LeftCenter] = false;
 				spawnCount--;
@@ -1476,6 +1491,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LeftBottom] = false;
 				spawnCount--;
@@ -1496,6 +1514,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RightTop] = false;
 				spawnCount--;
@@ -1514,6 +1535,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RightCenter] = false;
 				spawnCount--;
@@ -1533,6 +1557,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RightBottom] = false;
 				spawnCount--;
@@ -1553,6 +1580,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LMTop] = false;
 				spawnCount--;
@@ -1571,6 +1601,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[LMBottom] = false;
 				spawnCount--;
@@ -1589,6 +1622,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RMTop] = false;
 				spawnCount--;
@@ -1607,6 +1643,9 @@ void GameScene::SpawnCollider()
 
 				score->SetTimer(score->GetTimer() + 3);
 				score->SpanerScoreAdd();
+				score->SetSpawnerBreakFlag(true);
+				score->SetScoreAddTimer();
+				score->SetTimeAddTimer();
 				audioManager->PlayWave(spawnerBreakSE);
 				isSpawn[RMBottom] = false;
 				spawnCount--;

@@ -58,6 +58,14 @@ private:
 	float scorePosY = 70;
 	Vector4 scoreColor = { 1.0f,1.0f,1.0f,1.0f };
 
+	bool damageFlag = false;
+	bool spawnerBreakFlag = false;
+	bool killFlag = false;
+
+	int timeAddTimer = 0;
+	int timeSubTimer = 0;
+	int scoreAddTimer = 0;
+
 public:
 	void Initialize();
 	void Update();
@@ -74,6 +82,12 @@ public:
 
 	void TimerUpdate();
 
+	void SetSpawnerBreakFlag(bool flag);
+	void SetDamageFlag(bool flag);
+	void SetKillFlag(bool flag);
+	void SetTimeAddTimer();
+	void SetTimeSubTimer();
+	void SetScoreAddTimer();
 
 	void SetTimer(int time) { timeLimit = time; }
 	int GetTimer() { return timeLimit; }

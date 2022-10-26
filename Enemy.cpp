@@ -31,6 +31,8 @@ void Enemy::Update(uint32_t& damageSE)
 			(enemy.z - player->GetAttackWorldTransform().translation_.z) * (enemy.z - player->GetAttackWorldTransform().translation_.z))
 		{
 			score->ScoreAdd();
+			score->SetScoreAddTimer();
+			score->SetKillFlag(true);
 			audioManager->PlayWave(damageSE);
 			isDead = true;
 		}
@@ -42,6 +44,8 @@ void Enemy::Update(uint32_t& damageSE)
 		+ (enemy.z - player->GetPlayerWorldTransform().translation_.z) * (enemy.z - player->GetPlayerWorldTransform().translation_.z))
 	{
 		score->SetTimer(score->GetTimer() - 1);
+		score->SetTimeSubTimer();
+		score->SetDamageFlag(true);
 		audioManager->PlayWave(damageSE);
 		playerHit = true;
 	}

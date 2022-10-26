@@ -71,14 +71,34 @@ void Score::Draw()
 
 void Score::TimerDraw()
 {
+	timerColor = { 1.0f,1.0f,1.0f,1 };
+	if (spawnerBreakFlag == true)
+	{
+		timerColor = { 0.0f,0.9f,0.15f,1 };
+		timeAddTimer++;
+	}
+	if (timeAddTimer > 15)
+	{
+		spawnerBreakFlag = false;
+		timeAddTimer = 0;
+	}
+
+	if (damageFlag == true)
+	{
+		timerColor = { 0.9f,0,0.15f,1 };
+		timeSubTimer++;
+	}
+	if (timeSubTimer > 15)
+	{
+		damageFlag = false;
+		timeSubTimer = 0;
+	}
+
 	if (timeLimit <= 10)
 	{
 		timerColor = { 0.9f,0,0.15f,1 };
 	}
-	else
-	{
-		timerColor = { 1,1,1,1 };
-	}
+
 #pragma region 1Œ…–Ú
 	if (timerDigits[0] == 0)
 	{
@@ -198,6 +218,20 @@ void Score::TimerDraw()
 
 void Score::ScoreDraw()
 {
+	scoreColor = { 1.0f,1.0f,1.0f,1 };
+	if (killFlag == true || spawnerBreakFlag == true)
+	{
+		scoreColor = { 0.0f,0.9f,0.15f,1 };
+		scoreAddTimer++;
+	}
+	if (scoreAddTimer > 15)
+	{
+		killFlag = false;
+		spawnerBreakFlag = false;
+		scoreAddTimer = 0;
+	}
+
+
 #pragma region 1Œ…–Ú
 	if (scoreDigits[0] == 0)
 	{
@@ -581,6 +615,36 @@ void Score::TimerUpdate()
 	{
 		timeLimit = 99;
 	}
+}
+
+void Score::SetSpawnerBreakFlag(bool flag)
+{
+	spawnerBreakFlag = flag;
+}
+
+void Score::SetDamageFlag(bool flag)
+{
+	damageFlag = flag;
+}
+
+void Score::SetKillFlag(bool flag)
+{
+	killFlag = flag;
+}
+
+void Score::SetTimeAddTimer()
+{
+	timeAddTimer = 0;
+}
+
+void Score::SetTimeSubTimer()
+{
+	timeAddTimer = 0;
+}
+
+void Score::SetScoreAddTimer()
+{
+	scoreAddTimer = 0;
 }
 
 Score* Score::GetInstance()
