@@ -82,6 +82,7 @@ public:
 
 	void TimerUpdate();
 
+	int GetScore();
 	void SetSpawnerBreakFlag(bool flag);
 	void SetDamageFlag(bool flag);
 	void SetKillFlag(bool flag);
