@@ -95,8 +95,8 @@ class GameScene {
 	void EnemyCirclesGen(const myMath::Vector3& p, float angle);
 	void EnemyCirclesSpawn(const myMath::Vector3& p, float angle);
 
-	void EnemyBombsGen(const myMath::Vector3& p);
-	void EnemyBombsSpawn(const myMath::Vector3& p);
+	/*void EnemyBombsGen(const myMath::Vector3& p);
+	void EnemyBombsSpawn(const myMath::Vector3& p);*/
 
 	void Reset();
 

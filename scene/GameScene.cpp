@@ -1300,27 +1300,27 @@ void GameScene::EnemyCirclesSpawn(const myMath::Vector3& p, float angle)
 
 }
 
-void GameScene::EnemyBombsGen(const myMath::Vector3& p)
-{
-	myMath::Vector3 position = { p.x,p.y,p.z };
-	//Enemyを生成し、初期化
-	std::unique_ptr<EnemyBomb> newEnemy = std::make_unique<EnemyBomb>();
-	newEnemy->Initialize(bombModel, viewProjection, position);
-	//Enemyを登録する
-	enemyBombs.push_back(std::move(newEnemy));
-}
+//void GameScene::EnemyBombsGen(const myMath::Vector3& p)
+//{
+//	myMath::Vector3 position = { p.x,p.y,p.z };
+//	//Enemyを生成し、初期化
+//	std::unique_ptr<EnemyBomb> newEnemy = std::make_unique<EnemyBomb>();
+//	newEnemy->Initialize(bombModel, viewProjection, position);
+//	//Enemyを登録する
+//	enemyBombs.push_back(std::move(newEnemy));
+//}
 
-void GameScene::EnemyBombsSpawn(const myMath::Vector3& p)
-{
-	if (enemyBombs.size() < 3)
-	{
-		if (enemyBombsGen == 0)
-		{
-			EnemyBombsGen(p);
-		}
-	}
-
-}
+//void GameScene::EnemyBombsSpawn(const myMath::Vector3& p)
+//{
+//	if (enemyBombs.size() < 3)
+//	{
+//		if (enemyBombsGen == 0)
+//		{
+//			EnemyBombsGen(p);
+//		}
+//	}
+//
+//}
 
 void GameScene::Reset()
 {
