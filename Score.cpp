@@ -159,6 +159,23 @@ void Score::TimerDraw()
 		timerDigTwo_.reset(Sprite::Create(numSix, Vector2(timerPosX1, timerPosY), timerColor,
 			Vector2(0.5f, 0.5f)));
 	}
+	else if (timerDigits[1] == 7)
+	{
+		timerDigTwo_.reset(Sprite::Create(numSeven, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+	}
+	else if (timerDigits[1] == 8)
+	{
+		timerDigTwo_.reset(Sprite::Create(numEight, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
+	else if (timerDigits[1] == 9)
+	{
+		timerDigTwo_.reset(Sprite::Create(numNine, Vector2(timerPosX1, timerPosY), timerColor,
+			Vector2(0.5f, 0.5f)));
+
+	}
 #pragma endregion
 	timerDigOne_->Draw();
 	timerDigTwo_->Draw();
