@@ -79,6 +79,8 @@ void GameScene::Initialize() {
 	effectWorldTransform.Initialize();
 	World.Initialize();
 
+	mapSpawnerHandle = TextureManager::Load("mapPlayer.png");
+
 	spawnWorldTransform[MiddleTop].translation_ = { spawnMiddleTop.x,spawnMiddleTop.y,spawnMiddleTop.z };
 	spawnWorldTransform[MiddleCenter].translation_ = { spawnMiddleCenter.x,spawnMiddleCenter.y,spawnMiddleCenter.z };
 	spawnWorldTransform[MiddleBottom].translation_ = { spawnMiddleBottom.x,spawnMiddleBottom.y,spawnMiddleBottom.z };
@@ -521,6 +523,71 @@ void GameScene::Update()
 		map->EnemyStraightUpdate(enemyStraights, enemyStraightsGen);
 		map->EnemyCircleUpdate(enemyCircles, enemyCirclesGen);
 
+		if (isSpawn[0] == true)
+		{
+			mapSpawnerSprite[0] = Sprite::Create(mapSpawnerHandle, { 203 - 100.0f,153 - 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[1] == true)
+		{
+			mapSpawnerSprite[1] = Sprite::Create(mapSpawnerHandle, { 203.0f,153 - 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[2] == true)
+		{
+			mapSpawnerSprite[2] = Sprite::Create(mapSpawnerHandle, { 203 + 100.0f,153 - 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[3] == true)
+		{
+			mapSpawnerSprite[3] = Sprite::Create(mapSpawnerHandle, { 203 - 50.0f,153 - 25 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[4] == true)
+		{
+			mapSpawnerSprite[4] = Sprite::Create(mapSpawnerHandle, { 203 + 50.0f,153 - 25 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[5] == true)
+		{
+			mapSpawnerSprite[5] = Sprite::Create(mapSpawnerHandle, { 203 - 100.0f,153 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[6] == true)
+		{
+			mapSpawnerSprite[6] = Sprite::Create(mapSpawnerHandle, { 203,153 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[7] == true)
+		{
+			mapSpawnerSprite[7] = Sprite::Create(mapSpawnerHandle, { 203 + 100.0f,153 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[8] == true)
+		{
+			mapSpawnerSprite[8] = Sprite::Create(mapSpawnerHandle, { 203 - 50.0f,153 + 25 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[9] == true)
+		{
+			mapSpawnerSprite[9] = Sprite::Create(mapSpawnerHandle, { 203 + 50.0f,153 + 25 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[10] == true)
+		{
+			mapSpawnerSprite[10] = Sprite::Create(mapSpawnerHandle, { 203 - 100.0f,153 + 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[11] == true)
+		{
+			mapSpawnerSprite[11] = Sprite::Create(mapSpawnerHandle, { 203 ,153 + 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
+		if (isSpawn[12] == true)
+		{
+			mapSpawnerSprite[12] = Sprite::Create(mapSpawnerHandle, { 203 + 100.0f,153 + 50 }, { 1,0,1,1 }, { 0.5f,0.5f });
+		}
+
 #pragma endregion
 
 #pragma region クールタイム処理
@@ -731,6 +798,73 @@ void GameScene::Draw() {
 		map->EnemyStraightDraw(enemyStraights);
 		map->EnemyCircleDraw(enemyCircles);
 
+#pragma region マップのスポナーの描画
+
+		if (isSpawn[0] == true)
+		{
+			mapSpawnerSprite[0]->Draw();
+		}
+
+		if (isSpawn[1] == true)
+		{
+			mapSpawnerSprite[1]->Draw();
+		}
+
+		if (isSpawn[2] == true)
+		{
+			mapSpawnerSprite[2]->Draw();
+		}
+
+		if (isSpawn[3] == true)
+		{
+			mapSpawnerSprite[3]->Draw();
+		}
+
+		if (isSpawn[4] == true)
+		{
+			mapSpawnerSprite[4]->Draw();
+		}
+
+		if (isSpawn[5] == true)
+		{
+			mapSpawnerSprite[5]->Draw();
+		}
+
+		if (isSpawn[6] == true)
+		{
+			mapSpawnerSprite[6]->Draw();
+		}
+
+		if (isSpawn[7] == true)
+		{
+			mapSpawnerSprite[7]->Draw();
+		}
+
+		if (isSpawn[8] == true)
+		{
+			mapSpawnerSprite[8]->Draw();
+		}
+
+		if (isSpawn[9] == true)
+		{
+			mapSpawnerSprite[9]->Draw();
+		}
+
+		if (isSpawn[10] == true)
+		{
+			mapSpawnerSprite[10]->Draw();
+		}
+
+		if (isSpawn[11] == true)
+		{
+			mapSpawnerSprite[11]->Draw();
+		}
+
+		if (isSpawn[12] == true)
+		{
+			mapSpawnerSprite[12]->Draw();
+		}
+		
 #pragma endregion
 
 		break;
@@ -869,20 +1003,6 @@ void GameScene::Reset()
 	for (int i = 0; i < 13; i++) {
 		isSpawn[i] = false;
 	}
-
-	isSpawnLeftTop = false;
-	isSpawnMiddleTop = false;
-	isSpawnRightTop = false;
-	isSpawnLeftCenter = false;
-	isSpawnMiddleCenter = false;
-	isSpawnRightCenter = false;
-	isSpawnLeftBottom = false;
-	isSpawnMiddleBottom = false;
-	isSpawnRightBottom = false;
-	isSpawnLMTop = false;
-	isSpawnLMBottom = false;
-	isSpawnRMTop = false;
-	isSpawnRMBottom = false;
 
 	spawnTimer = 0;
 	spawnNum = 0;

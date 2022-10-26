@@ -111,6 +111,9 @@ class GameScene {
 	ViewProjection viewProjection;
 	ViewProjection oldViewProjection;
 
+	uint32_t mapSpawnerHandle = 0;
+	Sprite* mapSpawnerSprite[13] = { nullptr };
+
 	Model* model = nullptr;
 	Model* bombModel = nullptr;
 	uint32_t texture;
@@ -153,21 +156,6 @@ class GameScene {
 
 	//各スポーン地点のフラグ
 	bool isSpawn[13];
-
-	bool isSpawnMiddleTop = false;
-	bool isSpawnMiddleCenter = false;
-	bool isSpawnMiddleBottom = false;
-	bool isSpawnLeftTop = false;
-	bool isSpawnLeftCenter = false;
-	bool isSpawnLeftBottom = false;
-	bool isSpawnRightTop = false;
-	bool isSpawnRightCenter = false;
-	bool isSpawnRightBottom = false;
-
-	bool isSpawnLMTop = false;
-	bool isSpawnLMBottom = false;
-	bool isSpawnRMTop = false;
-	bool isSpawnRMBottom = false;
 
 	int spawnNum;
 
